@@ -22,7 +22,8 @@ class CreateUsersTable2 extends Migration
             $table->string('last_name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('role');
+            $table->uuid('role_id')->index();
+            $table->foreign('role_id')->references('id')->on('roles');
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
@@ -30,11 +31,11 @@ class CreateUsersTable2 extends Migration
         $now = date('Y-m-d H:i:s');
         DB::table('users')->insert([
             'id' => Str::uuid(),
+            'role_id' => '00000000-0000-0000-0000-000000000004',
             'first_name' => 'Admin',
             'last_name' => 'IsTrator',
             'email' => 'kaugustine@intelliwake.com',
             'email_verified_at' => $now,
-            'role' => 'superuser',
             'password' => bcrypt('Secr3t')
 
         ]);
