@@ -6,7 +6,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Str;
 
-class CreateUsersTable extends Migration
+class CreateUsersTable2 extends Migration
 {
     /**
      * Run the migrations.
@@ -27,7 +27,6 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
-
         $now = date('Y-m-d H:i:s');
         DB::table('users')->insert([
             'id' => Str::uuid(),
