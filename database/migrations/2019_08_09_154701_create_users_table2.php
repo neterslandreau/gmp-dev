@@ -36,7 +36,9 @@ class CreateUsersTable2 extends Migration
             'last_name' => 'IsTrator',
             'email' => 'kaugustine@intelliwake.com',
             'email_verified_at' => $now,
-            'password' => bcrypt('Secr3t')
+            'password' => bcrypt('Secr3t'),
+            'created_at' => $now,
+            'updated_at' => $now
 
         ]);
 
