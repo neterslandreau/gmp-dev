@@ -18,10 +18,12 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->uuid('id');
             $table->primary('id');
+            $table->string('slug');
             $table->string('first_name');
             $table->string('last_name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
+            $table->uuid('store_id')->nullable();
             $table->string('password');
             $table->string('role');
             $table->rememberToken();
@@ -33,7 +35,21 @@ class CreateUsersTable extends Migration
             'role' => 'superuser',
             'first_name' => 'Admin',
             'last_name' => 'IsTrator',
+            'slug' => 'admin-istrator',
             'email' => 'kaugustine@intelliwake.com',
+            'email_verified_at' => $now,
+            'password' => bcrypt('Secr3t'),
+            'created_at' => $now,
+            'updated_at' => $now
+
+        ]);
+        DB::table('users')->insert([
+            'id' => Str::uuid(),
+            'role' => 'superuser',
+            'first_name' => 'Anthony',
+            'last_name' => 'Tota',
+            'slug' => 'anthony-tota',
+            'email' => 'anthony@freshxperts.com',
             'email_verified_at' => $now,
             'password' => bcrypt('Secr3t'),
             'created_at' => $now,

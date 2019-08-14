@@ -5,19 +5,22 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Lab404\Impersonate\Models\Impersonate;
+use Cviebrock\EloquentSluggable\Sluggable;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
     use Uuids;
-
+    use Impersonate;
+    use Sluggable;
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'email', 'password', 'last_name', 'first_name', 'role'
+        'email', 'password', 'last_name', 'first_name', 'role', 'slug'
     ];
 
     /**
@@ -44,4 +47,18 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Create the slug from first name and last name
+     *
+     * @return array
+     */
+    public function sluggable()
+    {
+        return [
+            'slug' => [
+                'source' => ['first_name', 'last_name'],
+            ],
+        ];
+    }
 }
