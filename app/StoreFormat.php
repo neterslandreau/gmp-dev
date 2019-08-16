@@ -18,12 +18,6 @@ class StoreFormat extends Model
     protected $fillable = [
         'name', 'description', 'slug'
     ];
-    /**
-     * Indicates if the ID's are auto-incrementing
-     *
-     * @var bool
-     */
-    public $incrementing = false;
 
     public function stores()
     {

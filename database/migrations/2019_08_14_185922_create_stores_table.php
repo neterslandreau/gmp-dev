@@ -18,8 +18,9 @@ class CreateStoresTable extends Migration
             $table->primary('id');
             $table->string('slug');
             $table->string('name');
-            $table->uuid('manager_id');
+            $table->uuid('manager_id')->nullable();
             $table->uuid('store_format_id');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

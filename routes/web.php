@@ -27,3 +27,10 @@ Route::get('/users/{id}', 'UsersController@show')->name('users.show');
 Route::post('/users/{id}/update', 'UsersController@update')->name('users.update');
 Route::post('/users', 'UsersController@store');
 
+Route::get('/stores/create', 'StoresController@create')->name('stores.create');
+Route::get('/stores/{id}/edit', 'StoresController@edit')->name('stores.edit');
+Route::get('/stores/{id}/delete', 'StoresController@delete')->name('stores.destroy');
+Route::get('/stores/{id}', 'StoresController@show')->name('stores.show');
+Route::post('/stores/{id}/update', 'StoresController@update')->name('stores.update');
+Route::post('/stores', 'StoresController@store');
+

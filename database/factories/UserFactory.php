@@ -20,7 +20,6 @@ $factory->define(User::class, function (Faker $faker) {
     return [
         'first_name' => $faker->firstName,
         'last_name' => $faker->lastName,
-//        'slug' => $faker->slug(2),
         'email' => $faker->unique()->safeEmail,
         'email_verified_at' => null,
         'role' => 'user',

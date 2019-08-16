@@ -1,4 +1,4 @@
-<div class="modal fade" id="modal-{{ $user->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="user_modal-{{ $user->id }}" tabindex="-1" role="dialog" aria-labelledby="{{ $user->id }}" aria-hidden="true">
 
     <div class="modal-dialog" role="document">
 
@@ -32,13 +32,13 @@
 
                         <label for="{{ $user->last_name }}">Last Name</label>
 
-                        <input type="text" name="email" class="form-control" value="{{ $user->last_name }}" readonly>
+                        <input type="text" name="last_name" class="form-control" value="{{ $user->last_name }}" readonly>
 
                     </div>
 
                     <div class="form-group">
 
-                        <label for="{{ $user->email }}">Email</label>
+                        <label for="email">Email</label>
 
                         <input type="text" name="email" class="form-control" value="{{ $user->email }}" readonly>
 
@@ -52,11 +52,11 @@
 
                     </div>
 
-                    <div class="form-check">
+                    <div class="form-group form-check">
 
                         @if ($user->hasVerifiedEmail())
 
-                        <input class="form-check-input" type="checkbox" value="{{ $user->hasVerifiedEmail() }}" id="verified_{{ $user->id }}" checked>
+                            <input class="form-check-input" type="checkbox" value="{{ $user->hasVerifiedEmail() }}" id="verified_{{ $user->id }}" checked>
 
                         @else
 
@@ -68,7 +68,6 @@
 
                     </div>
 
-
                 </form>
 
             </div>
@@ -77,7 +76,7 @@
 
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 
-                <button type="button" class="btn btn-primary" id="save_{{ $user->id }}">Save changes</button>
+                <button type="button" class="btn btn-primary" id="usersave_{{ $user->id }}">Save changes</button>
 
             </div>
 

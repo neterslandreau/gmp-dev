@@ -14,9 +14,9 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+//        $users = User::all();
 //        dd(compact('users'));
-        return view('partials.user-admin', compact('users'));
+        return view('partials.user-admin');
     }
 
     /**

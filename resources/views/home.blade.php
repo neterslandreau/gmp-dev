@@ -22,7 +22,7 @@
                     </li>
                     @can('isAdmin')
                     <li class="nav-item">
-                        <a class="nav-link" id="store-config-tab" data-toggle="tab" href="#store-config" role="tab" aria-controls="store-config" aria-selected="false">Store Config</a>
+                        <a class="nav-link" id="store-admin-tab" data-toggle="tab" href="#store-admin" role="tab" aria-controls="store-admin" aria-selected="false">Store Admin</a>
                     </li>
                         <li class="nav-item">
                             <a class="nav-link" id="user-admin-tab" data-toggle="tab" href="#user-admin" role="tab" aria-controls="user-admin" aria-selected="false">User Admin</a>
@@ -36,7 +36,7 @@
                     <div class="tab-pane fade" id="daily-audit-purchases" role="tabpanel" aria-labelledby="daily-audit-purchases">@include('partials.daily-audit-purchases')</div>
                     <div class="tab-pane fade" id="market-analytics" role="tabpanel" aria-labelledby="market-analytics">@include('partials.market-analytics')</div>
                     @can('isAdmin')
-                    <div class="tab-pane fade" id="store-config" role="tabpanel" aria-labelledby="store-config">@include('partials.store-config')</div>
+                    <div class="tab-pane fade" id="store-admin" role="tabpanel" aria-labelledby="store-admin">@include('partials.store-admin')</div>
                     <div class="tab-pane fade" id="user-admin" role="tabpanel" aria-labelledby="user-admin">@include('partials.user-admin')</div>
 
                     @endcan

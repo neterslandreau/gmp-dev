@@ -16,14 +16,8 @@ class Store extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'manager_id', 'store_format_id', 'slug'
+        'name', 'manager_id', 'slug'
     ];
-    /**
-     * Indicates if the ID's are auto-incrementing
-     *
-     * @var bool
-     */
-    public $incrementing = false;
 
     public function manager()
     {
@@ -32,6 +26,7 @@ class Store extends Model
 
     public function store_format()
     {
-        return $this->belongsTo('App\StoreFormat', 'store_format_id', 'id');
+        return $this->hasOne('App\StoreFormat', 'id', 'store_format_id');
     }
+
 }

@@ -17,7 +17,12 @@ class Model extends Eloquent
 
     protected $dates = ['deleted_at'];
 
-    public function sluggable()
+    /**
+     * Create the slug from first name and last name
+     *
+     * @return array
+     */
+    public function sluggable(): array
     {
         return [
             'slug' => [
