@@ -35,8 +35,21 @@ class CreateUsersTable extends Migration
             'id' => Str::uuid(),
             'role' => 'superuser',
             'first_name' => 'Admin',
-            'last_name' => 'IsTrator',
+            'last_name' => 'Istrator',
             'slug' => 'admin-istrator',
+            'email' => 'neterslandreau@gmail.com',
+            'email_verified_at' => $now,
+            'password' => bcrypt('Secr3t'),
+            'created_at' => $now,
+            'updated_at' => $now
+
+        ]);
+        DB::table('users')->insert([
+            'id' => Str::uuid(),
+            'role' => 'superuser',
+            'first_name' => 'Kerry',
+            'last_name' => 'Augustine',
+            'slug' => 'kerry-augustine',
             'email' => 'kaugustine@intelliwake.com',
             'email_verified_at' => $now,
             'password' => bcrypt('Secr3t'),

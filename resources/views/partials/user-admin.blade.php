@@ -15,7 +15,7 @@
         </div>
         <table class="table table-bordered table-condensed table-striped table-hover" id="user-table">
             <tr>
-                <th>No</th>
+                <th>Slug</th>
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>Email</th>
@@ -26,7 +26,7 @@
             </tr>
             @foreach ($users as $key => $user)
                 <tr id="user_{{ $user->id }}">
-                    <td>{{ ++$key }}</td>
+                    <td>{{ $user->slug }}</td>
                     <td>{{ $user->first_name }}</td>
                     <td>{{ $user->last_name }}</td>
                     <td>{{ $user->email }}</td>
