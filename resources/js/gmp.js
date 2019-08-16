@@ -37,14 +37,18 @@ $(function() {
         let store_id = this.id.split('_')[1];
 
         let form = $('#form_' + store_id);
-        console.log(form.serialize());
+        // console.log(form.serialize());
 
         let url = '/stores/' + store_id + '/update';
         let data = {
             id: store_id,
+            manager_id: $('#store-manager-select :selected').val(),
+            store_format_id: $('#store-format-select :selected').val(),
 
             _token: Laravel.csrfToken
         };
+
+        console.log(data);
 
         $.ajaxSetup({
             headers: {
@@ -54,7 +58,7 @@ $(function() {
 
         $.post(url, data, function (response, status) {
             console.log(response);
-            // location.reload();
+            location.reload();
         });
 
     });

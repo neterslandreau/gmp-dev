@@ -67,11 +67,27 @@ class StoresController extends Controller
      * @param  \App\Store  $store
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Store $store)
+    public function update(Request $request)
     {
         if (request()->method() === 'POST') {
-            echo request('id');
-//            return true;
+
+            try {
+                $this->validate(request(), [
+                    'id' => 'required',
+                    'manager_id' => 'required',
+                    'store_format_id' => 'required',
+
+                ]);
+            } catch (ValidationException $e) {
+            }
+            $store = Store::where(['id' => request('id')])->first();
+            $store->manager_id = request('manager_id');
+            $store->store_format_id = request('store_format_id');
+            $store->save();
+
+            session()->flash('message', 'The store was successfully updated');
+//            return redirect()->home();
+            return Store::where(['id' => request('id')])->first();
         }
     }
 

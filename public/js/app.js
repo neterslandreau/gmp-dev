@@ -37030,20 +37030,24 @@ $(function () {
   });
   $('[id^="storesave_"]').on('click', function () {
     var store_id = this.id.split('_')[1];
-    var form = $('#form_' + store_id);
-    console.log(form.serialize());
+    var form = $('#form_' + store_id); // console.log(form.serialize());
+
     var url = '/stores/' + store_id + '/update';
     var data = {
       id: store_id,
+      manager_id: $('#store-manager-select :selected').val(),
+      store_format_id: $('#store-format-select :selected').val(),
       _token: Laravel.csrfToken
     };
+    console.log(data);
     $.ajaxSetup({
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       }
     });
     $.post(url, data, function (response, status) {
-      console.log(response); // location.reload();
+      console.log(response);
+      location.reload();
     });
   });
 });
