@@ -61,11 +61,9 @@ class StoresController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Store  $store
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return mixed
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function update(Request $request)
     {
