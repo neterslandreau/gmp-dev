@@ -74,7 +74,6 @@ class StoresController extends Controller
             try {
                 $this->validate(request(), [
                     'id' => 'required',
-                    'manager_id' => 'required',
                     'store_format_id' => 'required',
 
                 ]);
