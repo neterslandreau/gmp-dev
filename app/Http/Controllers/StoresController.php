@@ -71,15 +71,11 @@ class StoresController extends Controller
     {
         if (request()->method() === 'POST') {
 
-            try {
-                $this->validate(request(), [
-                    'id' => 'required',
-                    'store_format_id' => 'required',
+            $this->validate(request(), [
+                'id' => 'required',
+                'store_format_id' => 'required',
 
-                ]);
-            } catch (ValidationException $e) {
-
-            }
+            ]);
             $store = Store::where(['id' => request('id')])->first();
             $store->manager_id = request('manager_id');
             $store->store_format_id = request('store_format_id');
