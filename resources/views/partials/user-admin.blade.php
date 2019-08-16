@@ -43,5 +43,5 @@
     </div>
 </div>
 @foreach ($users as $key => $user)
-    @include('partials.user_modal');
+    @include('partials.user_modal')
 @endforeach
