@@ -63,17 +63,26 @@ class UsersController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return mixed
+     * @throws \Illuminate\Validation\ValidationException
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         if (request()->method() === 'POST') {
-//            dd(request('id'));
-//            return true;
+            $this->validate(request(), [
+                'id' => 'required',
+                'role' => 'required',
+
+            ]);
+
+            $user = User::where(['id' => request('id')])->first();
+            $user->role = request('role');
+            $user->email_verified_at = request('email_verified_at');
+            $user->save();
+
+            return User::where(['id' => request('id')])->first();
+
         }
     }
 

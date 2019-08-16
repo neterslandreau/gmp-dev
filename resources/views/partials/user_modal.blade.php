@@ -48,7 +48,7 @@
 
                         <label for="{{ $user->role }}">Role</label>
 
-                        <input type="text" name="role" class="form-control" value="{{ $user->role }}">
+                        <input type="text" name="role" class="form-control" value="{{ $user->role }}" id="role_{{ $user->id }}">
 
                     </div>
 
@@ -63,6 +63,8 @@
                             <input class="form-check-input" type="checkbox" value="{{ $user->hasVerifiedEmail() }}" id="verified_{{ $user->id }}">
 
                         @endif
+
+                        <input type="hidden" name="email_verified_at" value="{{ $user->email_verified_at }}" id="email_verified_at_{{ $user->id }}">
 
                         <label class="form-check-label">Verified</label>
 

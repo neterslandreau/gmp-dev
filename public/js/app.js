@@ -37011,10 +37011,24 @@ $(function () {
   $('[id^="usersave_"]').on('click', function () {
     var user_id = this.id.split('_')[1];
     var form = $('#form_' + user_id);
-    console.log(form.serialize());
     var url = '/users/' + user_id + '/update';
+    var verified_at = $('#email_verified_at_' + user_id).val();
+
+    if ($('#verified_' + user_id).is(':checked') === true) {
+      var d = new Date();
+      var ds = d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2) + ' ' + ('0' + d.getHours()).slice(-2) + ':' + ('0' + d.getMinutes()).slice(-2) + ':' + ('0' + d.getSeconds()).slice(-2);
+
+      if (!verified_at) {
+        verified_at = ds;
+      }
+    } else {
+      verified_at = null;
+    }
+
     var data = {
       id: user_id,
+      role: $('#role_' + user_id).val(),
+      email_verified_at: verified_at,
       _token: Laravel.csrfToken
     };
     $.ajaxSetup({
@@ -37022,7 +37036,7 @@ $(function () {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       }
     });
-    console.log('posting to ' + url);
+    console.log('posting data ', data);
     $.post(url, data, function (response, status) {
       console.log(status);
       location.reload();
@@ -37046,7 +37060,6 @@ $(function () {
       }
     });
     $.post(url, data, function (response, status) {
-      console.log(response);
       location.reload();
     });
   });

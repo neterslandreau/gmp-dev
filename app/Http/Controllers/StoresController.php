@@ -79,6 +79,7 @@ class StoresController extends Controller
 
                 ]);
             } catch (ValidationException $e) {
+
             }
             $store = Store::where(['id' => request('id')])->first();
             $store->manager_id = request('manager_id');
