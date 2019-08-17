@@ -16,11 +16,20 @@
             </a>
 
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="{{ route('logout') }}"
+
+        @can('isAdmin')
+
+                <button class="dropdown-item btn btn-sm btn-link mr-2" data-toggle="modal" data-target="#user-admin" id="nav-user-admin">User Admin</button>
+
+                <button class="dropdown-item btn btn-sm btn-link" data-toggle="modal" data-target="#store-admin" id="nav-store-admin">Store Admin</button>
+
+        @endcan
+
+        <button class="dropdown-item btn btn-sm btn-link" href="{{ route('logout') }}"
                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                     {{ __('Logout') }}
-                </a>
+                </button>
 
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                     @csrf

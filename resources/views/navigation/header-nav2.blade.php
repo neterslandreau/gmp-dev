@@ -18,22 +18,6 @@
 
             <ul class="navbar-nav ml-auto">
 
-                @can('isAdmin')
-
-                <li class="nav-item">
-
-                    <button class="btn btn-sm btn-link mr-2" data-toggle="modal" data-target="#user-admin" id="nav-user-admin">User Admin</button>
-
-                </li>
-
-                <li class="nav-item">
-
-                    <button class="btn btn-sm btn-link" data-toggle="modal" data-target="#store-admin" id="nav-store-admin">Store Admin</button>
-
-                </li>
-
-                @endcan
-
             </ul>
 
             @include('navigation.header-user')
