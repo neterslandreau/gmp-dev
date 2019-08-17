@@ -22,13 +22,13 @@
 
                 <li class="nav-item">
 
-                    <button class="btn btn-sm btn-link btn-outline-info" id="nav-user-admin">User Admin</button>
+                    <button class="btn btn-sm btn-link mr-2" data-toggle="modal" data-target="#user-admin" id="nav-user-admin">User Admin</button>
 
                 </li>
 
                 <li class="nav-item">
 
-                    <button class="btn btn-sm btn-link btn-outline-info ml-2" id="nav-store-admin">Store Admin</button>
+                    <button class="btn btn-sm btn-link" data-toggle="modal" data-target="#store-admin" id="nav-store-admin">Store Admin</button>
 
                 </li>
 
@@ -43,3 +43,7 @@
     </div>
 
 </nav>
+@auth
+@include('partials.modals.user-admin')
+@include('partials.modals.store-admin')
+@endauth

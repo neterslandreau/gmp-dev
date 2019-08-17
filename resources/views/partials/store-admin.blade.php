@@ -37,5 +37,5 @@
 
 </div>
 @foreach ($stores as $key => $store)
-    @include('partials.store_modal')
+    @include('partials.modals.store_modal')
 @endforeach

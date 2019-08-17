@@ -28,7 +28,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Blade::withoutDoubleEncoding();
 
-        view()->composer('home', function($view) {
+        view()->composer(['home'], function($view) {
             $users = \App\User::all();
             $stores = Store::all();
             $store_formats = StoreFormat::all();
