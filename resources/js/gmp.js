@@ -82,9 +82,16 @@ $(function() {
     $('a[data-toggle="tab"]').on('click', function(e) {
         window.localStorage.setItem('activeTab', $(e.target).attr('href'));
     });
-    var activeTab = window.localStorage.getItem('activeTab');
+    let activeTab = window.localStorage.getItem('activeTab');
     if (activeTab) {
         $('#myTab a[href="' + activeTab + '"]').tab('show');
-        // window.localStorage.removeItem("activeTab");
     }
+
+    // $('#users-table').
+
+    // $("#users-index").on('click-row.bs.table', function (e, row, $element) {
+    //     console.log('element data: ', element.data());
+    //     // window.location = $element.data('href');
+    // });
+
 });

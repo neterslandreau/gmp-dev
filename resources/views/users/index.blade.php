@@ -2,6 +2,7 @@
 
 
 @section('content')
+<div id="users-index">
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
@@ -21,7 +22,7 @@
     @endif
 
 
-    <table class="table table-bordered">
+    <table class="table table-striped table-bordered" id="users-table">
         <tr>
             <th>No</th>
             <th>First Name</th>
@@ -47,4 +48,5 @@
             </tr>
         @endforeach
     </table>
+</div>
 @endsection
