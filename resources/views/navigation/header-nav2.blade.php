@@ -2,8 +2,8 @@
 
     <div class="container">
 
-        <div class="col-2">
-            <a class="navbar-brand ml-auto" href="{{ url('/') }}">
+        <div class="col-4">
+            <a class="navbar-brand ml-0" href="{{ url('/') }}">
                 <img class="img-rounded block-center" src="/img/grow-my-profits.png" alt="Grow My Profits" title="Grow My Profits" style="width:100%;">
             </a>
         </div>
