@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Item;
-use App\Imports\ItemsImport;
 use Illuminate\Support\Facades\Storage;
-use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 
 class ItemController extends Controller
