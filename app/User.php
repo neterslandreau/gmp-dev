@@ -61,4 +61,10 @@ class User extends Authenticatable implements MustVerifyEmail
             ],
         ];
     }
+
+    public function manager()
+    {
+        return $this->belongsTo('App\Store', 'id', 'manager_id');
+    }
+
 }

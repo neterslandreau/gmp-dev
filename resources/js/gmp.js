@@ -1,9 +1,3 @@
-const UserAdminTab = $('#user-admin-tab');
-const ItemListTab = $('#item-list-tab');
-const classItemList = $('#item-list');
-const classUserAdmin = $('#user-admin');
-const userTable = $('#user-table');
-
 $(function() {
     $('[id^="usersave_"]').on('click', function() {
 
@@ -52,12 +46,22 @@ $(function() {
         let store_id = this.id.split('_')[1];
 
         let form = $('#form_' + store_id);
-        // console.log(form.serialize());
+
+        console.log('form: ',form.serialize());
+
+        let mydata = form.serialize();
+        let mydata_arr = mydata.split('&');
+        let mym = mydata_arr[1].split('=');
+
+        console.log('mym[1]: ',mym[1]);
+
+        // console.log(mydata_arr[1]);
 
         let url = '/stores/' + store_id + '/update';
         let data = {
             id: store_id,
-            manager_id: $('#store-manager-select :selected').val(),
+            store_id: store_id,
+            manager_id: mym[1],
             store_format_id: $('#store-format-select :selected').val(),
 
             _token: Laravel.csrfToken
@@ -72,6 +76,8 @@ $(function() {
         });
 
         $.post(url, data, function (response, status) {
+            // console.log(response);
+            // console.log(status);
             location.reload();
         });
 

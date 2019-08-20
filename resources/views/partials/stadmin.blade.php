@@ -1,5 +1,6 @@
 <div class="container">
     @php
+
     @endphp
     <div class="row">
         <div class="row">
@@ -37,5 +38,5 @@
 
 </div>
 @foreach ($stores as $key => $store)
-    @include('partials.modals.store_modal')
+    @include('partials.modals.storemodal')
 @endforeach

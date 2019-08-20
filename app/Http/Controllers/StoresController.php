@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Store;
+use App\User;
 use Illuminate\Http\Request;
 
 class StoresController extends Controller
@@ -14,7 +15,11 @@ class StoresController extends Controller
      */
     public function index()
     {
-        return view('partials.store-admin');
+//        $stores = Store::all();
+//
+////        dd($stores);
+//
+//        return view('stores.index', compact($stores));
     }
 
     /**
@@ -69,19 +74,25 @@ class StoresController extends Controller
     {
         if (request()->method() === 'POST') {
 
-            $this->validate(request(), [
-                'id' => 'required',
-                'store_format_id' => 'required',
+//            $this->validate(request(), [
+//                'id' => 'required',
+//                'store_format_id' => 'required',
+//
+//            ]);
 
-            ]);
             $store = Store::where(['id' => request('id')])->first();
             $store->manager_id = request('manager_id');
+            if (request('manager_id')) {
+                $user = User::where(['id' => request('manager_id')])->first();
+                $user->store_id = request('manager_id');
+                $user->save();
+            }
             $store->store_format_id = request('store_format_id');
             $store->save();
 
             session()->flash('message', 'The store was successfully updated');
-//            return redirect()->home();
-            return Store::where(['id' => request('id')])->first();
+            return redirect()->home();
+//            dd( request('manager_id'));
         }
     }
 

@@ -13,7 +13,7 @@
             <td>{{ $store->store_format->name }}</td>
             <td>{{ $store->manager['first_name'] }} {{ $store->manager['last_name'] }}</td>
             <td>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#store_modal-{{ $store->id }}">View</button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#storemodal_{{ $store->id }}">View</button>
             </td>
         </tr>
     @endforeach

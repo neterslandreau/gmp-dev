@@ -37002,11 +37002,6 @@ if (token) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var UserAdminTab = $('#user-admin-tab');
-var ItemListTab = $('#item-list-tab');
-var classItemList = $('#item-list');
-var classUserAdmin = $('#user-admin');
-var userTable = $('#user-table');
 $(function () {
   $('[id^="usersave_"]').on('click', function () {
     var user_id = this.id.split('_')[1];
@@ -37044,12 +37039,18 @@ $(function () {
   });
   $('[id^="storesave_"]').on('click', function () {
     var store_id = this.id.split('_')[1];
-    var form = $('#form_' + store_id); // console.log(form.serialize());
+    var form = $('#form_' + store_id);
+    console.log('form: ', form.serialize());
+    var mydata = form.serialize();
+    var mydata_arr = mydata.split('&');
+    var mym = mydata_arr[1].split('=');
+    console.log('mym[1]: ', mym[1]); // console.log(mydata_arr[1]);
 
     var url = '/stores/' + store_id + '/update';
     var data = {
       id: store_id,
-      manager_id: $('#store-manager-select :selected').val(),
+      store_id: store_id,
+      manager_id: mym[1],
       store_format_id: $('#store-format-select :selected').val(),
       _token: Laravel.csrfToken
     };
@@ -37060,6 +37061,8 @@ $(function () {
       }
     });
     $.post(url, data, function (response, status) {
+      // console.log(response);
+      // console.log(status);
       location.reload();
     });
   });

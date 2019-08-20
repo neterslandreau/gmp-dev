@@ -1,4 +1,4 @@
-<div class="modal fade" id="store_modal-{{ $store->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="storemodal_{{ $store->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
     <div class="modal-dialog" role="document">
 
@@ -38,7 +38,7 @@
                             <option></option>
 
                             @foreach ($users as $u => $user)
-                                @if ($user->id === $store->manager['id'])
+                                @if ( ($user->id === $store->manager['id']) && ($store->id === $user->store_id) )
                                     <option value="{{ $user->id }}" selected>{{ $user->first_name }} {{ $user->last_name }}</option>
                                 @else
                                     <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->last_name }}</option>
