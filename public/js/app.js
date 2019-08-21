@@ -37003,11 +37003,6 @@ if (token) {
 /***/ (function(module, exports) {
 
 $(function () {
-  $('#item_list_search').on('keyup', function () {
-    console.log('inside on keyup');
-    var query = $(this).val();
-    fetch_customer_data(query);
-  });
   $('[id^="usersave_"]').on('click', function () {
     var user_id = this.id.split('_')[1];
     var form = $('#form_' + user_id);
@@ -37078,25 +37073,6 @@ $(function () {
 
   if (activeTab) {
     $('#myTab a[href="' + activeTab + '"]').tab('show');
-  }
-
-  fetch_customer_data();
-
-  function fetch_customer_data() {
-    var query = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-    console.log('inside fetch_customer_data');
-    $.ajax({
-      url: "/live_search/action",
-      method: 'GET',
-      data: {
-        query: query
-      },
-      dataType: 'json',
-      success: function success(data) {
-        $('tbody').html(data.table_data);
-        $('#total_records').text(data.total_data);
-      }
-    });
   }
 });
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Store;
 use App\User;
+use App\StoreFormat;
 use Illuminate\Http\Request;
 
 class StoresController extends Controller
@@ -15,11 +16,14 @@ class StoresController extends Controller
      */
     public function index()
     {
-//        $stores = Store::all();
-//
-////        dd($stores);
-//
-//        return view('stores.index', compact($stores));
+        $stores = Store::all();
+        $users = User::all();
+
+        $store_formats = StoreFormat::all();
+
+//        dd($stores);
+
+        return view('stores.index', compact('stores', 'users', 'store_formats'));
     }
 
     /**

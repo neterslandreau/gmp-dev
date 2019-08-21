@@ -1,9 +1,4 @@
 $(function() {
-    $('#item_list_search').on('keyup', function() {
-        console.log('inside on keyup');
-        let query = $(this).val();
-        fetch_customer_data(query);
-    });
 
     $('[id^="usersave_"]').on('click', function() {
 
@@ -95,24 +90,6 @@ $(function() {
     let activeTab = window.localStorage.getItem('activeTab');
     if (activeTab) {
         $('#myTab a[href="' + activeTab + '"]').tab('show');
-    }
-
-    fetch_customer_data();
-
-    function fetch_customer_data(query = '')
-    {
-        console.log('inside fetch_customer_data')
-        $.ajax({
-            url:"/live_search/action",
-            method:'GET',
-            data:{query:query},
-            dataType:'json',
-            success:function(data)
-            {
-                $('tbody').html(data.table_data);
-                $('#total_records').text(data.total_data);
-            }
-        })
     }
 
 });

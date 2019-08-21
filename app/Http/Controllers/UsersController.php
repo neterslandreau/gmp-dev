@@ -14,9 +14,9 @@ class UsersController extends Controller
      */
     public function index()
     {
-//        $users = User::all();
+        $users = User::all();
 //        dd(compact('users'));
-        return view('partials.user-admin');
+        return view('users.index', compact('users'));
     }
 
     /**
@@ -57,9 +57,11 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(string $slug)
     {
-        //
+        $user = User::where(['slug' => $slug])->first();
+
+        return view('users.edit');
     }
 
     /**

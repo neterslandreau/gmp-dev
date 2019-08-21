@@ -30,24 +30,13 @@ class AppServiceProvider extends ServiceProvider
     {
         Blade::withoutDoubleEncoding();
 
-        view()->composer(['home'], function($view) {
-            $users = User::get();
-            $stores = Store::all();
-            $store_formats = StoreFormat::all();
-            $items = Item::first()->paginate(10);
-
-//            echo '<pre>';
-//            print_r($stores);
-//            echo '</pre>';
+//        view()->composer(['home'], function($view) {
+//            $users = User::first()->paginate(10);
+//            $stores = Store::all();
+//            $store_formats = StoreFormat::all();
 //
-//            echo '<pre>';
-//            print_r($store_formats);
-//            echo '</pre>';
-
-//            dd($stores[0]->manager());
-
-            $view->with(compact('stores', 'users', 'store_formats', 'items'));
-        });
+//            $view->with(compact('stores', 'users', 'store_formats'));
+//        });
 
 
     }

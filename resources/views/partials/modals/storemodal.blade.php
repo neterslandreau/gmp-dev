@@ -32,21 +32,17 @@
 
                         <label for="store-manager-select">Store Manager</label>
 
-                        {{ $store->manager['first_name'] }}
-
                         <select class="form-control" id="store-manager-select" name="store-manager">
                             <option></option>
 
                             @foreach ($users as $u => $user)
-                                @if ( ($user->id === $store->manager['id']) && ($store->id === $user->store_id) )
+                                @if ( ($user->id === $store->manager['id']) )
                                     <option value="{{ $user->id }}" selected>{{ $user->first_name }} {{ $user->last_name }}</option>
                                 @else
                                     <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->last_name }}</option>
                                 @endif
                             @endforeach
                         </select>
-
-{{--                        <input type="text" name="manager_id" class="form-control" value="{{ $store->manager['id'] }}">--}}
 
                     </div>
 
@@ -58,7 +54,7 @@
 
                             @foreach ($store_formats as $s => $format)
                                 @if($format->name === $store->store_format->name)
-                                    <option value="{{ $format->id }}"selected>{{ $format->name }}</option>
+                                    <option value="{{ $format->id }}" selected>{{ $format->name }}</option>
                                 @else
                                     <option value="{{ $format->id }}">{{ $format->name }}</option>
                                 @endif

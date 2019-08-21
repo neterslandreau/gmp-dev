@@ -33,4 +33,33 @@
             </div>
         </div>
     </div>
+    <script language="JavaScript">
+        fetch_item_data();
+
+        $('#item_list_search').on('keyup', function() {
+            // console.log('inside on keyup');
+            let query = $(this).val();
+            fetch_item_data(query);
+        });
+
+
+        function fetch_item_data(query = '')
+        {
+            // console.log('inside fetch_item_data')
+            jQuery.ajax({
+                url:"/items/search",
+                method:'GET',
+                data:{query:query},
+                dataType:'json',
+                success:function(data)
+                {
+                    console.log(data.table_data);
+                    $('tbody').html(data.table_data);
+                    $('#total_records').text(data.total_data);
+                }
+            });
+        }
+
+    </script>
+
 @endsection

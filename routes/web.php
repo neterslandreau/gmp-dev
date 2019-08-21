@@ -19,13 +19,13 @@ Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
 
-Route::get('/item/import', 'ItemController@import')->name('items.import');
+Route::get('/items/import', 'ItemsController@import')->name('items.import');
 
-Route::get('/live_search', 'LiveSearch@index');
-Route::get('/live_search/action', 'LiveSearch@action')->name('live_search.action');
+//Route::get('/live_search', 'LiveSearch@index');
+Route::get('/items/search', 'ItemsController@search')->name('items.search');
 
 
-Route::get('/users', 'UsersController@index');
+Route::get('/users', 'UsersController@index')->name('users.list');
 Route::get('/users/create', 'UsersController@create')->name('users.create');
 Route::get('/users/{id}/edit', 'UsersController@edit')->name('users.edit');
 Route::get('/users/{id}/delete', 'UsersController@delete')->name('users.destroy');

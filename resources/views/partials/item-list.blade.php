@@ -6,38 +6,33 @@
             <input type="text" name="search" id="item_list_search" class="form-control" placeholder="Search Item Data" />
         </div>
 
-        <table class="table table-bordered table-sm table-condensed table-striped table-hover" id="item-table">
-            <tr>
-                <th>Slug</th>
-                <th>Name</th>
-                <th>UPC Code</th>
-                <th>Size</th>
-                <th>Quantity</th>
-                <th>Net Case</th>
-                <th>Net Cost</th>
-                <th width="280px">Action</th>
-            </tr>
-            @foreach ($items as $key => $item)
-                <tr id="item_{{ $item->id }}">
-                    <td>{{ $item->slug }}</td>
-                    <td>{{ $item->name }}</td>
-                    <td>{{ $item->upc_code }}</td>
-                    <td>{{ $item->size }}</td>
-                    <td>{{ $item->quantity }}</td>
-                    <td>{{ $item->net_case }}</td>
-                    <td>{{ $item->net_cost }}</td>
-                    <td>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#itemmodal_{{ $item->id }}">View</button>
-                    </td>
-                </tr>
-            @endforeach
-        </table>
+        <div class="table-responsive">
+            <h3 class="d-block">Total Data : <span id="total_records"></span></h3>
 
-        {{ $items->links() }}
+            <table class="table table-bordered table-sm table-condensed table-striped table-hover" id="item-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>UPC Code</th>
+                        <th>Size</th>
+                        <th>Quantity</th>
+                        <th>Net Case</th>
+                        <th>Net Cost</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+
+{{--            {{ $items->links() }}--}}
+        </div>
     </div>
 
 </div>
-@foreach ($items as $key => $item)
-    @include('partials.modals.itemmodal')
-@endforeach
+{{--@if (is_array($items))--}}
+{{--@foreach ($items as $key => $item)--}}
+{{--    @include('partials.modals.itemmodal')--}}
+{{--@endforeach--}}
+{{--@endif--}}
 
