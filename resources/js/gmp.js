@@ -1,4 +1,10 @@
 $(function() {
+    $('#item_list_search').on('keyup', function() {
+        console.log('inside on keyup');
+        let query = $(this).val();
+        fetch_customer_data(query);
+    });
+
     $('[id^="usersave_"]').on('click', function() {
 
         let user_id = this.id.split('_')[1];
@@ -82,9 +88,7 @@ $(function() {
         });
 
     });
-});
 
-$(function() {
     $('a[data-toggle="tab"]').on('click', function(e) {
         window.localStorage.setItem('activeTab', $(e.target).attr('href'));
     });
@@ -93,11 +97,22 @@ $(function() {
         $('#myTab a[href="' + activeTab + '"]').tab('show');
     }
 
-    // $('#users-table').
+    fetch_customer_data();
 
-    // $("#users-index").on('click-row.bs.table', function (e, row, $element) {
-    //     console.log('element data: ', element.data());
-    //     // window.location = $element.data('href');
-    // });
+    function fetch_customer_data(query = '')
+    {
+        console.log('inside fetch_customer_data')
+        $.ajax({
+            url:"/live_search/action",
+            method:'GET',
+            data:{query:query},
+            dataType:'json',
+            success:function(data)
+            {
+                $('tbody').html(data.table_data);
+                $('#total_records').text(data.total_data);
+            }
+        })
+    }
 
 });

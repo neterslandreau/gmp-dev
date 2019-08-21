@@ -34,7 +34,7 @@ class AppServiceProvider extends ServiceProvider
             $users = User::get();
             $stores = Store::all();
             $store_formats = StoreFormat::all();
-            $items = Item::first()->paginate(5);
+            $items = Item::first()->paginate(10);
 
 //            echo '<pre>';
 //            print_r($stores);

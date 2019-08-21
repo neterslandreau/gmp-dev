@@ -28,6 +28,46 @@
 
                     </div>
 
+                    <div class="form-group">
+
+                        <label for="{{ $item->upc_code }}">UPC Code</label>
+
+                        <input type="text" name="upc_code" class="form-control" value="{{ $item->upc_code }}" readonly>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="{{ $item->size }}">Size</label>
+
+                        <input type="text" name="size" class="form-control" value="{{ $item->size }}" readonly>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="{{ $item->quantity }}">Quantity</label>
+
+                        <input type="text" name="quantity" class="form-control" value="{{ $item->quantity }}" readonly>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="{{ $item->net_case }}">Net Case</label>
+
+                        <input type="text" name="net_case" class="form-control" value="{{ $item->net_case }}" readonly>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="{{ $item->net_cost }}">Net Cost</label>
+
+                        <input type="text" name="net_cost" class="form-control" value="{{ $item->net_cost }}" readonly>
+
+                    </div>
+
                 </form>
 
             </div>

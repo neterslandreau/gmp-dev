@@ -2,6 +2,10 @@
 
     <div class="row">
 
+        <div class="form-group">
+            <input type="text" name="search" id="item_list_search" class="form-control" placeholder="Search Item Data" />
+        </div>
+
         <table class="table table-bordered table-sm table-condensed table-striped table-hover" id="item-table">
             <tr>
                 <th>Slug</th>

@@ -37003,6 +37003,11 @@ if (token) {
 /***/ (function(module, exports) {
 
 $(function () {
+  $('#item_list_search').on('keyup', function () {
+    console.log('inside on keyup');
+    var query = $(this).val();
+    fetch_customer_data(query);
+  });
   $('[id^="usersave_"]').on('click', function () {
     var user_id = this.id.split('_')[1];
     var form = $('#form_' + user_id);
@@ -37066,8 +37071,6 @@ $(function () {
       location.reload();
     });
   });
-});
-$(function () {
   $('a[data-toggle="tab"]').on('click', function (e) {
     window.localStorage.setItem('activeTab', $(e.target).attr('href'));
   });
@@ -37075,12 +37078,26 @@ $(function () {
 
   if (activeTab) {
     $('#myTab a[href="' + activeTab + '"]').tab('show');
-  } // $('#users-table').
-  // $("#users-index").on('click-row.bs.table', function (e, row, $element) {
-  //     console.log('element data: ', element.data());
-  //     // window.location = $element.data('href');
-  // });
+  }
 
+  fetch_customer_data();
+
+  function fetch_customer_data() {
+    var query = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+    console.log('inside fetch_customer_data');
+    $.ajax({
+      url: "/live_search/action",
+      method: 'GET',
+      data: {
+        query: query
+      },
+      dataType: 'json',
+      success: function success(data) {
+        $('tbody').html(data.table_data);
+        $('#total_records').text(data.total_data);
+      }
+    });
+  }
 });
 
 /***/ }),

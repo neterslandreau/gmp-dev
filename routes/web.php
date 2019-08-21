@@ -21,6 +21,10 @@ Route::get('/home', 'HomeController@index')->name('home')->middleware('verified'
 
 Route::get('/item/import', 'ItemController@import')->name('items.import');
 
+Route::get('/live_search', 'LiveSearch@index');
+Route::get('/live_search/action', 'LiveSearch@action')->name('live_search.action');
+
+
 Route::get('/users', 'UsersController@index');
 Route::get('/users/create', 'UsersController@create')->name('users.create');
 Route::get('/users/{id}/edit', 'UsersController@edit')->name('users.edit');
