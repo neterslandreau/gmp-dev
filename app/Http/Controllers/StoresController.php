@@ -23,7 +23,7 @@ class StoresController extends Controller
 
 //        dd($stores);
 
-        return view('stores.index', compact('stores', 'users', 'store_formats'));
+        return view('stores.index');
     }
 
     /**

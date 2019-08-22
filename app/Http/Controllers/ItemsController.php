@@ -14,9 +14,9 @@ class ItemsController extends Controller
         set_time_limit(500);
 
         $itemscsv = Storage::disk('local')->get('master_list_070219_1.csv');
-        $rows = preg_split('/\n/',$itemscsv);
+        $rows = array_map('str_getcsv', explode("\n", $itemscsv));
+        dd($rows);
         foreach ($rows as $r => $row) {
-            $row = str_getcsv($row);
             if ($r !== 0) {
                 $item = new Item([
                     'name' => $row[3],
@@ -63,6 +63,7 @@ class ItemsController extends Controller
                 foreach ($data as $row) {
                     $output .= '
         <tr>
+        <td>'.$row->slug.'</td>
          <td>'.$row->name.'</td>
          <td>'.$row->upc_code.'</td>
          <td>'.$row->size.'</td>

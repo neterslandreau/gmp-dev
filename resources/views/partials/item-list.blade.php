@@ -1,3 +1,4 @@
+
 <div class="container">
 
     <div class="row">
@@ -12,6 +13,7 @@
             <table class="table table-bordered table-sm table-condensed table-striped table-hover" id="item-table">
                 <thead>
                     <tr>
+                        <th>Slug</th>
                         <th>Name</th>
                         <th>UPC Code</th>
                         <th>Size</th>
@@ -21,18 +23,30 @@
                     </tr>
                 </thead>
                 <tbody>
+                @foreach ($items as $key => $item)
+                    <tr id="item_{{ $item->id }}">
+                        <td>{{ $item->slug }}</td>
+                        <td>{{ $item->name }}</td>
+                        <td>{{ $item->upc_code }}</td>
+                        <td>{{ $item->size }}</td>
+                        <td>{{ $item->quantity }}</td>
+                        <td>{{ $item->net_case }}</td>
+                        <td>{{ $item->net_cost }}</td>
+                        <td>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#itemmodal_{{ $item->id }}">View</button>
+                        </td>
+                    </tr>
+                @endforeach
 
                 </tbody>
+                <tfoot>
+                </tfoot>
             </table>
 
-{{--            {{ $items->links() }}--}}
         </div>
     </div>
 
 </div>
-{{--@if (is_array($items))--}}
-{{--@foreach ($items as $key => $item)--}}
-{{--    @include('partials.modals.itemmodal')--}}
-{{--@endforeach--}}
-{{--@endif--}}
-
+@foreach ($items as $key => $item)
+    @include('partials.modals.itemmodal')
+@endforeach

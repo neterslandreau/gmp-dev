@@ -24,6 +24,7 @@ Route::get('/items/import', 'ItemsController@import')->name('items.import');
 //Route::get('/live_search', 'LiveSearch@index');
 Route::get('/items/search', 'ItemsController@search')->name('items.search');
 
+Route::get('/test', 'UsersController@readtest');
 
 Route::get('/users', 'UsersController@index')->name('users.list');
 Route::get('/users/create', 'UsersController@create')->name('users.create');

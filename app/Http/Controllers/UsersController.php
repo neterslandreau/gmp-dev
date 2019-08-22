@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use Illuminate\Support\Facades\Storage;
 
 class UsersController extends Controller
 {
@@ -14,9 +15,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::all();
-//        dd(compact('users'));
-        return view('users.index', compact('users'));
+        return view('users.index');
     }
 
     /**
@@ -97,5 +96,10 @@ class UsersController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function test()
+    {
+        echo json_encode(Storage::disk('local')->get('master_list_070219_1.csv'));
     }
 }

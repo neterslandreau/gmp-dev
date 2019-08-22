@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
     <div class="container">
 
@@ -34,8 +33,6 @@
         </div>
     </div>
     <script language="JavaScript">
-        fetch_item_data();
-
         $('#item_list_search').on('keyup', function() {
             // console.log('inside on keyup');
             let query = $(this).val();
@@ -53,7 +50,6 @@
                 dataType:'json',
                 success:function(data)
                 {
-                    console.log(data.table_data);
                     $('tbody').html(data.table_data);
                     $('#total_records').text(data.total_data);
                 }
