@@ -1,4 +1,3 @@
-
 <div class="container">
 
     <div class="row">
@@ -8,8 +7,8 @@
         </div>
 
         <div class="table-responsive">
-            <h3 class="d-block">Total Data : <span id="total_records"></span></h3>
-
+            <h3 class="d-block">Total Items: <span id="total_records"></span></h3>
+{{-- --}}
             <table class="table table-bordered table-sm table-condensed table-striped table-hover" id="item-table">
                 <thead>
                     <tr>
@@ -17,9 +16,10 @@
                         <th>Name</th>
                         <th>UPC Code</th>
                         <th>Size</th>
-                        <th>Quantity</th>
+                        <th>Retail</th>
                         <th>Net Case</th>
                         <th>Net Cost</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -29,7 +29,7 @@
                         <td>{{ $item->name }}</td>
                         <td>{{ $item->upc_code }}</td>
                         <td>{{ $item->size }}</td>
-                        <td>{{ $item->quantity }}</td>
+                        <td>{{ $item->retail }}</td>
                         <td>{{ $item->net_case }}</td>
                         <td>{{ $item->net_cost }}</td>
                         <td>
@@ -42,11 +42,14 @@
                 <tfoot>
                 </tfoot>
             </table>
+{{-- --}}
 
         </div>
     </div>
 
 </div>
+<div id="modals">
 @foreach ($items as $key => $item)
     @include('partials.modals.itemmodal')
 @endforeach
+</div>

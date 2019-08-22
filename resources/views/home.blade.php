@@ -34,15 +34,16 @@
     </div>
     <script language="JavaScript">
         $('#item_list_search').on('keyup', function() {
-            // console.log('inside on keyup');
             let query = $(this).val();
-            fetch_item_data(query);
+            if (query.length > 0) {
+                fetch_item_data(query);
+            }
         });
 
 
         function fetch_item_data(query = '')
         {
-            // console.log('inside fetch_item_data')
+            $('tbody').html('<div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div>');
             jQuery.ajax({
                 url:"/items/search",
                 method:'GET',
@@ -50,8 +51,10 @@
                 dataType:'json',
                 success:function(data)
                 {
+                    console.log(data.table_data);
                     $('tbody').html(data.table_data);
                     $('#total_records').text(data.total_data);
+                    $('#modals').html(data.modal_data);
                 }
             });
         }

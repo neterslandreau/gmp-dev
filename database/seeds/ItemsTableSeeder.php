@@ -25,6 +25,7 @@ class ItemsTableSeeder extends Seeder
                     'name' => $row[3],
                     'upc_code' => $row[0],
                     'size' => $row[5],
+                    'retail' => $row[7],
                     'quantity' => $row[6],
                     'net_cost' => $row[15],
                     'net_case' => $row[32],

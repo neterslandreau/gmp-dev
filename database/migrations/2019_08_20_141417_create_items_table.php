@@ -20,6 +20,7 @@ class CreateItemsTable extends Migration
             $table->string('name');
             $table->string('upc_code');
             $table->string('size');
+            $table->string('retail');
             $table->string('quantity');
             $table->string('net_cost');
             $table->string('net_case');

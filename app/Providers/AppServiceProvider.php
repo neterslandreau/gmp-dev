@@ -34,8 +34,12 @@ class AppServiceProvider extends ServiceProvider
             $stores = Store::all();
             $store_formats = StoreFormat::all();
             $items = Item::first()->paginate(10);
+            $all_items = Item::all();
+            $total_records = Item::get()->count();
+//            dd($itemcnt);
+//            dd($items);
 
-            $view->with(compact(['items']));
+            $view->with(compact(['items', 'total_records', 'all_items']));
         });
 
         view()->composer(['users.index'], function($view) {
