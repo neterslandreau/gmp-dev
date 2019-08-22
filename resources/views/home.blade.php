@@ -35,7 +35,7 @@
     <script language="JavaScript">
         $('#item_list_search').on('keyup', function() {
             let query = $(this).val();
-            if (query.length > 0) {
+            if (query.length > 2) {
                 fetch_item_data(query);
             }
         });
