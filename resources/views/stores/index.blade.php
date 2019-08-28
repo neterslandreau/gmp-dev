@@ -24,7 +24,7 @@
 
         <table class="table table-bordered table-condensed table-striped table-hover" id="store-table">
             <tr>
-                <th>No</th>
+                <th>Store Number</th>
                 <th>Store Name</th>
                 <th>Store Type</th>
                 <th>Store Manager</th>
@@ -32,7 +32,7 @@
             </tr>
             @foreach ($stores as $key => $store)
                 <tr id="store_{{ $store->id }}">
-                    <td>{{ ++$key }}</td>
+                    <td>{{ $store->number }}</td>
                     <td>{{ $store->name }}</td>
                     <td>{{ $store->store_format->name }}</td>
                     <td>{{ $store->manager['first_name'] }} {{ $store->manager['last_name'] }}</td>

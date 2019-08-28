@@ -49,6 +49,7 @@
             </tr>
         @endforeach
     </table>
+    {{ $users->links() }}
 </div>
 @foreach ($users as $key => $user)
     @include('partials.modals.user_modal')

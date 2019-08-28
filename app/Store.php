@@ -2,11 +2,8 @@
 
 namespace App;
 
-use Cviebrock\EloquentSluggable\Sluggable;
-
 class Store extends Model
 {
-    use Sluggable;
 
     public $table = 'stores';
 
@@ -16,7 +13,7 @@ class Store extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'manager_id', 'slug'
+        'name', 'manager_id', 'slug', 'number'
     ];
 
     public function manager()
@@ -27,6 +24,11 @@ class Store extends Model
     public function store_format()
     {
         return $this->hasOne('App\StoreFormat', 'id', 'store_format_id');
+    }
+
+    public function invoices()
+    {
+        return $this->hasMany('App\Invoice');
     }
 
 }

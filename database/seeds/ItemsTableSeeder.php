@@ -13,6 +13,7 @@ class ItemsTableSeeder extends Seeder
      * Run the database seeds.
      *
      * @return void
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
     public function run()
     {

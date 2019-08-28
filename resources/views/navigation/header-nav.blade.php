@@ -24,7 +24,6 @@
                     <a class="nav-link" href="{{ route('stores.list') }}">Store Admin</a>
                 </li>
                 @endcan
-
             </ul>
 
             <!-- Right Side Of Navbar -->

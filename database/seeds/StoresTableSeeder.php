@@ -21,8 +21,9 @@ class StoresTableSeeder extends Seeder
 
         DB::table('stores')->insert([
             'id' => Str::uuid(),
-            'name' => 'Costco',
-            'slug' => 'costco',
+            'name' => 'Store #1',
+            'slug' => 'store-1',
+            'number' => 1,
             'manager_id' => null,
             'store_format_id' => $warehouse_store,
             'created_at' => $now,
@@ -30,8 +31,9 @@ class StoresTableSeeder extends Seeder
         ]);
         DB::table('stores')->insert([
             'id' => Str::uuid(),
-            'name' => 'Sam\'s Club',
-            'slug' => 'sam-s-club',
+            'name' => 'Store #4',
+            'slug' => 'store-4',
+            'number' => 4,
             'manager_id' => null,
             'store_format_id' => $warehouse_store,
             'created_at' => $now,
@@ -39,8 +41,9 @@ class StoresTableSeeder extends Seeder
         ]);
         DB::table('stores')->insert([
             'id' => Str::uuid(),
-            'name' => 'Whole Foods',
-            'slug' => 'whole-foods',
+            'name' => 'Store #6',
+            'slug' => 'store-6',
+            'number' => 6,
             'manager_id' => null,
             'store_format_id' => $natural_foods_upsale,
             'created_at' => $now,
@@ -48,8 +51,9 @@ class StoresTableSeeder extends Seeder
         ]);
         DB::table('stores')->insert([
             'id' => Str::uuid(),
-            'name' => 'Vitamin College',
-            'slug' => 'vitamin-college',
+            'name' => 'Store #7',
+            'slug' => 'store-7',
+            'number' => 7,
             'manager_id' => null,
             'store_format_id' => $natural_foods_upsale,
             'created_at' => $now,
@@ -57,37 +61,11 @@ class StoresTableSeeder extends Seeder
         ]);
         DB::table('stores')->insert([
             'id' => Str::uuid(),
-            'name' => 'Price Chopper',
-            'slug' => 'price-chopper',
+            'name' => 'Store #10',
+            'slug' => 'store-10',
+            'number' => 10,
             'manager_id' => null,
             'store_format_id' => $neighborhood_grocers_full_line,
-            'created_at' => $now,
-            'updated_at' => $now,
-        ]);
-        DB::table('stores')->insert([
-            'id' => Str::uuid(),
-            'name' => 'Hi-Vee',
-            'slug' => 'hi-vee',
-            'manager_id' => null,
-            'store_format_id' => $neighborhood_grocers_full_line,
-            'created_at' => $now,
-            'updated_at' => $now,
-        ]);
-        DB::table('stores')->insert([
-            'id' => Str::uuid(),
-            'name' => 'Dollar General',
-            'slug' => 'dollar-general',
-            'manager_id' => null,
-            'store_format_id' => $discount_bare_bones,
-            'created_at' => $now,
-            'updated_at' => $now,
-        ]);
-        DB::table('stores')->insert([
-            'id' => Str::uuid(),
-            'name' => 'Aldi',
-            'slug' => 'aldi',
-            'manager_id' => null,
-            'store_format_id' => $discount_bare_bones,
             'created_at' => $now,
             'updated_at' => $now,
         ]);

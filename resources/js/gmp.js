@@ -53,17 +53,18 @@ $(function() {
         let mydata = form.serialize();
         let mydata_arr = mydata.split('&');
         let mym = mydata_arr[1].split('=');
+        let myt = mydata_arr[2].split('=');
 
         console.log('mym[1]: ',mym[1]);
 
-        // console.log(mydata_arr[1]);
+        console.log(mydata_arr[2]);
 
         let url = '/stores/' + store_id + '/update';
         let data = {
             id: store_id,
             store_id: store_id,
             manager_id: mym[1],
-            store_format_id: $('#store-format-select :selected').val(),
+            store_format_id: myt[1],
 
             _token: Laravel.csrfToken
         };

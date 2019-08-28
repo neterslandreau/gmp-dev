@@ -20,6 +20,9 @@ Auth::routes(['verify' => true]);
 Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
 
 Route::get('/items/import', 'ItemsController@import')->name('items.import');
+Route::get('/items/download', 'ItemsController@download')->name('items.download');
+
+Route::get('/invoices', 'InvoiceController@index')->name('invoices.list');
 
 //Route::get('/live_search', 'LiveSearch@index');
 Route::get('/items/search', 'ItemsController@search')->name('items.search');

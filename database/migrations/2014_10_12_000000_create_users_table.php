@@ -70,6 +70,19 @@ class CreateUsersTable extends Migration
             'updated_at' => $now
 
         ]);
+        DB::table('users')->insert([
+            'id' => Str::uuid(),
+            'role' => 'superuser',
+            'first_name' => 'Mike',
+            'last_name' => 'Ralston',
+            'slug' => 'mike-ralston',
+            'email' => 'mike.ralston@icloud.com',
+            'email_verified_at' => $now,
+            'password' => bcrypt('Secr3t'),
+            'created_at' => $now,
+            'updated_at' => $now
+
+        ]);
 
     }
 

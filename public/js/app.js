@@ -37044,14 +37044,15 @@ $(function () {
     var mydata = form.serialize();
     var mydata_arr = mydata.split('&');
     var mym = mydata_arr[1].split('=');
-    console.log('mym[1]: ', mym[1]); // console.log(mydata_arr[1]);
-
+    var myt = mydata_arr[2].split('=');
+    console.log('mym[1]: ', mym[1]);
+    console.log(mydata_arr[2]);
     var url = '/stores/' + store_id + '/update';
     var data = {
       id: store_id,
       store_id: store_id,
       manager_id: mym[1],
-      store_format_id: $('#store-format-select :selected').val(),
+      store_format_id: myt[1],
       _token: Laravel.csrfToken
     };
     console.log(data);

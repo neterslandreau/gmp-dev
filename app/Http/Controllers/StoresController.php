@@ -84,6 +84,7 @@ class StoresController extends Controller
 //
 //            ]);
 
+//            dd(request('store_format_id'));
             $store = Store::where(['id' => request('id')])->first();
             $store->manager_id = request('manager_id');
             if (request('manager_id')) {

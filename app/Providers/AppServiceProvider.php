@@ -43,7 +43,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         view()->composer(['users.index'], function($view) {
-            $users = User::first()->paginate(10);
+            $users = User::first()->paginate(5);
 
             $view->with(compact(['users']));
         });
