@@ -28,6 +28,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+//        \Debugbar::disable();
         Blade::withoutDoubleEncoding();
 
         view()->composer(['home'], function($view) {
@@ -44,13 +45,14 @@ class AppServiceProvider extends ServiceProvider
 
         view()->composer(['users.index'], function($view) {
             $users = User::first()->paginate(5);
+            $stores = Store::all();
 
-            $view->with(compact(['users']));
+            $view->with(compact(['users', 'stores']));
         });
 
         view()->composer(['stores.index'], function($view) {
-            $stores = Store::first()->paginate(10);
-            $users = User::first()->paginate(10);
+            $stores = Store::first()->paginate(5);
+            $users = User::all();
             $store_formats = StoreFormat::all();
 
             $view->with(compact(['stores', 'users', 'store_formats']));

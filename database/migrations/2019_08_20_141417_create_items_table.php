@@ -17,11 +17,14 @@ class CreateItemsTable extends Migration
             $table->uuid('id');
             $table->primary('id');
             $table->string('slug');
-            $table->string('name');
             $table->string('upc_code');
+            $table->string('wh_code');
+            $table->string('description');
+            $table->string('pack');
             $table->string('size');
-            $table->string('retail');
             $table->string('quantity');
+            $table->string('retail');
+            $table->string('gross_margin');
             $table->string('net_cost');
             $table->string('net_case');
             $table->softDeletes();

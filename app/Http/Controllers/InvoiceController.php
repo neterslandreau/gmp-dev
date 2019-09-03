@@ -39,6 +39,24 @@ class InvoiceController extends Controller
         //
     }
 
+    public function get()
+    {
+        if (request()->method() === 'POST') {
+            echo(request('store_id')).'<br>';
+            echo(request('delivery_date'));
+
+            $invoice = Invoice::where('store_id', request('store,id'))->first();
+
+            echo '<pre>';
+            print_r($invoice);
+            echo '</pre>';
+
+//            $invoice = Invoice::where('store_id', request('store_id')->where('delivery_date', request('delivery_date')->first()));
+//            dd($invoice);
+            dd();
+        }
+    }
+
     /**
      * Display the specified resource.
      *

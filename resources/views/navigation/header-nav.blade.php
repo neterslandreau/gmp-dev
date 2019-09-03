@@ -12,9 +12,9 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-5">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('home') }}">Dashboard</a>
-                </li>
+{{--                <li class="nav-item">--}}
+{{--                    <a class="nav-link" href="{{ route('home') }}">Dashboard</a>--}}
+{{--                </li>--}}
 
                 @can('isAdmin')
                 <li class="nav-item">

@@ -31,4 +31,9 @@ class Store extends Model
         return $this->hasMany('App\Invoice');
     }
 
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'store_user');
+    }
+
 }

@@ -2,8 +2,8 @@
 
     <div class="row">
 
-        <div class="form-group">
-            <input type="text" name="search" id="item_list_search" class="form-control" placeholder="Search Item Data" />
+        <div class="form-group pt-3">
+            <input type="text" name="search" id="item_list_search" class="form-control" placeholder="Search Items" />
         </div>
 
         <div class="table-responsive">
@@ -12,11 +12,13 @@
             <table class="table table-bordered table-sm table-condensed table-striped table-hover" id="item-table">
                 <thead>
                     <tr>
-                        <th>Slug</th>
-                        <th>Name</th>
-                        <th>UPC Code</th>
+                        <th>UPC/PLU</th>
+                        <th>Description</th>
+                        <th>Pack</th>
                         <th>Size</th>
                         <th>Retail</th>
+                        <th>On Hand</th>
+                        <th>Gross Margin</th>
                         <th>Net Case</th>
                         <th>Net Cost</th>
                         <th>Action</th>
@@ -25,11 +27,13 @@
                 <tbody>
                 @foreach ($items as $key => $item)
                     <tr id="item_{{ $item->id }}">
-                        <td>{{ $item->slug }}</td>
-                        <td>{{ $item->name }}</td>
                         <td>{{ $item->upc_code }}</td>
+                        <td>{{ $item->description }}</td>
+                        <td>{{ $item->pack }}</td>
                         <td>{{ $item->size }}</td>
                         <td>{{ $item->retail }}</td>
+                        <td>{{ $item->quantity }}</td>
+                        <td>{{ $item->gross_margin }}</td>
                         <td>{{ $item->net_case }}</td>
                         <td>{{ $item->net_cost }}</td>
                         <td>

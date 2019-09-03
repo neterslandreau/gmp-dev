@@ -23,11 +23,14 @@ class ItemsTableSeeder extends Seeder
         foreach ($rows as $r => $row) {
             if ($r !== 0) {
                 $item = new Item([
-                    'name' => $row[3],
                     'upc_code' => $row[0],
+                    'wh_code' => $row[1],
+                    'description' => $row[3],
+                    'pack' => $row[4],
                     'size' => $row[5],
-                    'retail' => $row[7],
                     'quantity' => $row[6],
+                    'retail' => $row[7],
+                    'gross_margin' => $row[10],
                     'net_cost' => $row[15],
                     'net_case' => $row[32],
                 ]);

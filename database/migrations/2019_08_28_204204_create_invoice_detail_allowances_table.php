@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAllowancesTable extends Migration
+class CreateInvoiceDetailAllowancesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateAllowancesTable extends Migration
      */
     public function up()
     {
-        Schema::create('allowances', function (Blueprint $table) {
+        Schema::create('invoice_detail_allowances', function (Blueprint $table) {
             $table->uuid('id');
             $table->primary('id');
             $table->uuid('invoice_id')->nullable();
@@ -58,6 +58,6 @@ class CreateAllowancesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('allowances');
+        Schema::dropIfExists('invoice_detail_allowances');
     }
 }

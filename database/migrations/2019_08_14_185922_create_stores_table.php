@@ -20,6 +20,7 @@ class CreateStoresTable extends Migration
             $table->integer('number');
             $table->string('name');
             $table->uuid('manager_id')->nullable();
+            $table->uuid('user_id')->nullable();
             $table->uuid('store_format_id');
             $table->softDeletes();
             $table->timestamps();

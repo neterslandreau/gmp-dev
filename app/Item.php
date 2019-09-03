@@ -22,4 +22,13 @@ class Item extends Model
      * @var bool
      */
     public $incrementing = false;
+
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => 'description',
+            ],
+        ];
+    }
 }

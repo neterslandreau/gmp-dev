@@ -52,6 +52,65 @@
 
                     </div>
 
+                    <div class="form-group">
+
+                        <label for="">Stores</label>
+
+                        @php
+                        $ustores = $user->stores;
+                        $ustore_ids = [];
+                        foreach ($ustores as $us => $ustore) {
+                            $ustore_ids[] = $ustore->id;
+                        }
+
+                        @endphp
+
+                        @foreach($stores as $s => $store)
+
+                            <div class="form-check">
+
+                                @if (in_array($store->id, $ustore_ids))
+
+                                <input class="form-check-input" type="checkbox" value="{{ $store->id }}" id="user_{{ $user->id }}_store_{{ $store->id }}" checked>
+
+                                @else
+
+                                    <input class="form-check-input" type="checkbox" value="{{ $store->id }}" id="user_{{ $user->id }}_store_{{ $store->id }}">
+
+                                @endif
+
+                                <label class="form-check-label" for="{{ $store->id }}">
+                                    {{ $store->name }}
+                                </label>
+                            </div>
+
+                        @endforeach
+
+{{--                        <!-- Default switch -->--}}
+{{--                        <div class="custom-control custom-switch">--}}
+{{--                            <input type="checkbox">--}}
+{{--                            <label for="customSwitches">Toggle this switch element</label>--}}
+{{--                        </div>--}}
+{{--                        <select class="custom-select" id="selstores" size="5" name="selected-stores" multiple>--}}
+{{--                            @php--}}
+{{--                            $ustores = $user->stores;--}}
+{{--                            @endphp--}}
+
+{{--                                @foreach($stores as $s => $store)--}}
+
+{{--                                    @if ($store->id)--}}
+{{--                                        <option id="{{ $store->id }}" value="{{ $store->id }}" selected>{{ $store->name }} </option>--}}
+{{--                                    @else--}}
+{{--                                        <option id="{{ $store->id }}" value="{{ $store->id }}">{{ $store->name }} </option>--}}
+{{--                                    @endif--}}
+
+{{--                                @endforeach--}}
+
+{{--                        </select>--}}
+{{--                        <input type="text" name="role" class="form-control" value="{{ $user->store }}" id="store_{{ $user->id }}">--}}
+
+                    </div>
+
                     <div class="form-group form-check">
 
                         @if ($user->hasVerifiedEmail())

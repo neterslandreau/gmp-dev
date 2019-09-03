@@ -7,6 +7,20 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+// jQuery-UI
+@import '~jquery-ui/themes/base/all.css';
+
 .table-row{
     cursor:pointer;
+}
+#slider12a .slider-track-high, #slider12c .slider-track-high {
+    background: green;
+}
+
+#slider12b .slider-track-low, #slider12c .slider-track-low {
+    background: red;
+}
+
+#slider12c .slider-selection {
+    background: yellow;
 }

@@ -78,13 +78,12 @@ class StoresController extends Controller
     {
         if (request()->method() === 'POST') {
 
-//            $this->validate(request(), [
-//                'id' => 'required',
-//                'store_format_id' => 'required',
-//
-//            ]);
+            $this->validate(request(), [
+                'id' => 'required',
+                'store_format_id' => 'required',
 
-//            dd(request('store_format_id'));
+            ]);
+
             $store = Store::where(['id' => request('id')])->first();
             $store->manager_id = request('manager_id');
             if (request('manager_id')) {
@@ -96,9 +95,25 @@ class StoresController extends Controller
             $store->save();
 
             session()->flash('message', 'The store was successfully updated');
-            return redirect()->home();
-//            dd( request('manager_id'));
+
+            return json_encode(Store::where(['id' => request('id')])->first());
+
+//            return redirect()->home();
+////            dd( request('manager_id'));
         }
+    }
+
+    public function get_ids()
+    {
+        app('debugbar')->disable();
+
+        $stores = Store::all();
+        $store_ids = [];
+        foreach ($stores as $s => $store) {
+            $store_ids[] = $store->id;
+        }
+
+        return json_encode($store_ids);
     }
 
     /**

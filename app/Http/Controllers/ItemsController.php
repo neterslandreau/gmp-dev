@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\CaseEligibleAllowance;
 use App\Item;
-use App\BilledItem;
-use App\Deal;
-use App\Allowance;
+use App\InvoiceDetail;
+use App\InvoiceDetailAllowance;
 use App\OrderExemption;
 use App\InvoiceTotal;
 use App\DeliveryCharge;
 use App\Store;
 use App\Invoice;
-use App\Itemtest;
+use App\Sales;
+
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -21,6 +22,8 @@ class ItemsController extends Controller
 {
     public function import()
     {
+        app('debugbar')->disable();
+
         set_time_limit(1000);
 
         $file = Storage::disk('local')->get('ELVC0004.J');
@@ -244,8 +247,12 @@ class ItemsController extends Controller
 //        print_r($field_lengths);
         $store_number = (int) substr($rows[0], $field_lengths['store-nbr']['start'] - 1, $field_lengths['store-nbr']['length']);
         $store = Store::where('number', $store_number)->first();
+        $invoice_date = substr($rows[0], $field_lengths['delivery-date']['start'] - 1, $field_lengths['delivery-date']['length']);
+        $newdate = substr($invoice_date, 0, 4).'-'.substr($invoice_date, 4, 2).'-'.substr($invoice_date, 6,2);
+//        dd($newdate);
         $invoice = new Invoice([
             'store_id' => $store->id,
+            'delivery_date' => $newdate,
 
         ]);
         $invoice->save();
@@ -259,7 +266,7 @@ class ItemsController extends Controller
 
         foreach ($rows as $r => $row) {
             if (substr($row, $field_lengths['record-type']['start'] - 1, $field_lengths['record-type']['length']) == '01') {
-                $billedItem =  new BilledItem([
+                $invoiceDetail =  new InvoiceDetail([
                     'invoice_id' => $invoice->id,
                     'rec_type' => substr($row, $field_lengths['record-type']['start'] - 1, $field_lengths['record-type']['length']),
                     'store_nbr' => substr($row, $field_lengths['store-nbr']['start'] - 1, $field_lengths['store-nbr']['length']),
@@ -291,9 +298,9 @@ class ItemsController extends Controller
                 ]);
                 $billedItemsCnt++;
 //                var_dump($billedItem);
-                $billedItem->save();
+                $invoiceDetail->save();
             } else if (substr($row, $field_lengths['record-type']['start'] - 1, $field_lengths['record-type']['length']) == '02') {
-                $deal = new Deal([
+                $invoiceDetailAllowance = new InvoiceDetailAllowance([
 //                $deals[] = [
                     'invoice_id' => $invoice->id,
                     'rec_type' => substr($row, $field_lengths['record-type']['start'] - 1, $field_lengths['record-type']['length']),
@@ -332,10 +339,10 @@ class ItemsController extends Controller
 //                ];
                 ]);
                 $dealsCnt++;
-                $deal->save();
+                $invoiceDetailAllowance->save();
 
             } else if (substr($row, $field_lengths['record-type']['start'] - 1, $field_lengths['record-type']['length']) == '03') {
-                $allowance = new Allowance([
+                $caseEligibleAlllowance = new CaseEligibleAllowance([
                     'invoice_id' => $invoice->id,
                     'rec_type' => substr($row, $field_lengths['record-type']['start'] - 1, $field_lengths['record-type']['length']),
                     'store_nbr' => substr($row, $field_lengths['store-nbr']['start'] - 1, $field_lengths['store-nbr']['length']),
@@ -368,7 +375,7 @@ class ItemsController extends Controller
                     'excpt_desc' => substr($row, $field_lengths['excpt-desc']['start'] - 1, $field_lengths['excpt-desc']['length']),
                 ]);
                 $allowancesCnt++;
-                $allowance->save();
+                $caseEligibleAlllowance->save();
             } else if (substr($row, $field_lengths['record-type']['start'] - 1, $field_lengths['record-type']['length']) == '05') {
                 $orderExemption = new OrderExemption([
                     'invoice_id' => $invoice->id,
@@ -485,6 +492,63 @@ class ItemsController extends Controller
 
     }
 
+    public function import_sales()
+    {
+        $file = Storage::disk('local')->get("Sales 7-1-19.CSV");
+        $rows = preg_split('/\r\n/', $file);
+
+        foreach ($rows as $r => $row) {
+//            if ($r == 0) {
+//                echo '<pre>';
+//                print_r($row);
+//                echo '</pre>';
+//            }
+            if($r) {
+                $csv = str_getcsv($row);
+//                if ($r == 6) {
+//                    break;
+//                }
+//                echo '<pre>';
+//                print_r($csv[22]);
+//                echo '</pre>';
+                $sales = new Sales([
+                    'store_nbr' => $csv[0],
+                    'upc_code' => $csv[1],
+                    'quantity_sold' => $csv[2],
+                    'amount_sold' => $csv[3],
+                    'weight_sold' => $csv[4],
+                    'sale_date' => $csv[5],
+                    'department' => $csv[6],
+                    'enhanced_department' => $csv[7],
+                    'price_qty' => $csv[8],
+                    'price' => $csv[9],
+                    'coupon_type' => $csv[10],
+                    'category' => $csv[11],
+                    'unit_cost' => $csv[12],
+                    'b_value' => $csv[13],
+                    'pos_description' => $csv[14],
+                    'main_link' => $csv[15],
+                    'size' => $csv[16],
+                    'case_cost' => $csv[17],
+                    'wh_item_code' => $csv[18],
+                    'vendor_item_number' => $csv[19],
+                    'price_type' => $csv[20],
+                    'cur_price_qty' => $csv[21],
+                    'cur_base_price' => $csv[22],
+                    'base_unit_cost' => $csv[23],
+                    'base_case_cost' => $csv[24],
+                ]);
+                $sales->save();
+//                echo '<pre>';
+//                print_r($csv);
+//                echo '</pre>';
+            }
+        }
+
+        echo 'imported';
+
+    }
+
     /**
      * @param Request $request
      */
@@ -496,7 +560,7 @@ class ItemsController extends Controller
             $query = $request->get('query');
             if ($query != '') {
                 $data = DB::table('items')
-                    ->where("name", "like", "%".$query."%")
+                    ->where("description", "like", "%".$query."%")
                     ->orWhere("upc_code", "like", "%".$query."%")
                     ->orWhere("size", "like", "%".$query."%")
                     ->orWhere("net_cost", "like", "%".$query."%")
@@ -516,11 +580,13 @@ class ItemsController extends Controller
                 foreach ($data as $row) {
                     $output .= '
                         <tr>
-                        <td name="slug">'.$row->slug.'</td>
-                         <td name="name">'.$row->name.'</td>
                          <td name="upc_code">'.$row->upc_code.'</td>
+                         <td name="description">'.$row->description.'</td>
+                         <td name="pack">'.$row->pack.'</td>
                          <td name="size">'.$row->size.'</td>
                          <td name="retail">'.$row->retail.'</td>
+                         <td name="quantity">'.$row->quantity.'</td>
+                         <td name="gross_margin">'.$row->gross_margin.'</td>
                          <td name="net_cost">'.$row->net_cost.'</td>
                          <td name="net_case">'.$row->net_case.'</td>
                          <td name="modal_link"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#itemmodal_'.$row->id.'">View</button></td>
@@ -529,16 +595,18 @@ class ItemsController extends Controller
                     $modalout .= '
                     <div class="modal fade" id="itemmodal_'.$row->id.'" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document"><div class="modal-content"><div class="modal-header">
-                    <h5 class="modal-title" id="modal_'.$row->id.'">'.$row->name.'</h5<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <h5 class="modal-title" id="modal_'.$row->id.'">'.$row->description.'</h5<button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span></button></div><div class="modal-body">
                     <form id="form_'.$row->id.'">
-                    <div class="form-group"><label for="'.$row->name.'">Name</label><input type="text" name="name" class="form-control" value="'.$row->name.'" readonly></div>
                     <div class="form-group"><label for="'.$row->upc_code.'">UPC Code</label><input type="text" name="upc_code" class="form-control" value="'.$row->upc_code.'" readonly></div>
+                    <div class="form-group"><label for="'.$row->description.'">Name</label><input type="text" name="name" class="form-control" value="'.$row->description.'" readonly></div>
+                    <div class="form-group"><label for="'.$row->pack.'">Pack</label><input type="text" name="name" class="form-control" value="'.$row->description.'" readonly></div>
                     <div class="form-group"><label for="'.$row->size.'">Size</label><input type="text" name="size" class="form-control" value="'.$row->size.'" readonly></div>
+                    <div class="form-group"><label for="'.$row->retail.'">Retail</label><input type="text" name="retail" class="form-control" value="'.$row->retail.'" readonly></div>
                     <div class="form-group"><label for="'.$row->quantity.'">Quantity</label><input type="text" name="quantity" class="form-control" value="'.$row->quantity.'" readonly></div>
+                    <div class="form-group"><label for="'.$row->gross_margin.'">Gross Margin</label><input type="text" name="gross_margin" class="form-control" value="'.$row->gross_margin.'" readonly></div>
                     <div class="form-group"><label for="'.$row->net_case.'">Net Case</label><input type="text" name="net_case" class="form-control" value="'.$row->net_case.'" readonly></div>
                     <div class="form-group"><label for="'.$row->net_cost.'">Net Cost</label><input type="text" name="net_cost" class="form-control" value="'.$row->net_cost.'" readonly></div>
-                    <div class="form-group"><label for="'.$row->retail.'">Retail</label><input type="text" name="net_cost" class="form-control" value="'.$row->retail.'" readonly></div>
                     </form></div>
                     <div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button><button type="button" class="btn btn-primary" id="itemsave_'.$row->id.'">Save changes</button></div></div></div></div>';
                 }
@@ -546,7 +614,7 @@ class ItemsController extends Controller
             else {
                 $output = '
                    <tr>
-                    <td align="center" colspan="7">No Data Found</td>
+                    <td align="center" colspan="10">No Data Found</td>
                    </tr>
 ';
             }

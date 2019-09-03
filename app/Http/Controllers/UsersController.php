@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Store;
+use Illuminate\Support\Facades\DB;
+use App\StoreUser;
 use Illuminate\Support\Facades\Storage;
 
 class UsersController extends Controller
@@ -15,6 +18,9 @@ class UsersController extends Controller
      */
     public function index()
     {
+//        $user = User::where('first_name', 'Admin')->first();
+//        dd($user->stores);
+
         return view('users.index');
     }
 
@@ -70,6 +76,7 @@ class UsersController extends Controller
      */
     public function update(Request $request)
     {
+        $appStores = Store::all();
         if (request()->method() === 'POST') {
             $this->validate(request(), [
                 'id' => 'required',
@@ -81,6 +88,22 @@ class UsersController extends Controller
             $user->role = request('role');
             $user->email_verified_at = request('email_verified_at');
             $user->save();
+
+            foreach ($appStores as $a => $appStore) {
+                if (is_array(request('stores'))) {
+                    if (in_array($appStore->id, request('stores'))) {
+                        if (!StoreUser::where([['user_id', '=', request('id')], ['store_id', '=', $appStore->id]])->first()) {
+                            $user->stores()->attach($appStore->id);
+                        }
+                    } else {
+                        $user->stores()->detach($appStore->id);
+                    }
+                } else {
+                    $user->stores()->detach($appStore->id);
+                }
+            }
+
+            session()->flash('message', 'The user was successfully updated');
 
             return User::where(['id' => request('id')])->first();
 
@@ -100,6 +123,7 @@ class UsersController extends Controller
 
     public function test()
     {
-        echo json_encode(Storage::disk('local')->get('master_list_070219_1.csv'));
+        echo 'hello!';
+//        echo json_encode(Storage::disk('local')->get('master_list_070219_1.csv'));
     }
 }

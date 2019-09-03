@@ -11,7 +11,7 @@ class Invoice extends Model
      * @var array
      */
     protected $fillable = [
-        'store_id'
+        'store_id', 'delivery_date'
     ];
 
     /**
@@ -33,7 +33,7 @@ class Invoice extends Model
 
     public function billedItem()
     {
-        return $this->hasOne('App\BilledItem');
+        return $this->hasOne('App\InvoiceDetail');
     }
 
     public function orderExemption()
@@ -43,7 +43,7 @@ class Invoice extends Model
 
     public function allowance()
     {
-        return $this->hasOne('App\Allowance');
+        return $this->hasOne('App\InvoiceDetailAllowance');
     }
     public function invoiceTotal()
     {

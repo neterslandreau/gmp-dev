@@ -24,13 +24,34 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
+<div class="container-fluid">
+
+    @if ($flash = session('message'))
+
+        <div class="alert alert-success alert-dismissable" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            {{ $flash }}
+        </div>
+
+    @endif
+
+    @if ($flash = session('error'))
+
+        <div class="alert alert-danger alert-dismissable" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            {{ $flash }}
+        </div>
+
+    @endif
+
+    @include('navigation.header-nav')
+
     <div id="app">
-
-        @include('navigation.header-nav')
-
         <main class="py-4">
             @yield('content')
         </main>
     </div>
+
+</div>
 </body>
 </html>

@@ -67,4 +67,9 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsTo('App\Store', 'id', 'manager_id');
     }
 
+    public function stores()
+    {
+        return $this->belongsToMany(Store::class, 'store_user');
+    }
+
 }
