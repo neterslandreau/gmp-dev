@@ -39026,9 +39026,11 @@ $(function () {
     if (query.length > 2) {
       fetch_item_data(query);
     }
-  }); // $('table.items-table').on('click', 'tr.items-tr', function() {
-  //     window.location =$(this).data('url');
-  // });
+  });
+  $('#store-select').on('change', function () {
+    console.log($(this).val());
+    $('#store-select-form').submit();
+  });
 });
 
 function fetch_item_data() {

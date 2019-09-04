@@ -17,7 +17,6 @@
 
             </select>
 
-            <button id="select-store" type="submit" class="btn btn-primary">Go</button>
         </form>
 
     </div>

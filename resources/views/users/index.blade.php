@@ -3,6 +3,7 @@
 @section('content')
     <div class="container-fluid">
 
+        @can('isAdmin')
         <div id="users-index">
 
             <div class="row">
@@ -51,6 +52,7 @@
             </div>
 
         </div>
+        @endcan
 
     </div>
     @foreach ($users as $key => $user)

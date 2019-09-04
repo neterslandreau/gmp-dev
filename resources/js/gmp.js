@@ -183,6 +183,11 @@ $(function() {
         }
     });
 
+    $('#store-select').on('change', function() {
+        console.log($(this).val());
+        $('#store-select-form').submit();
+    })
+
 });
 
 function fetch_item_data(query = '')

@@ -1,7 +1,8 @@
 @extends('layouts.app')
 @section('content')
 @php
-    $stores = App\Store::all();
+    $user = session()->get('user');
+    $stores = $user->stores;
 @endphp
     <div class="container">
 
@@ -29,8 +30,8 @@
 
                             </select>
 
-                            <button id="select-store" type="submit" class="btn btn-primary form-inline">Go</button>
                         </div>
+
                     </form>
 
                 </div>

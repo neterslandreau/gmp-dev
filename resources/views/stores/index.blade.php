@@ -2,6 +2,7 @@
 
 
 @section('content')
+    @can('isAdmin')
     <div id="stores-index">
         <div class="row">
             <div class="col-lg-12 margin-tb">
@@ -43,6 +44,7 @@
             @endforeach
         </table>
     </div>
+    @endcan
     @foreach ($stores as $key => $store)
         @include('partials.modals.storemodal')
     @endforeach
