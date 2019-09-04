@@ -579,7 +579,7 @@ class ItemsController extends Controller
             if ($total_row > 0) {
                 foreach ($data as $row) {
                     $output .= '
-                        <tr>
+                        <tr id="item_'.$row->id.'" class="items-tr"  data-toggle="modal" data-target="#itemmodal_'.$row->id.'">
                          <td name="upc_code">'.$row->upc_code.'</td>
                          <td name="description">'.$row->description.'</td>
                          <td name="pack">'.$row->pack.'</td>
@@ -589,7 +589,6 @@ class ItemsController extends Controller
                          <td name="gross_margin">'.$row->gross_margin.'</td>
                          <td name="net_cost">'.$row->net_cost.'</td>
                          <td name="net_case">'.$row->net_case.'</td>
-                         <td name="modal_link"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#itemmodal_'.$row->id.'">View</button></td>
                         </tr>
 ';
                     $modalout .= '
