@@ -4,6 +4,7 @@ $purchases = [];
     $store_nbr = str_pad($store_nbr, 4,'0', STR_PAD_LEFT);
 
     $dailys = \Illuminate\Support\Facades\DB::table('invoice_details')->where('store_nbr', $store_nbr)->get();
+    $totals = \Illuminate\Support\Facades\DB::table('invoice_totals')->where('store_nbr', $store_nbr)->get();
 
 @endphp
 
@@ -24,29 +25,21 @@ $purchases = [];
                 <tr>
                     <th>UPC/PLU</th>
                     <th>Description</th>
-                    <th>Pack</th>
-                    <th>Size</th>
-                    <th>Retail</th>
-                    <th>On Hand</th>
-                    <th>Net Case</th>
-                    <th>Net Cost</th>
-                    <th>Action</th>
+                    <th>Cases</th>
+                    <th>Items/Case</th>
+                    <th>Case Cost</th>
+                    <th>Item Cost</th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach ($dailys as $d => $daily)
-                    <tr id="item_{{ $daily->id }}">
+                    <tr id="item_{{ $daily->id }}" data-toggle="modal" data-target="#salesmodal_{{ $daily->id }}">
                         <td>{{ $daily->upc_code }}</td>
-                        <td>{{ $daily->retail_price }}</td>
+                        <td>{{ $daily->item_desc }}</td>
+                        <td>{{ $totals[0]->case_qty_billed }}</td>
                         <td>{{ $daily->pack }}</td>
-                        <td>{{ $daily->size }}</td>
-                        <td>{{ $daily->mbr_case_cost }}</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#salesmodal_{{ $daily->id }}">View</button>
-                        </td>
+                        <td>{{ $daily->pack }} / {{ $daily->mbr_case_cost }}</td>
+                        <td>{{ $daily->pack }} / {{ $daily->mbr_case_cost }}</td>
                     </tr>
                 @endforeach
 

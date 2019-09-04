@@ -6,7 +6,7 @@
 
             <div class="modal-header">
 
-                <h5 class="modal-title" id="modal_{{ $item->id }}">{{ $item->name }}</h5>
+                <h5 class="modal-title" id="modal_{{ $item->id }}">{{ $item->description }}</h5>
 
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 
@@ -22,9 +22,9 @@
 
                     <div class="form-group">
 
-                        <label for="{{ $item->name }}">Name</label>
+                        <label for="{{ $item->description }}">Description</label>
 
-                        <input type="text" name="name" class="form-control" value="{{ $item->name }}" readonly>
+                        <input type="text" name="description" class="form-control" value="{{ $item->description }}" readonly>
 
                     </div>
 

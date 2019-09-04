@@ -22,9 +22,9 @@
 
                     <div class="form-group">
 
-                        <label for="{{ $sale->name }}">Name</label>
+                        <label for="{{ $sale->pos_description }}">Description</label>
 
-                        <input type="text" name="name" class="form-control" value="{{ $sale->name }}" readonly>
+                        <input type="text" name="name" class="form-control" value="{{ $sale->pos_description }}" readonly>
 
                     </div>
 
@@ -38,33 +38,25 @@
 
                     <div class="form-group">
 
-                        <label for="{{ $sale->size }}">Size</label>
+                        <label for="{{ $sale->quantity_sold }}">Quantity Sold</label>
 
-                        <input type="text" name="size" class="form-control" value="{{ $sale->size }}" readonly>
-
-                    </div>
-
-                    <div class="form-group">
-
-                        <label for="{{ $sale->quantity }}">Quantity</label>
-
-                        <input type="text" name="quantity" class="form-control" value="{{ $sale->quantity }}" readonly>
+                        <input type="text" name="size" class="form-control" value="{{ $sale->quantity_sold }}" readonly>
 
                     </div>
 
                     <div class="form-group">
 
-                        <label for="{{ $sale->net_case }}">Net Case</label>
+                        <label for="{{ $sale->weight_sold }}">Weight Sold</label>
 
-                        <input type="text" name="net_case" class="form-control" value="{{ $sale->net_case }}" readonly>
+                        <input type="text" name="quantity" class="form-control" value="{{ $sale->weight_sold }}" readonly>
 
                     </div>
 
                     <div class="form-group">
 
-                        <label for="{{ $sale->net_cost }}">Net Cost</label>
+                        <label for="{{ $sale->unit_cost }}">Prc/Unit</label>
 
-                        <input type="text" name="net_cost" class="form-control" value="{{ $sale->net_cost }}" readonly>
+                        <input type="text" name="net_case" class="form-control" value="{{ $sale->unit_cost }}" readonly>
 
                     </div>
 

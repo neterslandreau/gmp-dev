@@ -24,21 +24,17 @@
                     <th>Amount $</th>
                     <th>Wt Sold</th>
                     <th>Prc/Unit</th>
-                    <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach ($sales as $key => $sale)
-                    <tr id="item_{{ $sale->id }}">
+                    <tr id="item_{{ $sale->id }}" data-toggle="modal" data-target="#salesmodal_{{ $sale->id }}">
                         <td>{{ $sale->upc_code }}</td>
                         <td>{{ $sale->pos_description }}</td>
                         <td>{{ $sale->quantity_sold }}</td>
                         <td>{{ $sale->weight_sold }}</td>
-                        <td>{{ $sale->unit_price }} UNIT PRICE</td>
+                        <td>{{ $sale->unit_cost }}</td>
                         <td>{{ $sale->pack }} PACK</td>
-                        <td>
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#salesmodal_{{ $sale->id }}">View</button>
-                        </td>
                     </tr>
                 @endforeach
 

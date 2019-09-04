@@ -38936,12 +38936,19 @@ $(function () {
     var mym = mydata_arr[1].split('=');
     var myt = mydata_arr[2].split('=');
     console.log(mym[1].length);
+
+    if (mym[1].length > 0) {
+      var _manager_id = mym[1];
+    } else {
+      var _manager_id2 = null;
+    }
+
     console.log(mydata_arr[2]);
     var url = '/stores/' + store_id + '/update';
     var data = {
       id: store_id,
       store_id: store_id,
-      manager_id: mym[1],
+      manager_id: manager_id,
       store_format_id: myt[1],
       _token: Laravel.csrfToken
     };
@@ -39013,7 +39020,35 @@ $(function () {
     range: true,
     value: [3, 7]
   });
+  $('#item_list_search').on('keyup', function () {
+    var query = $(this).val();
+
+    if (query.length > 2) {
+      fetch_item_data(query);
+    }
+  }); // $('table.items-table').on('click', 'tr.items-tr', function() {
+  //     window.location =$(this).data('url');
+  // });
 });
+
+function fetch_item_data() {
+  var query = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+  $('tbody').html('<div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div>');
+  jQuery.ajax({
+    url: "/items/search",
+    method: 'GET',
+    data: {
+      query: query
+    },
+    dataType: 'json',
+    success: function success(data) {
+      console.log(data.table_data);
+      $('tbody').html(data.table_data);
+      $('#total_records').text(data.total_data);
+      $('#modals').html(data.modal_data);
+    }
+  });
+}
 
 function getSales() {
   console.log('getting sales');
