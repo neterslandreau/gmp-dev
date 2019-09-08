@@ -13,7 +13,24 @@ class Item extends Model
      * @var array
      */
     protected $fillable = [
-        'slug', 'name', 'upc_code', 'description', 'size', 'quantity', 'net_cost', 'net_case'
+        'slug',
+        'store_nbr',
+        'upc_code',
+        'qty_onhand',
+        'qty_sold',
+        'amt_sold',
+        'weight_sold',
+        'sale_date',
+        'price_qty',
+        'price',
+        'unit_cost',
+        'pos_description',
+        'size',
+        'case_cost',
+        'cur_price_qty',
+        'cur_price',
+        'base_unit_cost',
+        'base_case_cost',
     ];
 
     /**
@@ -27,7 +44,7 @@ class Item extends Model
     {
         return [
             'slug' => [
-                'source' => 'description',
+                'source' => ['pos_description','store_nbr','upc_code'],
             ],
         ];
     }

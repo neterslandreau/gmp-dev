@@ -1,39 +1,62 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Console\Commands;
 
 use App\CaseEligibleAllowance;
-use App\Item;
+use App\DeliveryCharge;
+use App\Invoice;
 use App\InvoiceDetail;
 use App\InvoiceDetailAllowance;
-use App\OrderExemption;
 use App\InvoiceTotal;
-use App\DeliveryCharge;
+use App\OrderExemption;
 use App\Store;
-use App\Invoice;
-use App\Sales;
-
-use Illuminate\Support\Facades\DB;
+use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 
-class ItemsController extends Controller
+class ImportInvoices extends Command
 {
-    public function import()
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'import:invoices {file}';
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'This allows for importing invoices downloaded from ftp.';
+
+    /**
+     * Create a new command instance.
+     *
+     * @return void
+     */
+    public function __construct()
     {
-        app('debugbar')->disable();
+        parent::__construct();
+    }
 
-        set_time_limit(1000);
+    /**
+     * Execute the console command.
+     *
+     */
+    public function handle()
+    {
+        $path = 'Import/Invoices/';
+        if (Storage::disk('local')->exists($path.$this->argument('file'))) {
+            $f = Storage::disk('local')->get($path . $this->argument('file'));
+        } else {
+            die('File Not Found'."\n");
+        }
 
-        $file = Storage::disk('local')->get('ELVC0004-090119.J');
-        $rows = preg_split('/\n/', $file);
-        $billedItems = [];
-        $deals = [];
-        $allowances = [];
-        $orderExpemptions = [];
-        $deliveryCharges = [];
-        $invoiceTotals = [];
+        dd(Storage::disk('local')->exists($path.$this->argument('file')));
+
+        $rows = preg_split('/\n/', $f);
+//        $this->line(count($rows));
+
         $totalCounts = [];
         $field_lengths = [
             'record-type' => [
@@ -244,13 +267,12 @@ class ItemsController extends Controller
 
 
         ];
-//        print_r($field_lengths);
+
         $store_number = (int) substr($rows[0], $field_lengths['store-nbr']['start'] - 1, $field_lengths['store-nbr']['length']);
-//        dd($store_number);
-        $store = Store::where('number', $store_number)->first();
+        $store = Store::where('number', '=', $store_number)->first();
         $invoice_date = substr($rows[0], $field_lengths['delivery-date']['start'] - 1, $field_lengths['delivery-date']['length']);
         $newdate = substr($invoice_date, 0, 4).'-'.substr($invoice_date, 4, 2).'-'.substr($invoice_date, 6,2);
-//        dd($newdate);
+
         $invoice = new Invoice([
             'store_id' => $store->id,
             'delivery_date' => $newdate,
@@ -265,6 +287,7 @@ class ItemsController extends Controller
         $deliveryChargesCnt = 0;
         $invoiceTotalsCnt = 0;
 
+        $bar = $this->output->createProgressBar(count($rows));
         foreach ($rows as $r => $row) {
             if (substr($row, $field_lengths['record-type']['start'] - 1, $field_lengths['record-type']['length']) == '01') {
                 $invoiceDetail =  new InvoiceDetail([
@@ -462,300 +485,9 @@ class ItemsController extends Controller
                 ];
 
             }
-//            echo substr($row, $field_lengths['record-type']['start'] - 1, $field_lengths['record-type']['length']).'<br>';
-
-
+            $bar->advance();
         }
-        echo 'billed items: '.$billedItemsCnt.'<br>';
-        echo 'deals: '.$dealsCnt.'<br>';
-        echo 'allowances: '.$allowancesCnt.'<br>';
-        echo 'order exemptions: '.$orderExemptionsCnt.'<br>';
-        echo 'delivery charges: '.$deliveryChargesCnt.'<br>';
-        echo 'invoice totals: '.$invoiceTotalsCnt.'<br>';
+        $bar->finish();
 
-        echo '<pre>';
-//        print_r($billedItems);
-//        print_r($deals);
-//        print_r($allowances);
-//        print_r($orderExemptions);
-//        print_r($deliveryCharges);
-//        print_r($invoiceTotals);
-        print_r($totalCounts);
-        echo '</pre>';
-
-//        session()->flash('message', 'The items was successfully imported');
-//
-//        return redirect('/home');
-    }
-
-    public function download(Request $request)
-    {
-
-        $ftp_server = '3.82.218.210';
-        $ftp_user_name = 'gmpftpuser';
-        $ftp_user_pass = 'asdfQWER1234';
-        $file = request('file');
-
-        $path = Storage::disk('local')->path('Import/'.request('path').'/');
-        $myfile = $path.$file;
-
-        $ftph = ftp_connect($ftp_server);
-        $login = ftp_login($ftph, $ftp_user_name, $ftp_user_pass);
-
-        $fh = fopen($myfile, 'a+');
-        if (ftp_fget($ftph, $fh, $file, FTP_ASCII, 0)) {
-            echo "successfully written to $myfile\n";
-        } else {
-            echo "There was a problem while downloading $file to $myfile\n";
-        }
-
-        ftp_close($ftph);
-        fclose($fh);
-    }
-
-    public function import_sales()
-    {
-        set_time_limit(1000);
-
-        $file = Storage::disk('local')->get("Sales 7-1-19.CSV");
-        $rows = preg_split('/\r\n/', $file);
-
-        foreach ($rows as $r => $row) {
-//            if ($r == 0) {
-//                echo '<pre>';
-//                print_r($row);
-//                echo '</pre>';
-//            }
-            if($r) {
-                $csv = str_getcsv($row);
-//                if ($r == 6) {
-//                    break;
-//                }
-//                echo '<pre>';
-//                print_r($csv[22]);
-//                echo '</pre>';
-                $sales = new Sales([
-                    'store_nbr' => $csv[0],
-                    'upc_code' => $csv[1],
-                    'quantity_sold' => $csv[2],
-                    'amount_sold' => $csv[3],
-                    'weight_sold' => $csv[4],
-                    'sale_date' => $csv[5],
-                    'department' => $csv[6],
-                    'enhanced_department' => $csv[7],
-                    'price_qty' => $csv[8],
-                    'price' => $csv[9],
-                    'coupon_type' => $csv[10],
-                    'category' => $csv[11],
-                    'unit_cost' => $csv[12],
-                    'b_value' => $csv[13],
-                    'pos_description' => $csv[14],
-                    'main_link' => $csv[15],
-                    'size' => $csv[16],
-                    'case_cost' => $csv[17],
-                    'wh_item_code' => $csv[18],
-                    'vendor_item_number' => $csv[19],
-                    'price_type' => $csv[20],
-                    'cur_price_qty' => $csv[21],
-                    'cur_base_price' => $csv[22],
-                    'base_unit_cost' => $csv[23],
-                    'base_case_cost' => $csv[24],
-                ]);
-                $sales->save();
-//                echo '<pre>';
-//                print_r($csv);
-//                echo '</pre>';
-            }
-        }
-
-        echo 'imported';
-
-    }
-
-    public function import_lists()
-    {
-        $file = Storage::disk('local')->get('Import/Items/ProduceSales-082719.csv');
-        $rows = array_map('str_getcsv', explode("\n", $file));
-
-        $r = 0;
-        while ($r <= count($rows)) {
-            if ($r !== 0) {
-                $item = new Item([
-                    'store_nbr' => $rows[$r][0],
-                    'upc_code' => $rows[$r][1],
-                    'qty_sold' => $rows[$r][2],
-                    'amt_sold' => $rows[$r][3],
-                    'weight_sold' => $rows[$r][4],
-                    'sale_date' => $rows[$r][5],
-                    'price_qty' => $rows[$r][8],
-                    'price' => $rows[$r][9],
-                    'unit_cost' => $rows[$r][12],
-                    'pos_description' => $rows[$r][14],
-                    'size' => $rows[$r][16],
-                    'case_cost' => $rows[$r][17],
-                    'cur_price_qty' => $rows[$r][21],
-                    'cur_price' => $rows[$r][22],
-                    'base_unit_cost' => $rows[$r][23],
-                    'base_case_cost' => $rows[$r][24],
-                ]);
-                $item->save();
-            }
-        }
-
-    }
-
-    /**
-     * @param Request $request
-     */
-    function search(Request $request)
-    {
-        if ($request->ajax()) {
-            $output = '';
-            $modalout = '';
-            $query = $request->get('query');
-            if ($query != '') {
-                $data = DB::table('items')
-                    ->where("description", "like", "%".$query."%")
-                    ->orWhere("upc_code", "like", "%".$query."%")
-                    ->orWhere("size", "like", "%".$query."%")
-//                    ->orWhere("net_cost", "like", "%".$query."%")
-//                    ->orWhere("net_case", "like", "%".$query."%")
-//                    ->orWhere("retail", "like", "%".$query."%")
-                    ->orderBy("slug", "asc")
-                    ->get();
-
-            }
-            else {
-                $data = DB::table('items')
-                    ->orderBy('slug', 'asc')
-                    ->get();
-            }
-            $total_row = $data->count();
-            if ($total_row > 0) {
-                foreach ($data as $row) {
-                    $output .= '
-                        <tr id="item_'.$row->id.'" class="items-tr"  data-toggle="modal" data-target="#itemmodal_'.$row->id.'">
-                         <td name="upc_code">'.str_pad($row->upc_code,15, 0, STR_PAD_LEFT).'</td>
-                         <td name="description">'.$row->description.'</td>
-                         <td name="pack">'.$row->pack.'</td>
-                         <td name="size">'.$row->size.'</td>
-                         <td name="retail">'.$row->retail.'</td>
-                         <td name="quantity">'.$row->quantity.'</td>
-                         <td name="gross_margin">'.$row->gross_margin.'</td>
-                         <td name="net_cost">'.$row->net_cost.'</td>
-                         <td name="net_case">'.$row->net_case.'</td>
-                        </tr>
-';
-                    $modalout .= '
-                    <div class="modal fade" id="itemmodal_'.$row->id.'" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document"><div class="modal-content"><div class="modal-header">
-                    <h5 class="modal-title" id="modal_'.$row->id.'">'.$row->description.'</h5<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span></button></div><div class="modal-body">
-                    <form id="form_'.$row->id.'">
-                    <div class="form-group"><label for="'.$row->upc_code.'">UPC Code</label><input type="text" name="upc_code" class="form-control" value="'.$row->upc_code.'" readonly></div>
-                    <div class="form-group"><label for="'.$row->description.'">Name</label><input type="text" name="name" class="form-control" value="'.$row->description.'" readonly></div>
-                    <div class="form-group"><label for="'.$row->pack.'">Pack</label><input type="text" name="name" class="form-control" value="'.$row->description.'" readonly></div>
-                    <div class="form-group"><label for="'.$row->size.'">Size</label><input type="text" name="size" class="form-control" value="'.$row->size.'" readonly></div>
-                    <div class="form-group"><label for="'.$row->retail.'">Retail</label><input type="text" name="retail" class="form-control" value="'.$row->retail.'" readonly></div>
-                    <div class="form-group"><label for="'.$row->quantity.'">Quantity</label><input type="text" name="quantity" class="form-control" value="'.$row->quantity.'" readonly></div>
-                    <div class="form-group"><label for="'.$row->gross_margin.'">Gross Margin</label><input type="text" name="gross_margin" class="form-control" value="'.$row->gross_margin.'" readonly></div>
-                    <div class="form-group"><label for="'.$row->net_case.'">Net Case</label><input type="text" name="net_case" class="form-control" value="'.$row->net_case.'" readonly></div>
-                    <div class="form-group"><label for="'.$row->net_cost.'">Net Cost</label><input type="text" name="net_cost" class="form-control" value="'.$row->net_cost.'" readonly></div>
-                    </form></div>
-                    <div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button><button type="button" class="btn btn-primary" id="itemsave_'.$row->id.'">Save changes</button></div></div></div></div>';
-                }
-            }
-            else {
-                $output = '
-                   <tr>
-                    <td align="center" colspan="10">No Data Found</td>
-                   </tr>
-';
-            }
-            $data = array(
-                'table_data'  => $output,
-                'total_data'  => $total_row,
-                'modal_data' => $modalout
-            );
-
-            return json_encode($data);
-        }
-    }
-
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Item  $item
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Item $item)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Item  $item
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Item $item)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Item  $item
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Item $item)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Item  $item
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Item $item)
-    {
-        //
     }
 }

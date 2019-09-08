@@ -17,22 +17,28 @@ class ItemsTableSeeder extends Seeder
      */
     public function run()
     {
-        $file = Storage::disk('local')->get('master_list_070219_1.csv');
+        $file = Storage::disk('local')->get('ProduceSales-090119.csv');
         $rows = array_map('str_getcsv', explode("\n", $file));
 //        dd($rows);
         foreach ($rows as $r => $row) {
             if ($r !== 0) {
                 $item = new Item([
-                    'upc_code' => $row[0],
-                    'wh_code' => $row[1],
-                    'description' => $row[3],
-                    'pack' => $row[4],
-                    'size' => $row[5],
-                    'quantity' => $row[6],
-                    'retail' => $row[7],
-                    'gross_margin' => $row[10],
-                    'net_cost' => $row[15],
-                    'net_case' => $row[32],
+                    'store_nbr' => $row[0],
+                    'upc_code' => $row[1],
+                    'qty_sold' => $row[2],
+                    'amt_sold' => $row[3],
+                    'weight_sold' => $row[4],
+                    'sale_date' => $row[5],
+                    'price_qty' => $row[8],
+                    'price' => $row[9],
+                    'unit_cost' => $row[12],
+                    'pos_description' => $row[14],
+                    'size' => $row[16],
+                    'case_cost' => $row[17],
+                    'cur_price_qty' => $row[21],
+                    'cur_price' => $row[22],
+                    'base_unit_cost' => $row[23],
+                    'base_case_cost' => $row[24],
                 ]);
                 $item->save();
             }

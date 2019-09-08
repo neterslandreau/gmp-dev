@@ -23,6 +23,7 @@ Route::post('/store', 'HomeController@store');
 
 Route::get('/items/import', 'ItemsController@import')->name('items.import');
 Route::get('/items/import_sales', 'ItemsController@import_sales');
+Route::get('/items/import_lists', 'ItemsController@import_lists');
 
 Route::get('/items/download', 'ItemsController@download')->name('items.download');
 
@@ -30,6 +31,7 @@ Route::get('/items/download', 'ItemsController@download')->name('items.download'
 
 //Route::get('/live_search', 'LiveSearch@index');
 Route::get('/items/search', 'ItemsController@search')->name('items.search');
+Route::get('/sales/search', 'SalesController@search')->name('sales.search');
 
 Route::get('/test', 'UsersController@test');
 

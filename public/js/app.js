@@ -39022,10 +39022,11 @@ $(function () {
   });
   $('#item_list_search').on('keyup', function () {
     var query = $(this).val();
-
-    if (query.length > 2) {
-      fetch_item_data(query);
-    }
+    fetch_item_data(query);
+  });
+  $('#sales_list_search').on('keyup', function () {
+    var query = $(this).val();
+    fetch_sales_data(query);
   });
   $('#store-select').on('change', function () {
     console.log($(this).val());
@@ -39035,8 +39036,8 @@ $(function () {
 
 function fetch_item_data() {
   var query = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-  $('tbody').html('<div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div>');
-  jQuery.ajax({
+  $('#item-table').contents('tbody').html('<div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div>');
+  $.ajax({
     url: "/items/search",
     method: 'GET',
     data: {
@@ -39044,10 +39045,32 @@ function fetch_item_data() {
     },
     dataType: 'json',
     success: function success(data) {
-      console.log(data.table_data);
-      $('tbody').html(data.table_data);
+      console.log(data);
+      $('#item-table').contents('tbody').html(data.table_data);
       $('#total_records').text(data.total_data);
-      $('#modals').html(data.modal_data);
+      $('#item-modals').html(data.modal_data);
+    },
+    complete: function complete(data) {
+      console.log(data);
+    }
+  });
+}
+
+function fetch_sales_data() {
+  var query = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+  $('#sales-table').contents('tbody').html('<div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div>');
+  $.ajax({
+    url: "/sales/search",
+    method: 'GET',
+    data: {
+      query: query
+    },
+    dataType: 'json',
+    success: function success(data) {
+      console.log(data);
+      $('#sales-table').contents('tbody').html(data.table_data);
+      $('#total_records_sales').text(data.total_data);
+      $('#sales-modals').html(data.modal_data);
     }
   });
 }

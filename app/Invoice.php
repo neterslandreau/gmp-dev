@@ -31,7 +31,7 @@ class Invoice extends Model
         return $this->hasOne('App\DeliveryCharge');
     }
 
-    public function billedItem()
+    public function invoiceDetail()
     {
         return $this->hasOne('App\InvoiceDetail');
     }
