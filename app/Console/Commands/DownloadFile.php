@@ -39,7 +39,7 @@ class DownloadFile extends Command
     public function handle()
     {
         Storage::disk('local')->put('Import/'.$this->argument('type').'/'.$this->argument('file'), Storage::disk('ftp')->get($this->argument('file')));
-        $this->comment('File downloaded. Import will start.');
+        $this->comment($this->argument('file').' was downloaded. Import will start.');
         $this->call('import:'.strtolower($this->argument('type')), ['file' => $this->argument('file')]);
     }
 }
