@@ -26,7 +26,7 @@ class CreateInvoiceDetailAllowancesTable extends Migration
             $table->string('deferred_bill_date', 8)->nullable();
             $table->string('deferred_bill_flag', 1)->nullable();
             $table->string('upc_code', 15)->nullable();
-            $table->string('facility', 1)->nullable();
+            $table->string('facility', 2)->nullable();
             $table->string('whse', 2)->nullable();
             $table->string('item_code_ckdgt_bil', 6)->nullable();
             $table->string('item_code_ckdgt_ord', 6)->nullable();

@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Item;
+use App\Sales;
 use Cviebrock\EloquentSluggable\Sluggable;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Console\Command;
@@ -90,6 +91,26 @@ class ImportItems extends Command
 //                        $this->line('diff: '.$diff);
                         $item->qty_onhand = $diff;
                         $item->save();
+                        $sales = new Sales();
+                        $sales->store_nbr = $item->store_nbr;
+                        $sales->upc_code = $item->upc_code;
+                        $sales->qty_sold = (int)$row[2];
+                        $sales->amt_sold = $item->amt_sold;
+                        $sales->weight_sold = $item->weight_sold;
+                        $sales->sale_date = $item->sale_date;
+                        $sales->price_qty = $item->price_qty;
+                        $sales->price = $item->price;
+                        $sales->unit_cost = $item->unit_cost;
+                        $sales->pos_description = $item->pos_description;
+                        $sales->size = $item->size;
+                        $sales->case_cost = $item->case_cost;
+                        $sales->cur_price_qty = $item->cur_price_qty;
+                        $sales->cur_price = $item->cur_price;
+                        $sales->base_unit_cost = $item->base_unit_cost;
+                        $sales->base_case_cost = $item->base_case_cost;
+
+                        $sales->save();
+
                         $updated++;
                     }
                     if ( trim($row[22]) !== trim($item->cur_price) ) {
@@ -114,6 +135,7 @@ class ImportItems extends Command
         $this->comment('No. Items updated on-hand: '.$updated);
         $this->comment('NO. Items SRP changed: '.$price_change);
         unset($rows);
+        Storage::disk('local')->delete('Import/Items/'.$this->argument('file'));
 
 
 //        $this->line("Some text");

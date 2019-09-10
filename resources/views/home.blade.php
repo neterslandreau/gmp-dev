@@ -9,29 +9,37 @@
         <div class="row mr-auto">
             <div class="col-md-8">
 
-                <h5>Store: {{ session()->get('store')->name }}</h5>
+                <h5>Store: {{ session()->get('store')->name }}  -  Delivery Date: {{ session()->get('delivery_date') }}</h5>
                 <div id="store_id" class="d-none">{{ session()->get('store')->id }}</div>
                 <div id="store_number" class="d-none">{{ session()->get('store')->number }}</div>
-                <div id="delivery_date" class="d-none">2019-06-30</div>
+                <div id="delivery_date" class="d-none">{{ session()->get('delivery_date') }}</div>
 
-                <div>
-                    <form id="store-select-form" method="post" action="/store" class="form-inline pb-3">
+                <div class="pb-3">
+
+                    <form id="store-select-form-home" method="post" action="/store" class="form-inline">
                         {{ csrf_field() }}
-                        <div class="form-row align-items-center">
-                            <select class="custom-select" id="store-select" name="selected-store">
 
-                                <option value="" selected>Select your store</option>
+                        <select class="custom-select" id="store-select-home" name="selected-store">
 
-                                @foreach($stores as $s => $store)
+                            <option value="" selected>Select your store</option>
 
-                                    <option id="{{ $store->id }}" value="{{ $store->id }}">{{ $store->name }}</option>
+                            @foreach($stores as $s => $store)
 
-                                @endforeach
+                                <option id="{{ $store->id }}" value="{{ $store->id }}">{{ $store->name }}</option>
 
-                            </select>
+                            @endforeach
 
-                        </div>
+                        </select>
 
+                        <select class="custom-select" id="deldates-home" name="delivery_date" disabled>
+                            <option value="" selected>Select your date</option>
+
+
+                        </select>
+
+                        <input type="hidden" name="from_home" value="1">
+
+                        <button id="select-store-date" type="submit" class="btn btn-outline-info">Go</button>
                     </form>
 
                 </div>

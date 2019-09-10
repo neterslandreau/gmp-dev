@@ -26,14 +26,14 @@ class CreateInvoiceDetailsTable extends Migration
             $table->string('deferred_bill_date', 8)->nullable();
             $table->string('deferred_bill_flag', 1)->nullable();
             $table->string('upc_code', 15)->nullable();
-            $table->string('facility', 1)->nullable();
+            $table->string('facility', 2)->nullable();
             $table->string('whse', 2)->nullable();
             $table->string('item_code_ckdgt_bil', 6)->nullable();
             $table->string('item_code_ckdgt_ord', 6)->nullable();
             $table->string('sub_code', 1)->nullable();
-            $table->string('reject_code', 4)->nullable();
             $table->string('item_desc', 23)->nullable();
             $table->string('ba_retail_ext', 8)->nullable();
+            $table->string('rwi', 1)->nullable();
             $table->string('picking_slot', 6)->nullable();
             $table->string('size', 6)->nullable();
             $table->string('pack', 5)->nullable();
@@ -42,6 +42,9 @@ class CreateInvoiceDetailsTable extends Migration
             $table->string('mbr_case_cost', 7)->nullable();
             $table->string('mbr_ext_case_cost', 7)->nullable();
             $table->string('freight', 5)->nullable();
+            $table->string('pallet_weight', 5)->nullable();
+            $table->string('order_qty',5)->nullable();
+            $table->string('item_rfnc_cd',10)->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

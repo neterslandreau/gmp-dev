@@ -14,8 +14,8 @@ class Sales extends Model
     protected $fillable = [
         'store_nbr',
         'upc_code',
-        'quantity_sold',
-        'amount_sold',
+        'qty_sold',
+        'amt_sold',
         'weight_sold',
         'sale_date',
         'department',
@@ -25,19 +25,24 @@ class Sales extends Model
         'coupon_type',
         'category',
         'unit_cost',
-        'b_value',
         'pos_description',
-        'main_link',
         'size',
         'case_cost',
-        'wh_item_code',
-        'vendor_item_number',
-        'price_type',
         'cur_price_qty',
-        'cur_price_base',
+        'cur_price',
         'base_unit_cost',
         'base_case_cost',
 
     ];
+    public $incrementing = false;
+
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => ['pos_description','store_nbr','upc_code'],
+            ],
+        ];
+    }
 
 }

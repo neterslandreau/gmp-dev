@@ -54,3 +54,4 @@ Route::post('/get_ids', 'StoresController@get_ids')->name('stores.get_ids');
 
 Route::get('/invoices', 'InvoiceController@index');
 Route::post('/invoices/{id}/{date}/get', 'InvoiceController@get');
+Route::post('/invoices/get_delivery_dates', 'InvoiceController@get_delivery_dates');

@@ -186,11 +186,57 @@ $(function() {
         fetch_sales_data(query);
     });
 
-    $('#store-select').on('change', function() {
+    $('#store-select-store').on('change', function() {
         console.log($(this).val());
-        $('#store-select-form').submit();
-    })
+        let store_id = $(this).val();
+        $.ajax({
+            url: '/invoices/get_delivery_dates',
+            method: 'POST',
+            data: {
+                _token: Laravel.csrfToken,
+                'store_id': store_id
+            },
+            dataType: 'json',
 
+
+            success: function(data)
+            {
+                console.log(data);
+                $.each(data, function(index, val) {
+                    console.log(val);
+                    $('#deldates-store').append('<option value='+val+' name='+val+'>'+val+'</option>');
+                });
+                $('#deldates-store').removeAttr('disabled');
+            }
+
+        });
+    });
+
+    $('#store-select-home').on('change', function() {
+        console.log($(this).val());
+        let store_id = $(this).val();
+        $.ajax({
+            url: '/invoices/get_delivery_dates',
+            method: 'POST',
+            data: {
+                _token: Laravel.csrfToken,
+                'store_id': store_id
+            },
+            dataType: 'json',
+
+
+            success: function(data)
+            {
+                console.log(data);
+                $.each(data, function(index, val) {
+                    console.log(val);
+                    $('#deldates-home').append('<option value='+val+' name='+val+'>'+val+'</option>');
+                });
+                $('#deldates-home').removeAttr('disabled');
+            }
+
+        });
+    });
 });
 
 function fetch_item_data(query = '')

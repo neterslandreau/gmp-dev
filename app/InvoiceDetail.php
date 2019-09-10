@@ -21,9 +21,9 @@ class InvoiceDetail extends Model
         'item_code_ckdgt_bil',
         'item_code_ckdgt_ord',
         'sub_code',
-        'reject_code',
         'item_desc',
         'ba_retail_ext',
+        'rwi',
         'picking_slot',
         'size',
         'pack',
@@ -32,6 +32,9 @@ class InvoiceDetail extends Model
         'mbr_case_cost',
         'mbr_ext_case_cost',
         'freight',
+        'pallet_weight',
+        'order_qty',
+        'item_rfnc_cd',
     ];
 
     public $incrementing = false;

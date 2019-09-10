@@ -31,8 +31,8 @@
                     <tr id="item_{{ $sale->id }}" class="sales-tr" data-toggle="modal" data-target="#salesmodal_{{ $sale->id }}">
                         <td>{{ $sale->upc_code }}</td>
                         <td>{{ $sale->pos_description }}</td>
-                        <td>{{ $sale->quantity_sold }}</td>
-                        <td>{{ $sale->amount_sold }}</td>
+                        <td>{{ $sale->qty_sold }}</td>
+                        <td>{{ $sale->amt_sold }}</td>
                         <td>{{ $sale->weight_sold }}</td>
                         <td>{{ $sale->unit_cost }}</td>
                     </tr>

@@ -101,4 +101,11 @@ class InvoiceController extends Controller
     {
         //
     }
+
+    public function get_delivery_dates(Request $request)
+    {
+        if (request()->method() === 'POST') {
+            return json_encode(Invoice::delivery_dates(request('store_id')));
+        }
+    }
 }

@@ -27,7 +27,7 @@ class ImportInvoices extends Command
      *
      * @var string
      */
-    protected $description = 'This allows for importing invoices downloaded from ftp.';
+    protected $description = 'This allows for importing invoices for a specific date. This loads the .K file.';
 
     /**
      * Create a new command instance.
@@ -47,12 +47,15 @@ class ImportInvoices extends Command
     {
         $path = 'Import/Invoices/';
         if (Storage::disk('local')->exists($path.$this->argument('file'))) {
-            $f = Storage::disk('local')->get($path . $this->argument('file'));
+            $fsize = Storage::disk('local')->size($path . $this->argument('file'));
+            if ($fsize > 0) {
+                $f = Storage::disk('local')->get($path . $this->argument('file'));
+            } else {
+                die('File is empty.'."\n");
+            }
         } else {
             die('File Not Found'."\n");
         }
-
-        dd(Storage::disk('local')->exists($path.$this->argument('file')));
 
         $rows = preg_split('/\n/', $f);
 //        $this->line(count($rows));
@@ -69,15 +72,15 @@ class ImportInvoices extends Command
                 'end' => 6,
                 'length' => 4,
             ],
-            'retail-dept' => [
-                'start' => 14,
-                'end' => 16,
-                'length' => 3,
-            ],
             'invoice-nbr' => [
                 'start' => 7,
                 'end' => 13,
                 'length' => 7,
+            ],
+            'retail-dept' => [
+                'start' => 14,
+                'end' => 16,
+                'length' => 3,
             ],
             'delivery-date' => [
                 'start' => 17,
@@ -111,27 +114,27 @@ class ImportInvoices extends Command
             ],
             'facility' => [
                 'start' => 67,
-                'end' => 67,
-                'length' => 1,
+                'end' => 68,
+                'length' => 2,
             ],
             'whse' => [
-                'start' => 68,
-                'end' => 69,
+                'start' => 69,
+                'end' => 70,
                 'length' => 2,
             ],
             'item-code-ckdgt-bil' => [
-                'start' => 70,
-                'end' => 75,
+                'start' => 71,
+                'end' => 76,
                 'length' => 6,
             ],
             'item-code-ckdgt-ord' => [
-                'start' => 76,
-                'end' => 81,
+                'start' => 77,
+                'end' => 82,
                 'length' => 6,
             ],
             'sub-code' => [
                 'start' => 82,
-                'end' => 82,
+                'end' => 83,
                 'length' => 1,
             ],
             'reject-code' => [
@@ -140,8 +143,8 @@ class ImportInvoices extends Command
                 'length' => 4,
             ],
             'item-desc' => [
-                'start' => 87,
-                'end' => 109,
+                'start' => 88,
+                'end' => 110,
                 'length' => 23,
             ],
             'deal-number' => [
@@ -180,53 +183,53 @@ class ImportInvoices extends Command
                 'length' => 8,
             ],
             'picking-slot' => [
-                'start' => 120,
-                'end' => 125,
+                'start' => 121,
+                'end' => 126,
                 'length' => 6,
             ],
             'size' => [
-                'start' => 126,
-                'end' => 131,
+                'start' => 127,
+                'end' => 132,
                 'length' => 6,
             ],
             'pack' => [
-                'start' => 132,
-                'end'=> 136,
+                'start' => 133,
+                'end'=> 137,
                 'length' => 5,
             ],
             'retail-pricing-unit' => [
-                'start' => 137,
-                'end' => 139,
+                'start' => 138,
+                'end' => 140,
                 'length' => 3,
             ],
             'retail-price' => [
-                'start' => 140,
-                'end' => 146,
+                'start' => 141,
+                'end' => 147,
                 'length' => 7,
             ],
             'mbr-case-cost' => [
-                'start' => 154,
-                'end' => 162,
+                'start' => 158,
+                'end' => 154,
                 'length' => 7,
             ],
             'mbr-ext-case-cost' => [
-                'start' => 154,
-                'end' => 162,
+                'start' => 155,
+                'end' => 163,
                 'length' => 7,
             ],
             'freight' => [
-                'start' => 163,
-                'end' => 167,
+                'start' => 164,
+                'end' => 168,
                 'length' => 5,
             ],
             'pallet-weight' => [
-                'start' => 168,
-                'end' => 172,
+                'start' => 169,
+                'end' => 173,
                 'length' => 5,
             ],
             'deal-seqnum' => [
-                'start' => 173,
-                'end' => 178,
+                'start' => 174,
+                'end' => 179,
                 'length' => 6,
             ],
             'deal-amount' => [
@@ -264,6 +267,22 @@ class ImportInvoices extends Command
                 'end' => 33,
                 'length' => 8,
             ],
+            'order-qty' => [
+                'start' => 188,
+                'end' => 192,
+                'length' => 5,
+            ],
+            'item-rfrnc-cd' => [
+                'start' => 195,
+                'end' => 204,
+                'length' => 10,
+            ],
+            'rwi' => [
+                'start' => 119,
+                'end' => 119,
+                'length' => 1,
+            ],
+
 
 
         ];
@@ -307,9 +326,9 @@ class ImportInvoices extends Command
                     'item_code_ckdgt_bil' => substr($row, $field_lengths['item-code-ckdgt-bil']['start'] - 1, $field_lengths['item-code-ckdgt-bil']['length']),
                     'item_code_ckdgt_ord' => substr($row, $field_lengths['item-code-ckdgt-ord']['start'] - 1, $field_lengths['item-code-ckdgt-ord']['length']),
                     'sub_code' => substr($row, $field_lengths['sub-code']['start'] - 1, $field_lengths['sub-code']['length']),
-                    'reject_code' => substr($row, $field_lengths['reject-code']['start'] - 1, $field_lengths['reject-code']['length']),
                     'item_desc' => substr($row, $field_lengths['item-desc']['start'] - 1, $field_lengths['item-desc']['length']),
                     'ba_retail_ext' => substr($row, $field_lengths['ba-retail-ext']['start'] - 1, $field_lengths['ba-retail-ext']['length']),
+                    'rwi' => substr($row, $field_lengths['rwi']['start'] - 1, $field_lengths['rwi']['length']),
                     'picking_slot' => substr($row, $field_lengths['picking-slot']['start'] - 1, $field_lengths['picking-slot']['length']),
                     'size' => substr($row, $field_lengths['size']['start'] - 1, $field_lengths['size']['length']),
                     'pack' => substr($row, $field_lengths['pack']['start'] - 1, $field_lengths['pack']['length']),
@@ -319,6 +338,8 @@ class ImportInvoices extends Command
                     'mbr_ext_case_cost' => substr($row, $field_lengths['mbr-ext-case-cost']['start'] - 1, $field_lengths['mbr-ext-case-cost']['length']),
                     'freight' => substr($row, $field_lengths['freight']['start'] - 1, $field_lengths['freight']['length']),
                     'pallet_weight' => substr($row, $field_lengths['pallet-weight']['start'] - 1, $field_lengths['pallet-weight']['length']),
+                    'order_qty' => substr($row, $field_lengths['order-qty']['start'] - 1, $field_lengths['order-qty']['length']),
+                    'item_rfnc_cd' => substr($row, $field_lengths['item-rfrnc-cd']['start'] - 1, $field_lengths['item-rfrnc-cd']['length']),
                 ]);
                 $billedItemsCnt++;
 //                var_dump($billedItem);
@@ -488,6 +509,9 @@ class ImportInvoices extends Command
             $bar->advance();
         }
         $bar->finish();
+        Storage::disk('local')->delete($path . $this->argument('file'));
+
+        $this->line("\n");
 
     }
 }

@@ -54,4 +54,9 @@ class Invoice extends Model
     {
         return $this->hasOne('App\Deal');
     }
+
+    public static function delivery_dates(string $store_id)
+    {
+        return static::where('store_id', '=', $store_id)->pluck('delivery_date');
+    }
 }
