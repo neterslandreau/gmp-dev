@@ -91,6 +91,7 @@ class ImportItems extends Command
 //                        $this->line('diff: '.$diff);
                         $item->qty_onhand = $diff;
                         $item->save();
+
                         $sales = new Sales();
                         $sales->store_nbr = $item->store_nbr;
                         $sales->upc_code = $item->upc_code;
