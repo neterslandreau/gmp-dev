@@ -28,33 +28,9 @@
                         <th>Cur Price</th>
                         <th>Base Unit Cost</th>
                         <th>Base Case Cost</th>
-{{--                        <th>Action</th>--}}
                     </tr>
                 </thead>
                 <tbody>
-                @foreach ($items as $key => $item)
-                    <tr id="item_{{ $item->id }}" class="items-tr" data-toggle="modal" data-target="#itemmodal_{{ $item->id }}">
-                        <td>{{ $item->store_nbr }}</td>
-                        <td>{{ $item->upc_code }}</td>
-                        <td>{{ $item->pos_description }}</td>
-                        <td>{{ $item->qty_sold }}</td>
-                        <td>{{ $item->amt_sold }}</td>
-                        <td>{{ $item->weight_sold }}</td>
-                        <td>{{ $item->sale_date }}</td>
-                        <td>{{ $item->price_qty }}</td>
-                        <td>{{ $item->price }}</td>
-                        <td>{{ $item->unit_cost }}</td>
-                        <td>{{ $item->size }}</td>
-                        <td>{{ $item->case_cost }}</td>
-                        <td>{{ $item->cur_price_qty }}</td>
-                        <td>{{ $item->cur_price }}</td>
-                        <td>{{ $item->base_unit_cost }}</td>
-                        <td>{{ $item->base_case_cost }}</td>
-{{--                        <td>--}}
-{{--                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#itemmodal_{{ $item->id }}">View</button>--}}
-{{--                        </td>--}}
-                    </tr>
-                @endforeach
 
                 </tbody>
                 <tfoot>

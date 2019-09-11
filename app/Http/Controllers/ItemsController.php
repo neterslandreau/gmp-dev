@@ -20,6 +20,9 @@ use Illuminate\Http\Request;
 
 class ItemsController extends Controller
 {
+    /**
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     *
     public function import()
     {
         app('debugbar')->disable();
@@ -488,6 +491,9 @@ class ItemsController extends Controller
 //        return redirect('/home');
     }
 
+    /**
+     * @param Request $request
+     *
     public function download(Request $request)
     {
 
@@ -513,6 +519,9 @@ class ItemsController extends Controller
         fclose($fh);
     }
 
+    /**
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     *
     public function import_sales()
     {
         set_time_limit(1000);
@@ -572,6 +581,9 @@ class ItemsController extends Controller
 
     }
 
+    /**
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     *
     public function import_lists()
     {
         $file = Storage::disk('local')->get('Import/Items/ProduceSales-082719.csv');
@@ -603,6 +615,7 @@ class ItemsController extends Controller
         }
 
     }
+
 
     /**
      * @param Request $request
@@ -682,15 +695,17 @@ class ItemsController extends Controller
         }
     }
 
-
     /**
-     * Display a listing of the resource.
+     * Get items by store number
      *
-     * @return \Illuminate\Http\Response
+     *
      */
-    public function index()
+    public function get_by_store()
     {
-        //
+        if (request()->method() === 'POST') {
+//            echo json_encode(str_pad(request('store_nbr'), 4, '0', STR_PAD_LEFT));
+            echo json_encode(Item::where('store_nbr', '=', str_pad(request('store_nbr'), 4, '0', STR_PAD_LEFT))->get());
+        }
     }
 
     /**

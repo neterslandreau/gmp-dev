@@ -237,6 +237,47 @@ $(function() {
 
         });
     });
+
+    $('#item-list-tab').on('click', function() {
+        let store_nbr = $('#store_number').html();
+        $.ajax({
+            url: '/items/get_by_store',
+            method: 'POST',
+            data: {
+                _token: Laravel.csrfToken,
+                'store_nbr': store_nbr
+            },
+            dataType: 'json',
+
+
+            success: function(data)
+            {
+                console.log(data);
+                    $.each(data, function(index, val) {
+                        $('#item-table').contents('tbody').append('<tr id="item_'+ val.id +'" class="items-tr" data-toggle="modal" data-target="#itemmodal_'+ val.id +'">');
+                        $('#item-table').contents('tbody').append('<td class="pr-2">'+ val.store_nbr +'</td></td>');
+                        $('#item-table').contents('tbody').append('<td class="pr-2">'+ val.upc_code + '</td>');
+                        $('#item-table').contents('tbody').append('<td class="pr-2">'+ val.pos_description + '</td>');
+                        $('#item-table').contents('tbody').append('<td class="pr-2">'+ val.qty_sold + '</td>');
+                        $('#item-table').contents('tbody').append('<td class="pr-2">'+ val.amt_sold + '</td>');
+                        $('#item-table').contents('tbody').append('<td class="pr-2">'+ val.weight_sold + '</td>');
+                        $('#item-table').contents('tbody').append('<td class="pr-2"></td>');
+                        $('#item-table').contents('tbody').append('<td class="pr-2">'+ val.cur_price + '</td>');
+                        $('#item-table').contents('tbody').append('<td class="pr-2">'+ val.cur_price_qty + '</td>');
+                        $('#item-table').contents('tbody').append('<td class="pr-2">&nbsp;</td>');
+                        $('#item-table').contents('tbody').append('<td class="pr-2">&nbsp;</td>');
+                        $('#item-table').contents('tbody').append('<td class="pr-2">&nbsp;</td>');
+                        $('#item-table').contents('tbody').append('<td class="pr-2">&nbsp;</td>');
+                        $('#item-table').contents('tbody').append('<td class="pr-2">&nbsp;</td>');
+                        $('#item-table').contents('tbody').append('<td class="pr-2">&nbsp;</td>');
+                        $('#item-table').contents('tbody').append('<td class="pr-2">&nbsp;</td>');
+                        $('#item-table').contents('tbody').append('</tr>');
+                    });
+
+            }
+
+        });
+    });
 });
 
 function fetch_item_data(query = '')
