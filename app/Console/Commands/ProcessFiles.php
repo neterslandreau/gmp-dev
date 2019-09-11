@@ -18,7 +18,7 @@ class ProcessFiles extends Command
      *
      * @var string
      */
-    protected $description = 'This will download and process all files for the date given. Date format is ddmmyy.';
+    protected $description = 'This will download and process all files for the date given. Date format is "mdy" (123119).';
 
     /**
      * Create a new command instance.

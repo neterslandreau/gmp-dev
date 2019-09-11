@@ -41,8 +41,8 @@ class HomeController extends Controller
         $store_id = session()->get('store')->id;
         $delivery_date = session()->get('delivery_date');
 
-        $items = Item::where('store_nbr', '=', $store_nbr)->first()->paginate(20);
-//        dd($items);
+        $items = Item::where('store_nbr', '=', $store_nbr)->paginate(20);
+//        dd(count($items));
         $invoice =  \App\Invoice::where('store_id', '=', $store_id)->where('delivery_date', '=', $delivery_date)->first();
 //        dd($store_id, $delivery_date);
         session()->put('invoice', $invoice);
