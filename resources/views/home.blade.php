@@ -67,7 +67,7 @@
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="item-list" role="tabpanel" aria-labelledby="item-list"> @include('partials.item-list') </div>
                     <div class="tab-pane fade" id="daily-audit-items" role="tabpanel" aria-labelledby="daily-audit-items">{{-- @include('partials.daily-audit-items') --}}</div>
-                    <div class="tab-pane fade" id="daily-audit-sales" role="tabpanel" aria-labelledby="daily-audit-sales">{{-- @include('partials.daily-audit-sales') --}}</div>
+                    <div class="tab-pane fade" id="daily-audit-sales" role="tabpanel" aria-labelledby="daily-audit-sales">@include('partials.daily-audit-sales')</div>
                     <div class="tab-pane fade" id="daily-audit-purchases" role="tabpanel" aria-labelledby="daily-audit-purchases">{{-- @include('partials.daily-audit-purchases') --}}</div>
                     <div class="tab-pane fade" id="market-analytics" role="tabpanel" aria-labelledby="market-analytics">{{-- @include('partials.market-analytics') --}}</div>
                     <div class="tab-pane fade" id="store-config" role="tabpanel" aria-labelledby="store-config">{{-- @include('partials.store-config') --}}</div>
