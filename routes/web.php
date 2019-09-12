@@ -24,6 +24,7 @@ Route::post('/store', 'HomeController@store');
 Route::get('/items/import', 'ItemsController@import')->name('items.import');
 Route::get('/items/import_sales', 'ItemsController@import_sales');
 Route::get('/items/import_lists', 'ItemsController@import_lists');
+Route::post('/items/get_by_store', 'ItemsController@get_by_store');
 
 Route::get('/items/download', 'ItemsController@download')->name('items.download');
 

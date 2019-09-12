@@ -47,7 +47,7 @@
 
                 <ul class="nav nav-pills" id="myTab" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" id="item-list-tab" data-toggle="tab" href="#item-list" role="tab" aria-controls="item-list" aria-selected="true">Your Item List</a>
+                        <a class="nav-link" id="item-list-tab" data-toggle="tab" href="#item-list" role="tab" aria-controls="item-list" aria-selected="false">Your Item List</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Daily Audit</a>
@@ -65,12 +65,12 @@
 
                 </ul>
                 <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="item-list" role="tabpanel" aria-labelledby="item-list">@include('partials.item-list')</div>
-                    <div class="tab-pane fade" id="daily-audit-items" role="tabpanel" aria-labelledby="daily-audit-items">@include('partials.daily-audit-items')</div>
+                    <div class="tab-pane fade show active" id="item-list" role="tabpanel" aria-labelledby="item-list"> @include('partials.item-list') </div>
+                    <div class="tab-pane fade" id="daily-audit-items" role="tabpanel" aria-labelledby="daily-audit-items">{{-- @include('partials.daily-audit-items') --}}</div>
                     <div class="tab-pane fade" id="daily-audit-sales" role="tabpanel" aria-labelledby="daily-audit-sales">@include('partials.daily-audit-sales')</div>
-                    <div class="tab-pane fade" id="daily-audit-purchases" role="tabpanel" aria-labelledby="daily-audit-purchases">@include('partials.daily-audit-purchases')</div>
-                    <div class="tab-pane fade" id="market-analytics" role="tabpanel" aria-labelledby="market-analytics">@include('partials.market-analytics')</div>
-                    <div class="tab-pane fade" id="store-config" role="tabpanel" aria-labelledby="store-config">@include('partials.store-config')</div>
+                    <div class="tab-pane fade" id="daily-audit-purchases" role="tabpanel" aria-labelledby="daily-audit-purchases">{{-- @include('partials.daily-audit-purchases') --}}</div>
+                    <div class="tab-pane fade" id="market-analytics" role="tabpanel" aria-labelledby="market-analytics">{{-- @include('partials.market-analytics') --}}</div>
+                    <div class="tab-pane fade" id="store-config" role="tabpanel" aria-labelledby="store-config">{{-- @include('partials.store-config') --}}</div>
 
                 </div>
             </div>

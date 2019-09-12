@@ -39070,6 +39070,48 @@ $(function () {
       }
     });
   });
+  $('#item-list-tab').on('click', function () {
+    var store_nbr = $('#store_number').html();
+    $('#item-table').contents('tbody').html('<tr><td><div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div></td></tr>');
+    $.ajax({
+      url: '/items/get_by_store',
+      method: 'POST',
+      data: {
+        _token: Laravel.csrfToken,
+        'store_nbr': store_nbr
+      },
+      dataType: 'json',
+      success: function success(data) {
+        console.log(data.length);
+        $('#total_records').html(data.length);
+        $('#item_list_search').removeClass('d-none');
+        $('#total-records-holder').removeClass('d-none');
+        $('#item-table').contents('thead').html('                    <tr>\n' + '                        <th>Store</th>\n' + '                        <th>UPC/PLU</th>\n' + '                        <th>Description</th>\n' + '                        <th>Qty Sold</th>\n' + '                        <th>Amt Sold</th>\n' + '                        <th>Weight Sold</th>\n' + '                        <th>Sale Date</th>\n' + '                        <th>Price Qty</th>\n' + '                        <th>Price</th>\n' + '                        <th>Unit Cost</th>\n' + '                        <th>Size</th>\n' + '                        <th>Case Cost</th>\n' + '                        <th>Cur Price Qty</th>\n' + '                        <th>Cur Price</th>\n' + '                        <th>Base Unit Cost</th>\n' + '                        <th>Base Case Cost</th>\n' + '                        <th>Action</th>\n' + '                    </tr>\n');
+        $('#item-table').contents('tbody').html('');
+        $.each(data, function (index, val) {
+          $('#item-table').contents('tbody').append('<tr id="item_' + val.id + '" class="items-tr" data-toggle="modal" data-target="#itemmodal_' + val.id + '">');
+          $('#item-table').contents('tbody').append('<td >' + val.store_nbr + '</td></td>');
+          $('#item-table').contents('tbody').append('<td >' + val.upc_code + '</td>');
+          $('#item-table').contents('tbody').append('<td >' + val.pos_description + '</td>');
+          $('#item-table').contents('tbody').append('<td >' + val.qty_sold + '</td>');
+          $('#item-table').contents('tbody').append('<td >' + val.amt_sold + '</td>');
+          $('#item-table').contents('tbody').append('<td >' + val.weight_sold + '</td>');
+          $('#item-table').contents('tbody').append('<td ></td>');
+          $('#item-table').contents('tbody').append('<td >' + val.price_qty + '</td>');
+          $('#item-table').contents('tbody').append('<td >' + val.price + '</td>');
+          $('#item-table').contents('tbody').append('<td >' + val.unit_cost + '</td>');
+          $('#item-table').contents('tbody').append('<td >' + val.size + '</td>');
+          $('#item-table').contents('tbody').append('<td >' + val.case_cost + '</td>');
+          $('#item-table').contents('tbody').append('<td >' + val.cur_price_qty + '</td>');
+          $('#item-table').contents('tbody').append('<td >' + val.cur_price + '</td>');
+          $('#item-table').contents('tbody').append('<td >' + val.base_unit_cost + '</td>');
+          $('#item-table').contents('tbody').append('<td >' + val.base_case_cost + '</td>');
+          $('#item-table').contents('tbody').append('<td ><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#itemmodal_' + val.id + '">View</button></td>');
+          $('#item-table').contents('tbody').append('</tr>');
+        });
+      }
+    });
+  });
 });
 
 function fetch_item_data() {

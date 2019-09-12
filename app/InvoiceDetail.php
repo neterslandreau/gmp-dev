@@ -41,6 +41,9 @@ class InvoiceDetail extends Model
 
     public function invoice()
     {
-        return $this->belongsTo('App\Invoice');
+        return $this->belongsTo('App\Invoice')->select([
+            'invoice_id', 'upc_code', 'pos_description',
+
+            ]);
     }
 }
