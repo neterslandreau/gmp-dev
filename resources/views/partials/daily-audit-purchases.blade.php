@@ -9,53 +9,54 @@
 
 <div class="container">
 
+    <div id="purchases-list-details-holder" class="row d-none">
+
+{{--        <div class="col-sm-6">--}}
+
+{{--            <div class="card">--}}
+{{--                <div class="card-body">--}}
+
+{{--                    <div id="total-purchases-holder">--}}
+{{--                        <h4 class="text-muted">Total Purchases: <span id="total_records_purchases"></span></h4>--}}
+{{--                    </div>--}}
+
+{{--                </div>--}}
+{{--            </div>--}}
+
+{{--        </div>--}}
+
+        <div class="col-sm-6">
+
+            <div class="card">
+                <div class="card-body">
+
+                    <div id="purchases-list-search-holder">
+                        <input type="text" name="search" id="purchases_list_search" class="form-control" placeholder="Search Purchases" />
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
 
     <div class="row">
 
-        <div class="form-group pt-3">
-            <input type="text" name="search" id="purchases_list_search" class="form-control" placeholder="Search Purchases" />
-        </div>
-
-        <div class="">
-            <h3 class="d-block">Total Purchases: <span id="total_records_purchases"></span></h3>
-            {{-- --}}
             <table class="table table-bordered table-sm table-condensed table-striped table-hover" id="purchases-table">
                 <thead>
-                <tr>
-                    <th>UPC/PLU</th>
-                    <th>Description</th>
-                    <th>Cases</th>
-                    <th>Items/Case</th>
-                    <th>Case Cost</th>
-                    <th>Item Cost</th>
-                    <th>Store</th>
-                </tr>
+
                 </thead>
                 <tbody>
-                @foreach ($invoice->invoiceDetail()->get() as $d => $daily)
-                    <tr id="item_{{ $daily->id }}" data-toggle="modal" data-target="#purchasemodal_{{ $daily->id }}">
-                        <td>{{ $daily->upc_code }}</td>
-                        <td>{{ $daily->item_desc }}</td>
-                        <td>{{ $invoice->invoiceTotal->case_qty_billed }}</td>
-                        <td>{{ $daily->pack }}</td>
-                        <td>{{ $daily->pack }} / {{ $daily->mbr_case_cost }}</td>
-                        <td>{{ $daily->pack }} / {{ $daily->mbr_case_cost }}</td>
-                        <td>{{ $daily->store_nbr }}</td>
-                    </tr>
-                @endforeach
 
                 </tbody>
                 <tfoot>
+
                 </tfoot>
             </table>
-            {{-- --}}
 
-        </div>
     </div>
 
 </div>
-<div id="purchases-modals">
-{{--    @foreach ($dailys as $key => $purchase)--}}
-{{--        @include('partials.modals.purchasesmodal')--}}
-{{--    @endforeach--}}
-</div>
+
+<div id="purchases-modals"></div>

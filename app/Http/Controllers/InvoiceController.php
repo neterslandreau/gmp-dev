@@ -108,4 +108,21 @@ class InvoiceController extends Controller
             return json_encode(Invoice::delivery_dates(request('store_id')));
         }
     }
+
+    /**
+     * Get invoices by store number
+     *
+     *
+     */
+    public function get_by_store()
+    {
+        if (request()->method() === 'POST') {
+            echo json_encode(Invoice::where('store_id', '=', str_pad(request('store_id'), 4, '0', STR_PAD_LEFT))
+//                ->where('delivery_date', '=', request('delivery_date'))
+                ->with(['InvoiceDetail', 'InvoiceTotal'])
+                ->get());
+        }
+    }
+
+
 }

@@ -69,6 +69,19 @@ class SalesController extends Controller
         echo json_encode($data);
     }
     /**
+     * Get items by store number
+     *
+     *
+     */
+    public function get_by_store()
+    {
+        if (request()->method() === 'POST') {
+            echo json_encode(Sales::where('store_nbr', '=', str_pad(request('store_nbr'), 4, '0', STR_PAD_LEFT))->where('sale_date', '!=', '')->get());
+        }
+    }
+
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response

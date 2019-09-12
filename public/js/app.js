@@ -39084,9 +39084,8 @@ $(function () {
       success: function success(data) {
         console.log(data.length);
         $('#total_records').html(data.length);
-        $('#item_list_search').removeClass('d-none');
-        $('#total-records-holder').removeClass('d-none');
-        $('#item-table').contents('thead').html('                    <tr>\n' + '                        <th>Store</th>\n' + '                        <th>UPC/PLU</th>\n' + '                        <th>Description</th>\n' + '                        <th>Qty Sold</th>\n' + '                        <th>Amt Sold</th>\n' + '                        <th>Weight Sold</th>\n' + '                        <th>Sale Date</th>\n' + '                        <th>Price Qty</th>\n' + '                        <th>Price</th>\n' + '                        <th>Unit Cost</th>\n' + '                        <th>Size</th>\n' + '                        <th>Case Cost</th>\n' + '                        <th>Cur Price Qty</th>\n' + '                        <th>Cur Price</th>\n' + '                        <th>Base Unit Cost</th>\n' + '                        <th>Base Case Cost</th>\n' + '                        <th>Action</th>\n' + '                    </tr>\n');
+        $('#item-list-details-holder').removeClass('d-none');
+        $('#item-table').contents('thead').html('<tr>' + '<th>Store</th>' + '<th>UPC/PLU</th>' + '<th>Description</th>' + '<th>Qty Sold</th>' + '<th>Amt Sold</th>' + '<th>Weight Sold</th>' + '<th>Sale Date</th>' + '<th>Price Qty</th>' + '<th>Price</th>' + '<th>Unit Cost</th>' + '<th>Size</th>' + '<th>Case Cost</th>' + '<th>Cur Price Qty</th>' + '<th>Cur Price</th>' + '<th>Base Unit Cost</th>' + '<th>Base Case Cost</th>' + '<th>Action</th>' + '</tr>');
         $('#item-table').contents('tbody').html('');
         $.each(data, function (index, val) {
           $('#item-table').contents('tbody').append('<tr id="item_' + val.id + '" class="items-tr" data-toggle="modal" data-target="#itemmodal_' + val.id + '">');
@@ -39108,6 +39107,81 @@ $(function () {
           $('#item-table').contents('tbody').append('<td >' + val.base_case_cost + '</td>');
           $('#item-table').contents('tbody').append('<td ><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#itemmodal_' + val.id + '">View</button></td>');
           $('#item-table').contents('tbody').append('</tr>');
+        });
+      }
+    });
+  });
+  $('#daily-audit-sales-tab').on('click', function () {
+    var store_nbr = $('#store_number').html();
+    $('#sales-table').contents('tbody').html('<tr><td><div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div></td></tr>');
+    $.ajax({
+      url: '/sales/get_by_store',
+      method: 'POST',
+      data: {
+        _token: Laravel.csrfToken,
+        'store_nbr': store_nbr
+      },
+      dataType: 'json',
+      success: function success(data) {
+        console.log(data);
+        $('#total_records_sales').html(data.length);
+        $('#sales-list-details-holder').removeClass('d-none');
+        $('#sales-table').contents('thead').html('<th>PLU</th>' + '<th>Description</th>' + '<th>Qty</th>' + '<th>Amount $</th>' + '<th>Wt Sold</th>' + '<th>Prc/Unit</th>' + '<th>Action</th>');
+        $('#sales-table').contents('tbody').html('');
+        $.each(data, function (index, val) {
+          $('#sales-table').contents('tbody').append('<tr id="item_' + val.id + '" class="sales-tr" data-toggle="modal" data-target="#salesmodal_' + val.id + '">');
+          $('#sales-table').contents('tbody').append('<td>' + val.upc_code + '</td>');
+          $('#sales-table').contents('tbody').append('<td>' + val.pos_description + '</td>');
+          $('#sales-table').contents('tbody').append('<td>' + val.qty_sold + '</td>');
+          $('#sales-table').contents('tbody').append('<td>' + val.amt_sold + '</td>');
+          $('#sales-table').contents('tbody').append('<td>' + val.weight_sold + '</td>');
+          $('#sales-table').contents('tbody').append('<td>' + val.unit_cost + '</td>');
+          $('#sales-table').contents('tbody').append('<td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#salesmodal_' + val.id + '">View</button></td>');
+          $('#sales-table').contents('tbody').append('</tr>');
+          $('#sales-modals').append('<div class="modal fade" id="salesmodal_' + val.id + '" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">\n' + '<div class="modal-dialog" role="document">\n' + '<div class="modal-content">\n' + '<div class="modal-header">\n' + '<h5 class="modal-title" id="modal_' + val.id + '">' + val.name + '</h5>\n' + '<button type="button" class="close" data-dismiss="modal" aria-label="Close">\n' + '<span aria-hidden="true">&times;</span>\n' + '</button>\n' + '</div>\n' + '<div class="modal-body">\n' + '<form id="form_' + val.id + '">\n' + '<div class="form-group">\n' + '<label for="' + val.pos_description + '">Description</label>\n' + '<input type="text" name="name" class="form-control" value="' + val.pos_description + '" readonly>\n' + '</div>\n' + '<div class="form-group">\n' + '<label for="' + val.upc_code + '">UPC Code</label>\n' + '<input type="text" name="upc_code" class="form-control" value="' + val.upc_code + '" readonly>\n' + '</div>\n' + '<div class="form-group">\n' + '<label for="' + val.quantity_sold + '">Quantity Sold</label>\n' + '<input type="text" name="size" class="form-control" value="' + val.quantity_sold + '" readonly>\n' + '</div>\n' + '<div class="form-group">\n' + '<label for="' + val.weight_sold + '">Weight Sold</label>\n' + '<input type="text" name="quantity" class="form-control" value="' + val.weight_sold + '" readonly>\n' + '</div>\n' + '<div class="form-group">\n' + '<label for="' + val.unit_cost + '">Prc/Unit</label>\n' + '<input type="text" name="net_case" class="form-control" value="' + val.unit_cost + '" readonly>\n' + '</div>\n' + '</form>\n' + '</div>\n' + '<div class="modal-footer">\n' + '<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>\n' + '<button type="button" class="btn btn-primary" id="itemsave_' + val.id + '">Save changes</button>\n' + '</div>\n' + '</div>\n' + '</div>\n' + '</div>\n');
+        });
+      }
+    });
+  });
+  $('#daily-audit-purchases-tab').on('click', function () {
+    var store_id = $('#store_id').html();
+    var delivery_date = $('#delivery_date').html();
+    $('#purchases-table').contents('thead').html('<tr><td><div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div></td></tr>');
+    $.ajax({
+      url: '/invoices/get_by_store',
+      method: 'POST',
+      data: {
+        _token: Laravel.csrfToken,
+        'store_id': store_id,
+        'delivery_date': delivery_date
+      },
+      dataType: 'json',
+      success: function success(data) {
+        $('#total_records_purchases').html(data.length);
+        $('#purchases-list-details-holder').removeClass('d-none');
+        $('#purchases-table').contents('thead').html('');
+        $('#purchases-table').contents('thead').append('<tr>');
+        $('#purchases-table').contents('thead').append('<th>UPC/PLU</th>');
+        $('#purchases-table').contents('thead').append('<th>Description</th>');
+        $('#purchases-table').contents('thead').append('<th>Cases</th>');
+        $('#purchases-table').contents('thead').append('<th>Items/Case</th>');
+        $('#purchases-table').contents('thead').append('<th>Case Cost</th>');
+        $('#purchases-table').contents('thead').append('<th>Item Cost</th>');
+        $('#purchases-table').contents('thead').append('<th>Store</th>');
+        $('#purchases-table').contents('thead').append('<th>Action</th>');
+        $('#purchases-table').contents('thead').append('</tr>');
+        $.each(data, function (index, val) {
+          $('#purchases-table').contents('tbody').append('<tr id="item_' + val.invoice_detail.id + '" data-toggle="modal" data-target="#purchasemodal_' + val.invoice_detail.id + '">');
+          $('#purchases-table').contents('tbody').append('<td>' + val.invoice_detail.upc_code + '</td>');
+          $('#purchases-table').contents('tbody').append('<td>' + val.invoice_detail.item_desc + '</td>');
+          $('#purchases-table').contents('tbody').append('<td>' + val.invoice_total.case_qty_billed + '</td>');
+          $('#purchases-table').contents('tbody').append('<td>' + val.invoice_detail.pack + '</td>');
+          $('#purchases-table').contents('tbody').append('<td>' + val.invoice_detail.pack + '/ ' + val.invoice_detail.mbr_case_cost + '</td>');
+          $('#purchases-table').contents('tbody').append('<td>' + val.invoice_detail.pack + '/ ' + val.invoice_detail.mbr_ext_case_cost + '</td>');
+          $('#purchases-table').contents('tbody').append('<td>' + val.invoice_detail.store_nbr + '</td>');
+          $('#purchases-table').contents('tbody').append('<td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#purchasemodal_' + val.invoice_detail.id + '">View</button></td>');
+          $('#purchases-table').contents('tbody').append('</tr>');
+          $('#purchases-modals').append('<div class="modal fade" id="purchasemodal_' + val.invoice_detail.id + '" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">' + '<div class="modal-dialog" role="document">' + '<div class="modal-content">' + '<div class="modal-header">' + '<h5 class="modal-title" id="purchasemodal_' + val.invoice_detail.id + '">' + val.invoice_detail.item_desc + '</h5>' + '<button type="button" class="close" data-dismiss="modal" aria-label="Close">' + '<span aria-hidden="true">&times;</span>' + '</button>' + '</div>' + '<div class="modal-body">' + '<form id="form_' + val.invoice_detail.id + '">' + '<div class="form-group">' + '<label for="' + val.invoice_detail.item_desc + '">Name</label>' + '<input type="text" name="name" class="form-control" value="' + val.invoice_detail.item_desc + '" readonly>' + '</div>' + '<div class="form-group">' + '<label for="' + val.invoice_detail.upc_code + '">UPC Code</label>' + '<input type="text" name="upc_code" class="form-control" value="' + val.invoice_detail.upc_code + '" readonly>' + '</div>' + '<div class="form-group">' + '<label for="' + val.invoice_detail.size + '">Size</label>' + '<input type="text" name="size" class="form-control" value="' + val.invoice_detail.size + '" readonly>' + '</div>' + '<div class="form-group">' + '<label for="' + val.invoice_detail.mbr_case_cost + '">Quantity</label>' + '<input type="text" name="quantity" class="form-control" value="' + val.invoice_detail.mbr_case_cost + '" readonly>' + '</div>' + '<div class="form-group">' + '<label for="' + val.invoice_detail.mbr_case_cost + '">Case Cost</label>' + '<input type="text" name="net_case" class="form-control" value="' + val.invoice_detail.mbr_case_cost + '" readonly>' + '</div>' + '<div class="form-group">' + '<label for="' + val.invoice_detail.mbr_case_cost + '">Net Cost</label>' + '<input type="text" name="net_cost" class="form-control" value="' + val.invoice_detail.mbr_case_cost + '" readonly>' + '</div>' + '</form>' + '</div>' + '<div class="modal-footer">' + '<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>' + '<button type="button" class="btn btn-primary" id="itemsave_' + val.invoice_detail.id + '">Save changes</button>' + '</div>' + '</div>' + '</div>' + '</div>');
         });
       }
     });

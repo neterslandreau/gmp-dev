@@ -2,40 +2,58 @@
 //    $store_nbr = session()->get('store')->number;
 //    $store_nbr = str_pad($store_nbr, 4,'0', STR_PAD_LEFT);
 //    $sales = App\Sales::where('store_nbr', $store_nbr)->get();
-$sales = [];
 
 @endphp
 <div class="container">
 
-    <div class="row">
+    <div id="sales-list-details-holder" class="row d-none">
 
-        <div class="form-group pt-3">
-            <input type="text" name="search" id="sales_list_search" class="form-control" placeholder="Search Sales" />
+        <div class="col-sm-6">
+
+            <div class="card">
+                <div class="card-body">
+
+                    <div id="total-sales-holder">
+                        <h4 class="text-muted">Total Sales: <span id="total_records_sales"></span></h4>
+                    </div>
+
+                </div>
+            </div>
+
         </div>
 
-        <div class="table">
-            <h3 class="d-block">Total Sales: <span id="total_records_sales"></span></h3>
-            {{-- --}}
+        <div class="col-sm-6">
+
+            <div class="card">
+                <div class="card-body">
+
+                    <div id="sales-list-search-holder">
+                        <input type="text" name="search" id="item_list_search" class="form-control" placeholder="Search Sales" />
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row">
+
             <table class="table table-bordered table-sm table-condensed table-striped table-hover" id="sales-table">
                 <thead>
 
-                </tr>
                 </thead>
                 <tbody>
 
                 </tbody>
                 <tfoot>
+
                 </tfoot>
             </table>
-            {{-- --}}
 
-        </div>
     </div>
 
 </div>
-<div id="sales-modals">
-    @foreach ($sales as $key => $sale)
-        @include('partials.modals.salesmodal')
-    @endforeach
-</div>
+<div id="sales-modals"></div>
 

@@ -1,17 +1,37 @@
 <div class="container">
 
-    <div class="row">
+    <div id="item-list-details-holder" class="row d-none">
 
+        <div class="col-sm-6">
 
-        <div id="total-records-holder" class="col-4 d-none" style="height: 20px;">
-            <h3>Total Items: <span id="total_records"></span></h3>
+            <div class="card">
+                <div class="card-body">
+
+                    <div id="total-records-holder">
+                        <h4 class="text-muted">Total Items: <span id="total_records"></span></h4>
+                    </div>
+
+                </div>
+            </div>
+
         </div>
 
-        <div class="col-4 form-group pt-3">
-            <input type="text" name="search" id="item_list_search" class="form-control d-none" placeholder="Search Items" />
+        <div class="col-sm-6">
+
+            <div class="card">
+                <div class="card-body">
+
+                    <div id="item-list-search-holder">
+                        <input type="text" name="search" id="item_list_search" class="form-control" placeholder="Search Items" />
+                    </div>
+
+                </div>
+            </div>
+
         </div>
 
     </div>
+
     <div class="row>">
             <table class="table table-bordered table-sm table-condensed table-striped table-hover items-table" id="item-table">
                 <thead>
