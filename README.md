@@ -6,6 +6,7 @@
 
 ### GMP Installation
 1. clone repository and `cd` into the installation directory.
+1. ```composer update```
 1. ```phart migrate```
 1. ```phart db:seed```
 (this will add superusers)
