@@ -2,6 +2,7 @@
 
 use Carbon\Carbon;
 use Cviebrock\EloquentSluggable\Sluggable;
+use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
@@ -10,6 +11,7 @@ class Model extends Eloquent
     use Uuids;
     use Sluggable;
     use SoftDeletes;
+//    use Cachable;
 
     protected $guarded = [];
 

@@ -13,6 +13,7 @@ use App\Store;
 use App\Invoice;
 use App\Sales;
 
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -105,12 +106,17 @@ class ItemsController extends Controller
      * Get items by store number
      *
      *
+     * @throws \Exception
      */
     public function get_by_store()
     {
-        if (request()->method() === 'POST') {
-//            echo json_encode(str_pad(request('store_nbr'), 4, '0', STR_PAD_LEFT));
-            echo json_encode(Item::where('store_nbr', '=', str_pad(request('store_nbr'), 4, '0', STR_PAD_LEFT))->get());
+        if (request()->ajax()) {
+                $rtn = cache()->remember('get_by_store', 1, function () {
+//                    echo 'storing in cache<br>';
+                    return json_encode(Item::where('store_nbr', '=', str_pad(request('store_nbr'), 4, '0', STR_PAD_LEFT))->get());
+                });
+                echo cache()->get('get_by_store');
+
         }
     }
 
