@@ -19,7 +19,7 @@ All of the file processing commands are ready for crontabs:
 
 `0 3 * * * /usr/bin/php artisan {process:files [date('dmy')]}` 
 
-The above will process the sales and invoices '.K' file at 3am daily.
+The above will process the sales and invoices '.K' file at 3am on {dmy}.
 
 To run a daily import of the data:
 
