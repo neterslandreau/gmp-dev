@@ -15,6 +15,7 @@ use App\Sales;
 
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -107,15 +108,22 @@ class ItemsController extends Controller
      *
      *
      * @throws \Exception
+     * @throws \Psr\SimpleCache\InvalidArgumentException
      */
     public function get_by_store()
     {
         if (request()->ajax()) {
-                $rtn = cache()->remember('get_by_store', 1, function () {
-//                    echo 'storing in cache<br>';
-                    return json_encode(Item::where('store_nbr', '=', str_pad(request('store_nbr'), 4, '0', STR_PAD_LEFT))->get());
-                });
-                echo cache()->get('get_by_store');
+            Log::notice(Cache::store('file')->get('get_by_store'));
+
+            if (!cache()->has('get_by_store')) {
+                Log::notice('The query is not stored.. storing');
+                $rtn = 'no have the key';
+                cache()->put('get_by_store', Item::where('store_nbr', '=', str_pad(request('store_nbr'), 4, '0', STR_PAD_LEFT))->get(), 10);
+            }
+
+            Log::notice(cache()->get('get_by_store'));
+
+            echo json_encode(cache()->get('get_by_store'));
 
         }
     }
