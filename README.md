@@ -1,8 +1,8 @@
 # Grow-My-Profits
 
-##[Laravel 5.8 Server Requirements](https://laravel.com/docs/5.8/installation#server-requirements)
+## [Laravel 5.8 Server Requirements](https://laravel.com/docs/5.8/installation#server-requirements)
 
-#####Important step in processing: `alias phart='php artisan'`
+##### Important step in processing: `alias phart='php artisan'`
 
 ### GMP Installation
 1. clone repository and `cd` into the installation directory.
