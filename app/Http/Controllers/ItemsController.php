@@ -113,15 +113,7 @@ class ItemsController extends Controller
     public function get_by_store()
     {
         if (request()->ajax()) {
-//            Log::notice(Cache::store('file')->get('get_by_store'));
 
-//            if (!cache()->has('get_by_store')) {
-//                Log::notice('The query is not stored.. storing');
-//                $rtn = 'no have the key';
-//                cache()->put('get_by_store', Item::where('store_nbr', '=', str_pad(request('store_nbr'), 4, '0', STR_PAD_LEFT))->get(), 10);
-//            }
-//
-//            Log::notice(cache()->get('get_by_store'));
             echo json_encode(Item::where('store_nbr', '=', str_pad(request('store_nbr'), 4, '0', STR_PAD_LEFT))->get());
 
         }
