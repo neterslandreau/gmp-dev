@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Invoice;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class InvoiceController extends Controller
 {
@@ -116,11 +117,20 @@ class InvoiceController extends Controller
      */
     public function get_by_store()
     {
-        if (request()->method() === 'POST') {
-            echo json_encode(Invoice::where('store_id', '=', str_pad(request('store_id'), 4, '0', STR_PAD_LEFT))
-//                ->where('delivery_date', '=', request('delivery_date'))
-                ->with(['InvoiceDetail', 'InvoiceTotal'])
-                ->get());
+        if (request()->ajax()) {
+
+            $store_id = request('store_id');
+            $delivery_date = request('delivery_date');
+
+            $query = "select invoice_details.* from `invoices`
+                    	join invoice_details on invoice_details.invoice_id = invoices.id 
+                    	where invoices.store_id = '$store_id' 
+                    		and invoices.delivery_date = '$delivery_date'";
+
+            $results = DB::select(DB::raw($query));
+
+            echo json_encode($results);
+
         }
     }
 
