@@ -11,19 +11,19 @@
 
     <div id="purchases-list-details-holder" class="row d-none">
 
-{{--        <div class="col-sm-6">--}}
+        <div class="col-sm-6">
 
-{{--            <div class="card">--}}
-{{--                <div class="card-body">--}}
+            <div class="card">
+                <div class="card-body">
 
-{{--                    <div id="total-purchases-holder">--}}
-{{--                        <h4 class="text-muted">Total Purchases: <span id="total_records_purchases"></span></h4>--}}
-{{--                    </div>--}}
+                    <div id="total-purchases-holder">
+                        <h4 class="text-muted">Total Purchases: <span id="total_records_purchases"></span></h4>
+                    </div>
 
-{{--                </div>--}}
-{{--            </div>--}}
+                </div>
+            </div>
 
-{{--        </div>--}}
+        </div>
 
         <div class="col-sm-6">
 
