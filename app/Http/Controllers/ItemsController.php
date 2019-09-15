@@ -114,7 +114,7 @@ class ItemsController extends Controller
     {
         if (request()->ajax()) {
 
-            echo json_encode(Item::where('store_nbr', '=', str_pad(request('store_nbr'), 4, '0', STR_PAD_LEFT))->get());
+            echo json_encode(Item::where('store_nbr', '=', str_pad(request('store_nbr'), 4, '0', STR_PAD_LEFT))->paginate(10));
 
         }
     }

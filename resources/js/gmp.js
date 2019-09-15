@@ -250,8 +250,8 @@ $(function() {
 
 
             success: function (data) {
-                console.log(data.length);
-                $('#total_records').html(data.length);
+                console.log(data);
+                $('#total_records').html(data.total);
                 $('#item-list-details-holder').removeClass('d-none');
 
                 $('#item-table').contents('thead').html(
@@ -275,9 +275,9 @@ $(function() {
                     '<th>Action</th>' +
                     '</tr>');
                 $('#item-table').contents('tbody').html('');
-                $.each(data, function (index, val) {
+                $.each(data.data, function (index, val) {
                     $('#item-table').contents('tbody').append('<tr id="item_' + val.id + '" class="items-tr" data-toggle="modal" data-target="#itemmodal_' + val.id + '">');
-                    $('#item-table').contents('tbody').append('<td >' + val.store_nbr + '</td></td>');
+                    $('#item-table').contents('tbody').append('<td >' + val.store_nbr + '</td>');
                     $('#item-table').contents('tbody').append('<td >' + val.upc_code + '</td>');
                     $('#item-table').contents('tbody').append('<td >' + val.pos_description + '</td>');
                     $('#item-table').contents('tbody').append('<td >' + val.qty_sold + '</td>');

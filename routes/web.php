@@ -11,6 +11,8 @@
 |
 */
 
+use App\Item;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -30,6 +32,15 @@ Route::post('/sales/get_by_store', 'SalesController@get_by_store');
 Route::post('/invoices/get_by_store', 'InvoiceController@get_by_store');
 
 Route::get('/items/download', 'ItemsController@download')->name('items.download');
+
+Route::post('getItems', function (Request $request) {
+    if (request()->ajax()) {
+
+        echo json_encode(Item::where('store_nbr', '=', str_pad(request('store_nbr'), 4, '0', STR_PAD_LEFT))->paginate(10));
+
+    }
+
+});
 
 //Route::get('/invoices', 'InvoiceController@index')->name('invoices.list');
 
