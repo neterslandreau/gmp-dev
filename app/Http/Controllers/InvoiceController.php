@@ -15,7 +15,21 @@ class InvoiceController extends Controller
      */
     public function index()
     {
-        $invoices = Invoice::all();
+        $store_id = session()->get('store')->id;
+        $delivery_date = session()->get('delivery_date');
+
+        $query = "select invoice_details.* from `invoices`
+                    	join invoice_details on invoice_details.invoice_id = invoices.id 
+                    	where invoices.store_id = '$store_id' 
+                    		and invoices.delivery_date = '$delivery_date'";
+
+        $invoices = DB::table('invoices')
+            ->join('invoice_details', 'invoice_details.invoice_id', '=', 'invoices.id')
+            ->select('invoice_details.*')
+            ->paginate(5);
+
+//        $invoices = DB::select(DB::raw($query));
+//dd($invoices);
         return view('invoices.index', compact('invoices'));
     }
 

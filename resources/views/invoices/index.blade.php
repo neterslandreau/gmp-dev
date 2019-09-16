@@ -1,12 +1,16 @@
-<?php
-dd($invoices);
-    foreach($invoices as $i => $invoice) {
-        echo '<pre>';
-        print_r($invoices[$i]->deliveryCharge->cost_ext);
-//        print_r($invoice->deliveryCharge->store_nbr);
-        echo '</pre>';
-        echo '<pre>';
-//        print_r($invoice->deliveryCharge->cost_ext);
-        print_r($invoices[$i]->deliveryCharge->store_nbr);
-        echo '</pre>';
-    }
+@php
+
+    $user = session()->get('user');
+    $stores = $user->stores;
+
+
+@endphp
+@extends('layouts.app')
+
+@section('content')
+
+    @include('navigation.body-nav')
+
+    @include('partials.daily-audit-purchases2')
+
+@endsection

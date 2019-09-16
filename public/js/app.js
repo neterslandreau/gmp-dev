@@ -38970,15 +38970,13 @@ $(function () {
         location.reload();
       }
     });
-  });
-  $('a[data-toggle="tab"]').on('click', function (e) {
-    window.localStorage.setItem('activeTab', $(e.target).attr('href'));
-  });
-  var activeTab = window.localStorage.getItem('activeTab');
-
-  if (activeTab) {
-    $('#myTab a[href="' + activeTab + '"]').tab('show');
-  }
+  }); // $('a[data-toggle="tab"]').on('click', function (e) {
+  //     window.localStorage.setItem('activeTab', $(e.target).attr('href'));
+  // });
+  // let activeTab = window.localStorage.getItem('activeTab');
+  // if (activeTab) {
+  //     $('#myTab a[href="' + activeTab + '"]').tab('show');
+  // }
 
   $('#daily-audit-items-tab').on('click', function () {
     console.log('daily audit items clicked'); // console.log('store-select',$('#store_id').html());

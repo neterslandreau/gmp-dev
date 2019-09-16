@@ -48,7 +48,8 @@ class HomeController extends Controller
         session()->put('invoice', $invoice);
 //        dd($invoice);
 
-        return view('home2', compact('items', 'invoice'));
+//        return view('home2', compact('items', 'invoice'));
+        return redirect('/items');
     }
 
     public function store(Request $request)
