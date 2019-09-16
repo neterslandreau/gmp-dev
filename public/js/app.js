@@ -38970,15 +38970,13 @@ $(function () {
         location.reload();
       }
     });
-  });
-  $('a[data-toggle="tab"]').on('click', function (e) {
-    window.localStorage.setItem('activeTab', $(e.target).attr('href'));
-  });
-  var activeTab = window.localStorage.getItem('activeTab');
-
-  if (activeTab) {
-    $('#myTab a[href="' + activeTab + '"]').tab('show');
-  }
+  }); // $('a[data-toggle="tab"]').on('click', function (e) {
+  //     window.localStorage.setItem('activeTab', $(e.target).attr('href'));
+  // });
+  // let activeTab = window.localStorage.getItem('activeTab');
+  // if (activeTab) {
+  //     $('#myTab a[href="' + activeTab + '"]').tab('show');
+  // }
 
   $('#daily-audit-items-tab').on('click', function () {
     console.log('daily audit items clicked'); // console.log('store-select',$('#store_id').html());
@@ -39082,14 +39080,14 @@ $(function () {
       },
       dataType: 'json',
       success: function success(data) {
-        console.log(data.length);
-        $('#total_records').html(data.length);
+        console.log(data);
+        $('#total_records').html(data.total);
         $('#item-list-details-holder').removeClass('d-none');
         $('#item-table').contents('thead').html('<tr>' + '<th>Store</th>' + '<th>UPC/PLU</th>' + '<th>Description</th>' + '<th>Qty Sold</th>' + '<th>Amt Sold</th>' + '<th>Weight Sold</th>' + '<th>Sale Date</th>' + '<th>Price Qty</th>' + '<th>Price</th>' + '<th>Unit Cost</th>' + '<th>Size</th>' + '<th>Case Cost</th>' + '<th>Cur Price Qty</th>' + '<th>Cur Price</th>' + '<th>Base Unit Cost</th>' + '<th>Base Case Cost</th>' + '<th>Action</th>' + '</tr>');
         $('#item-table').contents('tbody').html('');
-        $.each(data, function (index, val) {
+        $.each(data.data, function (index, val) {
           $('#item-table').contents('tbody').append('<tr id="item_' + val.id + '" class="items-tr" data-toggle="modal" data-target="#itemmodal_' + val.id + '">');
-          $('#item-table').contents('tbody').append('<td >' + val.store_nbr + '</td></td>');
+          $('#item-table').contents('tbody').append('<td >' + val.store_nbr + '</td>');
           $('#item-table').contents('tbody').append('<td >' + val.upc_code + '</td>');
           $('#item-table').contents('tbody').append('<td >' + val.pos_description + '</td>');
           $('#item-table').contents('tbody').append('<td >' + val.qty_sold + '</td>');

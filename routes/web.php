@@ -11,6 +11,8 @@
 |
 */
 
+use App\Item;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -31,6 +33,15 @@ Route::post('/invoices/get_by_store', 'InvoiceController@get_by_store');
 
 Route::get('/items/download', 'ItemsController@download')->name('items.download');
 
+Route::post('/getItems', function (Request $request) {
+    if (request()->ajax()) {
+
+        echo json_encode(Item::where('store_nbr', '=', str_pad(request('store_nbr'), 4, '0', STR_PAD_LEFT))->paginate(10));
+
+    }
+
+});
+
 //Route::get('/invoices', 'InvoiceController@index')->name('invoices.list');
 
 //Route::get('/live_search', 'LiveSearch@index');
@@ -38,6 +49,12 @@ Route::get('/items/search', 'ItemsController@search')->name('items.search');
 Route::get('/sales/search', 'SalesController@search')->name('sales.search');
 
 Route::get('/test', 'UsersController@test');
+
+Route::get('/items', 'ItemsController@index');
+
+Route::get('/sales', 'SalesController@index');
+
+Route::get('/purchases', 'InvoiceController@index');
 
 Route::get('/users', 'UsersController@index')->name('users.list')->middleware('verified');
 Route::get('/users/create', 'UsersController@create')->name('users.create')->middleware('verified');

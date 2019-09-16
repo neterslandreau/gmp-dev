@@ -136,13 +136,13 @@ $(function() {
 
     });
 
-    $('a[data-toggle="tab"]').on('click', function (e) {
-        window.localStorage.setItem('activeTab', $(e.target).attr('href'));
-    });
-    let activeTab = window.localStorage.getItem('activeTab');
-    if (activeTab) {
-        $('#myTab a[href="' + activeTab + '"]').tab('show');
-    }
+    // $('a[data-toggle="tab"]').on('click', function (e) {
+    //     window.localStorage.setItem('activeTab', $(e.target).attr('href'));
+    // });
+    // let activeTab = window.localStorage.getItem('activeTab');
+    // if (activeTab) {
+    //     $('#myTab a[href="' + activeTab + '"]').tab('show');
+    // }
 
     $('#daily-audit-items-tab').on('click', function () {
         console.log('daily audit items clicked');
@@ -250,8 +250,8 @@ $(function() {
 
 
             success: function (data) {
-                console.log(data.length);
-                $('#total_records').html(data.length);
+                console.log(data);
+                $('#total_records').html(data.total);
                 $('#item-list-details-holder').removeClass('d-none');
 
                 $('#item-table').contents('thead').html(
@@ -275,9 +275,9 @@ $(function() {
                     '<th>Action</th>' +
                     '</tr>');
                 $('#item-table').contents('tbody').html('');
-                $.each(data, function (index, val) {
+                $.each(data.data, function (index, val) {
                     $('#item-table').contents('tbody').append('<tr id="item_' + val.id + '" class="items-tr" data-toggle="modal" data-target="#itemmodal_' + val.id + '">');
-                    $('#item-table').contents('tbody').append('<td >' + val.store_nbr + '</td></td>');
+                    $('#item-table').contents('tbody').append('<td >' + val.store_nbr + '</td>');
                     $('#item-table').contents('tbody').append('<td >' + val.upc_code + '</td>');
                     $('#item-table').contents('tbody').append('<td >' + val.pos_description + '</td>');
                     $('#item-table').contents('tbody').append('<td >' + val.qty_sold + '</td>');
