@@ -1,6 +1,6 @@
 <div class="container">
 
-    <div id="sales-list-details-holder" class="row d-none">
+    <div id="sales-list-details-holder" class="row">
 
         <div class="col-sm-6">
 
@@ -8,7 +8,7 @@
                 <div class="card-body">
 
                     <div id="total-sales-holder">
-                        <h4 class="text-muted">Total Sales: <span id="total_records_sales"></span></h4>
+                        <h4 class="text-muted">Total Sales: <span id="total_records_sales">{{ $sales->total() }}</span></h4>
                     </div>
 
                 </div>

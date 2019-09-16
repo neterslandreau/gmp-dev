@@ -1,6 +1,6 @@
 <div class="container">
 
-    <div id="purchases-list-details-holder" class="row d-none">
+    <div id="purchases-list-details-holder" class="row">
 
         <div class="col-sm-6">
 
@@ -8,7 +8,7 @@
                 <div class="card-body">
 
                     <div id="total-purchases-holder">
-                        <h4 class="text-muted">Total Purchases: <span id="total_records_purchases"></span></h4>
+                        <h4 class="text-muted">Total Purchases: <span id="total_records_purchases">{{ $invoices->total() }}</span></h4>
                     </div>
 
                 </div>

@@ -144,33 +144,66 @@ $(function() {
     //     $('#myTab a[href="' + activeTab + '"]').tab('show');
     // }
 
-    $('#daily-audit-items-tab').on('click', function () {
-        console.log('daily audit items clicked');
-        // console.log('store-select',$('#store_id').html());
 
-        let data = {
-            store_id: $('#store_id').html(),
-            delivery_date: $('#delivery_date').html()
-        };
+    let location = window.location.href;
+    console.log(location);
+    if (location.match('/items/')) {
+        console.log('in items');
+    }
 
-        let url = '/invoices/' + $('#store_id').html() + '/' + $('#delivery_date').html() + '/get';
-
-        console.log('url', url);
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        console.log('posting data ', data);
-
-        $.post(url, data, function (response, status) {
-            console.log(response);
-            console.log(status);
-        });
-
+    $('#item-list-tab').on('click', function() {
+        console.log(window.location.href);
+        $('.nav-link').removeClass('active');
+        $('#item-list-tab').addClass('active');
     });
+
+    $('#daily-audit-sales-tab').on('click', function() {
+        $('.nav-link').removeClass('active');
+        $('#daily-audit-sales-tab').addClass('active');
+    });
+
+    $('#daily-audit-purchases-tab').on('click', function() {
+        $('.nav-link').removeClass('active');
+        $('#daily-audit-purchases-tab').addClass('active');
+    });
+
+    $('#market-analytics-tab').on('click', function() {
+        $('.nav-link').removeClass('active');
+        $('#market-analytics-tab').addClass('active');
+    });
+
+    $('#store-config-tab').on('click', function() {
+        $('.nav-link').removeClass('active');
+        $('#store-config-tab').addClass('active');
+    });
+
+    // $('#daily-audit-items-tab').on('click', function () {
+    //     console.log('daily audit items clicked');
+    //     // console.log('store-select',$('#store_id').html());
+    //
+    //     let data = {
+    //         store_id: $('#store_id').html(),
+    //         delivery_date: $('#delivery_date').html()
+    //     };
+    //
+    //     let url = '/invoices/' + $('#store_id').html() + '/' + $('#delivery_date').html() + '/get';
+    //
+    //     console.log('url', url);
+    //
+    //     $.ajaxSetup({
+    //         headers: {
+    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //         }
+    //     });
+    //
+    //     console.log('posting data ', data);
+    //
+    //     $.post(url, data, function (response, status) {
+    //         console.log(response);
+    //         console.log(status);
+    //     });
+    //
+    // });
 
     $("#ex12a").slider({id: "slider12a", min: 0, max: 10, value: 5});
     $("#ex12b").slider({id: "slider12b", min: 0, max: 10, range: true, value: [3, 7]});

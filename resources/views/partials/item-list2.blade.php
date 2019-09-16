@@ -1,6 +1,6 @@
 <div class="container">
 
-    <div id="item-list-details-holder" class="row d-none">
+    <div id="item-list-details-holder" class="row">
 
         <div class="col-sm-6">
 
@@ -8,7 +8,7 @@
                 <div class="card-body">
 
                     <div id="total-records-holder">
-                        <h4 class="text-muted">Total Items: <span id="total_records"></span></h4>
+                        <h4 class="text-muted">Total Items: <span id="total_records">{{ $items->total() }}</span></h4>
                     </div>
 
                 </div>
@@ -80,7 +80,7 @@
             <tfoot>
             </tfoot>
         </table>
-        {!! $items->render() !!}
+        {!! $items->links() !!}
     </div>
 
 </div>

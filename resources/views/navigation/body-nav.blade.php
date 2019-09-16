@@ -44,7 +44,7 @@
             <ul class="nav nav-pills" id="myTab" role="tablist">
 
                 <li class="nav-item">
-                    <a class="nav-link active" id="item-list-tab" href="/items" role="button" aria-controls="item-list" aria-selected="false">Your Item List</a>
+                    <a class="nav-link" id="item-list-tab" href="/items" role="button" aria-controls="item-list" aria-selected="false">Your Item List</a>
                 </li>
 
                 <li class="nav-item dropdown">
