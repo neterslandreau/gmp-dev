@@ -35,8 +35,8 @@ class SalesController extends Controller
                         <tr id="sales_'.$row->id.'" class="sales-tr"  data-toggle="modal" data-target="#salesmodal_'.$row->id.'">
                          <td name="upc_code">'.$row->upc_code.'</td>
                          <td name="pos_description">'.$row->pos_description.'</td>
-                         <td name="quantity_sold">'.$row->quantity_sold.'</td>
-                         <td name="amount_sold">'.$row->amount_sold.'</td>
+                         <td name="quantity_sold">'.$row->qty_sold.'</td>
+                         <td name="amount_sold">'.$row->amt_sold.'</td>
                          <td name="weight_sold">'.$row->weight_sold.'</td>
                          <td name="unit_cost">'.$row->unit_cost.'</td>
                         </tr>

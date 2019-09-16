@@ -22,7 +22,7 @@
                 <div class="card-body">
 
                     <div id="sales-list-search-holder">
-                        <input type="text" name="search" id="item_list_search" class="form-control" placeholder="Search Sales" />
+                        <input type="text" name="search" id="sales_list_search" class="form-control" placeholder="Search Sales" />
                     </div>
 
                 </div>

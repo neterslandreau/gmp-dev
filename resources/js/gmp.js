@@ -524,7 +524,7 @@ $(function() {
 
 function fetch_item_data(query = '')
 {
-    $('#item-table').contents('tbody').html('<div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div>');
+    $('#item-table2').contents('tbody').html('<div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div>');
     $.ajax({
         url:"/items/search",
         method:'GET',
@@ -536,10 +536,6 @@ function fetch_item_data(query = '')
             $('#item-table2').contents('tbody').html(data.table_data);
             $('#total_records').html(data.total_data);
             $('#item-modals').html(data.modal_data);
-        },
-        complete:function(data)
-        {
-            console.log('goodbye');
         }
     });
 }
@@ -554,7 +550,7 @@ function fetch_sales_data(query = '')
         dataType:'json',
         success:function(data)
         {
-            console.log(data);
+            // console.log(data);
             $('#sales-table').contents('tbody').html(data.table_data);
             $('#total_records_sales').text(data.total_data);
             $('#sales-modals').html(data.modal_data);
