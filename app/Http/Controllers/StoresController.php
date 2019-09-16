@@ -21,8 +21,6 @@ class StoresController extends Controller
 
         $store_formats = StoreFormat::all();
 
-//        dd($stores);
-
         return view('stores.index');
     }
 
@@ -98,8 +96,6 @@ class StoresController extends Controller
 
             return json_encode(Store::where(['id' => request('id')])->first());
 
-//            return redirect()->home();
-////            dd( request('manager_id'));
         }
     }
 

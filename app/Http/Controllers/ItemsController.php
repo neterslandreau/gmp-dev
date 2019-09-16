@@ -36,9 +36,9 @@ class ItemsController extends Controller
             $query = $request->get('query');
             if ($query != '') {
                 $data = DB::table('items')
-                    ->where("description", "like", "%".$query."%")
+                    ->where("pos_description", "like", "%".$query."%")
                     ->orWhere("upc_code", "like", "%".$query."%")
-                    ->orWhere("size", "like", "%".$query."%")
+//                    ->orWhere("size", "like", "%".$query."%")
 //                    ->orWhere("net_cost", "like", "%".$query."%")
 //                    ->orWhere("net_case", "like", "%".$query."%")
 //                    ->orWhere("retail", "like", "%".$query."%")
@@ -55,33 +55,41 @@ class ItemsController extends Controller
             if ($total_row > 0) {
                 foreach ($data as $row) {
                     $output .= '
-                        <tr id="item_'.$row->id.'" class="items-tr"  data-toggle="modal" data-target="#itemmodal_'.$row->id.'">
-                         <td name="upc_code">'.str_pad($row->upc_code,15, 0, STR_PAD_LEFT).'</td>
-                         <td name="description">'.$row->description.'</td>
-                         <td name="pack">'.$row->pack.'</td>
-                         <td name="size">'.$row->size.'</td>
-                         <td name="retail">'.$row->retail.'</td>
-                         <td name="quantity">'.$row->quantity.'</td>
-                         <td name="gross_margin">'.$row->gross_margin.'</td>
-                         <td name="net_cost">'.$row->net_cost.'</td>
-                         <td name="net_case">'.$row->net_case.'</td>
-                        </tr>
+                <tr id="item_'.$row->id.'" class="sales-tr" data-toggle="modal" data-target="#itemmodal_'. $row->id .'">
+                    <td>'. $row->store_nbr .'</td>
+                    <td>'. $row->upc_code .'</td>
+                    <td>'. $row->pos_description .'</td>
+                    <td>'. $row->qty_sold .'</td>
+                    <td>'. $row->amt_sold .'</td>
+                    <td>'. $row->weight_sold .'</td>
+                    <td></td>
+                    <td>'. $row->price_qty .'</td>
+                    <td>'. $row->price .'</td>
+                    <td>'. $row->unit_cost .'</td>
+                    <td>'. $row->size .'</td>
+                    <td>'. $row->case_cost .'</td>
+                    <td>'. $row->cur_price_qty .'</td>
+                    <td>'. $row->cur_price .'</td>
+                    <td>'. $row->base_unit_cost .'</td>
+                    <td>'. $row->base_case_cost .'</td>
+                </tr>
 ';
+//                    $modalout = '';
                     $modalout .= '
                     <div class="modal fade" id="itemmodal_'.$row->id.'" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document"><div class="modal-content"><div class="modal-header">
-                    <h5 class="modal-title" id="modal_'.$row->id.'">'.$row->description.'</h5<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <h5 class="modal-title" id="modal_'.$row->id.'">'.$row->pos_description.'</h5<button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span></button></div><div class="modal-body">
                     <form id="form_'.$row->id.'">
                     <div class="form-group"><label for="'.$row->upc_code.'">UPC Code</label><input type="text" name="upc_code" class="form-control" value="'.$row->upc_code.'" readonly></div>
-                    <div class="form-group"><label for="'.$row->description.'">Name</label><input type="text" name="name" class="form-control" value="'.$row->description.'" readonly></div>
-                    <div class="form-group"><label for="'.$row->pack.'">Pack</label><input type="text" name="name" class="form-control" value="'.$row->description.'" readonly></div>
-                    <div class="form-group"><label for="'.$row->size.'">Size</label><input type="text" name="size" class="form-control" value="'.$row->size.'" readonly></div>
-                    <div class="form-group"><label for="'.$row->retail.'">Retail</label><input type="text" name="retail" class="form-control" value="'.$row->retail.'" readonly></div>
-                    <div class="form-group"><label for="'.$row->quantity.'">Quantity</label><input type="text" name="quantity" class="form-control" value="'.$row->quantity.'" readonly></div>
-                    <div class="form-group"><label for="'.$row->gross_margin.'">Gross Margin</label><input type="text" name="gross_margin" class="form-control" value="'.$row->gross_margin.'" readonly></div>
-                    <div class="form-group"><label for="'.$row->net_case.'">Net Case</label><input type="text" name="net_case" class="form-control" value="'.$row->net_case.'" readonly></div>
-                    <div class="form-group"><label for="'.$row->net_cost.'">Net Cost</label><input type="text" name="net_cost" class="form-control" value="'.$row->net_cost.'" readonly></div>
+                    <div class="form-group"><label for="'.$row->pos_description.'">Pos Description</label><input type="text" name="pos_description" class="form-control" value="'.$row->pos_description.'" readonly></div>
+                    <div class="form-group"><label for="'.$row->qty_sold.'">Qty Sold</label><input type="text" name="qty_sold" class="form-control" value="'.$row->qty_sold.'" readonly></div>
+                    <div class="form-group"><label for="'.$row->amt_sold.'">Amt Sold</label><input type="text" name="amt_sold" class="form-control" value="'.$row->amt_sold.'" readonly></div>
+                    <div class="form-group"><label for="'.$row->cur_price.'">Cur Price</label><input type="text" name="cur_price" class="form-control" value="'.$row->cur_price.'" readonly></div>
+                    <div class="form-group"><label for="'.$row->price_qty.'">Price Qty</label><input type="text" name="price_qty" class="form-control" value="'.$row->price_qty.'" readonly></div>
+                    <div class="form-group"><label for="'.$row->unit_cost.'">Unit Cost</label><input type="text" name="unit_cost" class="form-control" value="'.$row->unit_cost.'" readonly></div>
+                    <div class="form-group"><label for="'.$row->base_unit_cost.'">Base Unit Cost</label><input type="text" name="bas_unit_cost" class="form-control" value="'.$row->base_unit_cost.'" readonly></div>
+                    <div class="form-group"><label for="'.$row->base_case_cost.'">Base Case Cost</label><input type="text" name="base_case_cost" class="form-control" value="'.$row->base_case_cost.'" readonly></div>
                     </form></div>
                     <div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button><button type="button" class="btn btn-primary" id="itemsave_'.$row->id.'">Save changes</button></div></div></div></div>';
                 }
@@ -195,6 +203,7 @@ class ItemsController extends Controller
 
     public function analytics()
     {
+        echo session()->get('store')->number;
         return view('items.analytics');
     }
 

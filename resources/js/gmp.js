@@ -1,5 +1,5 @@
-$(function() {
 
+$(function() {
 
     $('[id^="usersave_"]').on('click', function () {
 
@@ -145,11 +145,6 @@ $(function() {
     // }
 
 
-    let location = window.location.href;
-    console.log(location);
-    if (location.match('/items/')) {
-        console.log('in items');
-    }
 
     $('#item-list-tab').on('click', function() {
         console.log(window.location.href);
@@ -537,14 +532,14 @@ function fetch_item_data(query = '')
         dataType:'json',
         success:function(data)
         {
-            console.log(data);
-            $('#item-table').contents('tbody').html(data.table_data);
-            $('#total_records').text(data.total_data);
+            // console.log(data);
+            $('#item-table2').contents('tbody').html(data.table_data);
+            $('#total_records').html(data.total_data);
             $('#item-modals').html(data.modal_data);
         },
         complete:function(data)
         {
-            console.log(data);
+            console.log('goodbye');
         }
     });
 }
@@ -571,5 +566,4 @@ function fetch_sales_data(query = '')
 function getSales() {
     console.log('getting sales');
 }
-
 

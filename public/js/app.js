@@ -38978,13 +38978,6 @@ $(function () {
   //     $('#myTab a[href="' + activeTab + '"]').tab('show');
   // }
 
-  var location = window.location.href;
-  console.log(location);
-
-  if (location.match('/items/')) {
-    console.log('in items');
-  }
-
   $('#item-list-tab').on('click', function () {
     console.log(window.location.href);
     $('.nav-link').removeClass('active');
@@ -39233,13 +39226,13 @@ function fetch_item_data() {
     },
     dataType: 'json',
     success: function success(data) {
-      console.log(data);
-      $('#item-table').contents('tbody').html(data.table_data);
-      $('#total_records').text(data.total_data);
+      // console.log(data);
+      $('#item-table2').contents('tbody').html(data.table_data);
+      $('#total_records').html(data.total_data);
       $('#item-modals').html(data.modal_data);
     },
     complete: function complete(data) {
-      console.log(data);
+      console.log('goodbye');
     }
   });
 }

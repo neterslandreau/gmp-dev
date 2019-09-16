@@ -45,20 +45,20 @@ Route::post('/getItems', function (Request $request) {
 //Route::get('/invoices', 'InvoiceController@index')->name('invoices.list');
 
 //Route::get('/live_search', 'LiveSearch@index');
-Route::get('/items/search', 'ItemsController@search')->name('items.search');
-Route::get('/sales/search', 'SalesController@search')->name('sales.search');
+Route::get('/items/search', 'ItemsController@search')->name('items.search')->middleware('verified');
+Route::get('/sales/search', 'SalesController@search')->name('sales.search')->middleware('verified');
 
 Route::get('/test', 'UsersController@test');
 
-Route::get('/items', 'ItemsController@index');
+Route::get('/items', 'ItemsController@index')->middleware('verified');
 
-Route::get('/sales', 'SalesController@index');
+Route::get('/sales', 'SalesController@index')->middleware('verified');
 
-Route::get('/purchases', 'InvoiceController@index');
+Route::get('/purchases', 'InvoiceController@index')->middleware('verified');
 
-Route::get('/analytics', 'ItemsController@analytics');
+Route::get('/analytics', 'ItemsController@analytics')->middleware('verified');
 
-Route::get('/store_config', 'StoresController@get_config');
+Route::get('/store_config', 'StoresController@get_config')->middleware('verified');
 
 Route::get('/users', 'UsersController@index')->name('users.list')->middleware('verified');
 Route::get('/users/create', 'UsersController@create')->name('users.create')->middleware('verified');
@@ -75,7 +75,7 @@ Route::get('/stores/{id}/delete', 'StoresController@delete')->name('stores.destr
 Route::get('/stores/{id}', 'StoresController@show')->name('stores.show')->middleware('verified');
 Route::post('/stores/{id}/update', 'StoresController@update')->name('stores.update');
 Route::post('/stores', 'StoresController@store');
-Route::post('/get_ids', 'StoresController@get_ids')->name('stores.get_ids');
+Route::post('/get_ids', 'StoresController@get_ids')->name('stores.get_ids')->middleware('verified');
 
 Route::get('/invoices', 'InvoiceController@index');
 Route::post('/invoices/{id}/{date}/get', 'InvoiceController@get');
