@@ -192,4 +192,10 @@ class ItemsController extends Controller
     {
         //
     }
+
+    public function analytics()
+    {
+        return view('items.analytics');
+    }
+
 }

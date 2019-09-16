@@ -56,6 +56,10 @@ Route::get('/sales', 'SalesController@index');
 
 Route::get('/purchases', 'InvoiceController@index');
 
+Route::get('/analytics', 'ItemsController@analytics');
+
+Route::get('/store_config', 'StoresController@get_config');
+
 Route::get('/users', 'UsersController@index')->name('users.list')->middleware('verified');
 Route::get('/users/create', 'UsersController@create')->name('users.create')->middleware('verified');
 Route::get('/users/{id}/edit', 'UsersController@edit')->name('users.edit')->middleware('verified');

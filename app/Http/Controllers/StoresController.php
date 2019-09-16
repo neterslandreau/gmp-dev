@@ -116,6 +116,11 @@ class StoresController extends Controller
         return json_encode($store_ids);
     }
 
+    public function get_config()
+    {
+        return view('stores.config');
+    }
+
     /**
      * Remove the specified resource from storage.
      *

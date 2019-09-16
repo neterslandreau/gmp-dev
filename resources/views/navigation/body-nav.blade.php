@@ -44,7 +44,7 @@
             <ul class="nav nav-pills" id="myTab" role="tablist">
 
                 <li class="nav-item">
-                    <a class="nav-link" id="item-list-tab" href="/items" role="button" aria-controls="item-list" aria-selected="false">Your Item List</a>
+                    <a class="nav-link" id="item-list-tab" href="/items" role="tab" aria-controls="item-list" aria-selected="false">Your Item List</a>
                 </li>
 
                 <li class="nav-item dropdown">
@@ -56,14 +56,19 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" id="market-analytics-tab" data-toggle="tab" href="#market-analytics" role="tab" aria-controls="market-analytics" aria-selected="false">Market Analytics</a>
+                    <a class="nav-link" id="market-analytics-tab" href="/analytics" role="tab" aria-controls="market-analytics" aria-selected="false">Market Analytics</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" id="store-config-tab" data-toggle="tab" href="#store-config" role="tab" aria-controls="store-config" aria-selected="false">Store Configuration</a>
+                    <a class="nav-link" id="store-config-tab" href="/store_config" role="tab" aria-controls="store-config" aria-selected="false">Store Configuration</a>
                 </li>
 
             </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade" id="market-analytics" role="tabpanel" aria-labelledby="market-analytics">@include('partials.market-analytics')</div>
+                <div class="tab-pane fade" id="store-config" role="tabpanel" aria-labelledby="store-config">@include('partials.store-config')</div>
+
+            </div>
 
         </div>
 
