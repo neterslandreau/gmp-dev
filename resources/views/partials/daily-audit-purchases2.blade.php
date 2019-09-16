@@ -1,6 +1,6 @@
 <div class="container">
 
-    <div id="purchases-list-details-holder" class="row">
+    <div id="purchases-list-details-holder" class="row d-none">
 
         <div class="col-sm-6">
 
