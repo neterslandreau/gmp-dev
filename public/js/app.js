@@ -39054,6 +39054,10 @@ $(function () {
     var query = $(this).val();
     fetch_sales_data(query);
   });
+  $('#purchases_list_search').on('keyup', function () {
+    var query = $(this).val();
+    fetch_purchases_data(query);
+  });
   $('#store-select-store').on('change', function () {
     console.log($(this).val());
     var store_id = $(this).val();
@@ -39249,6 +39253,25 @@ function fetch_sales_data() {
       $('#sales-table').contents('tbody').html(data.table_data);
       $('#total_records_sales').text(data.total_data);
       $('#sales-modals').html(data.modal_data);
+    }
+  });
+}
+
+function fetch_purchases_data() {
+  var query = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+  $('#purchases-table').contents('tbody').html('<div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div>');
+  $.ajax({
+    url: "/invoices/search",
+    method: 'GET',
+    data: {
+      query: query
+    },
+    dataType: 'json',
+    success: function success(data) {
+      console.log(data);
+      $('#purchases-table').contents('tbody').html(data.table_data);
+      $('#total_records_purchases').text(data.total_data);
+      $('#purchases-modals').html(data.modal_data);
     }
   });
 }

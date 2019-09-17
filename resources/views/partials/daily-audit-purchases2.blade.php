@@ -73,4 +73,8 @@
 
 </div>
 
-<div id="purchases-modals"></div>
+<div id="purchases-modals">
+    @foreach ($invoices as $key => $purchase)
+        @include('partials.modals.purchasesmodal')
+    @endforeach
+</div>

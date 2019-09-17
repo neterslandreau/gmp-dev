@@ -23,15 +23,15 @@ Route::get('/home', 'HomeController@index')->name('home')->middleware('verified'
 Route::get('/store', 'HomeController@store')->name('store')->middleware('verified');
 Route::post('/store', 'HomeController@store');
 
-Route::get('/items/import', 'ItemsController@import')->name('items.import');
-Route::get('/items/import_sales', 'ItemsController@import_sales');
-Route::get('/items/import_lists', 'ItemsController@import_lists');
-
-Route::post('/items/get_by_store', 'ItemsController@get_by_store');
-Route::post('/sales/get_by_store', 'SalesController@get_by_store');
-Route::post('/invoices/get_by_store', 'InvoiceController@get_by_store');
-
-Route::get('/items/download', 'ItemsController@download')->name('items.download');
+//Route::get('/items/import', 'ItemsController@import')->name('items.import');
+//Route::get('/items/import_sales', 'ItemsController@import_sales');
+//Route::get('/items/import_lists', 'ItemsController@import_lists');
+//
+//Route::post('/items/get_by_store', 'ItemsController@get_by_store');
+//Route::post('/sales/get_by_store', 'SalesController@get_by_store');
+//Route::post('/invoices/get_by_store', 'InvoiceController@get_by_store');
+//
+//Route::get('/items/download', 'ItemsController@download')->name('items.download');
 
 Route::post('/getItems', function (Request $request) {
     if (request()->ajax()) {
@@ -47,6 +47,7 @@ Route::post('/getItems', function (Request $request) {
 //Route::get('/live_search', 'LiveSearch@index');
 Route::get('/items/search', 'ItemsController@search')->name('items.search')->middleware('verified');
 Route::get('/sales/search', 'SalesController@search')->name('sales.search')->middleware('verified');
+Route::get('/invoices/search', 'InvoiceController@search')->name('invoices.search')->middleware('verified');
 
 Route::get('/test', 'UsersController@test');
 
