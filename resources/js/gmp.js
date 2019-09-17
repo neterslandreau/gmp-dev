@@ -574,10 +574,11 @@ function fetch_purchases_data(query = '')
         dataType:'json',
         success:function(data)
         {
-            console.log(data);
             $('#purchases-table').contents('tbody').html(data.table_data);
             $('#total_records_purchases').text(data.total_data);
             $('#purchases-modals').html(data.modal_data);
+            $('#invoices-render').addClass('d-none');
+            $('#rows-render').removeClass('d-none');
         }
     });
 

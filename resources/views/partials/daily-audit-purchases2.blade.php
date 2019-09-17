@@ -44,7 +44,6 @@
                 <td>Case Cost</td>
                 <td>Item Cost</td>
                 <td>Store</td>
-                <td>Action</td>
             </tr>
 
             </thead>
@@ -58,17 +57,23 @@
                     <td>{{ $invoice->pack }} / {{ $invoice->mbr_case_cost }}</td>
                     <td>{{ $invoice->pack }} / {{ $invoice->mbr_ext_case_cost }}</td>
                     <td>{{ $invoice->store_nbr }}</td>
-                    <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#purchasemodal_{{ $invoice->id }}">View</button></td>
 
                 </tr>
             @endforeach
 
             </tbody>
             <tfoot>
+            <div id="rows-render" class="d-none">
+                @if (isset($rows))
+                {!! $rows->render !!}
+                @endif
+            </div>
 
             </tfoot>
         </table>
+        <div id="invoices-render">
         {!! $invoices->render() !!}
+        </div>
     </div>
 
 </div>

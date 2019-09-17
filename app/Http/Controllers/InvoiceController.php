@@ -81,7 +81,6 @@ class InvoiceController extends Controller
                             <td>' . $row->pack . ' / ' . $row->mbr_case_cost . '</td>
                             <td>' . $row->pack . ' / ' . $row->mbr_ext_case_cost . '</td>
                             <td>' . $row->store_nbr . '</td>
-                            <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#purchasemodal_' . $row->id . '">View</button></td>
                         </tr>';
 
                     $modalout .= '<div class="modal fade" id="purchasemodal_' . $row->id . '" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">' .
