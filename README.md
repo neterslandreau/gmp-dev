@@ -39,6 +39,6 @@ The ```process:files```  method calls the following commands:
 
  ```import:items {file}```
 
-The ```import:*```  parse the files and update the tables tables in the database.
+The ```import:*```  parse the files and update the tables in the database.
 
 All of the commands can be executed by themselves.
