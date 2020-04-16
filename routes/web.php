@@ -17,6 +17,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/atest', 'AtestController@index');
+
 Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
@@ -57,7 +59,7 @@ Route::get('/sales', 'SalesController@index')->middleware('verified');
 
 Route::get('/purchases', 'InvoiceController@index')->middleware('verified');
 
-Route::get('/analytics', 'ItemsController@analytics')->middleware('verified');
+Route::get('/analytics', 'SalesController@analytics')->middleware('verified');
 
 Route::get('/store_config', 'StoresController@get_config')->middleware('verified');
 
